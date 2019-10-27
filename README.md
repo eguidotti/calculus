@@ -1,0 +1,3 @@
+# High Dimensional Numerical and Symbolic Calculus in R
+Efficient C++ optimized functions for numerical and symbolic calculus. 
+It includes basic symbolic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, accurate high-order derivatives, gradient, jacobian, hessian, divergence, curl, laplacian, differential operators and Monte Carlo integration in arbitrary orthogonal coordinate systems (cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors).

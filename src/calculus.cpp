@@ -13,7 +13,7 @@ bool is_zero (double const &x){
 }
 
 // Returns the size of a component cycle 
-int dfs(int i, int visited [], int goesTo[]) { 
+int dfs(int i, std::vector<int>& visited, std::vector<int>& goesTo) { 
   
   if (visited[i] == 1) 
     return 0; 
@@ -23,28 +23,13 @@ int dfs(int i, int visited [], int goesTo[]) {
   return (x + 1); 
 } 
 
-// minus string
-void minus(std::string &x){
-  
-  if(!is_zero(x))
-    x = "- " + x;
-  
-}
-
-// minus double
-void minus(double &x){
-  
-  x = -x;
-  
-}
 
 // [[Rcpp::export]]
 std::list< std::vector<int> > cpp_partitions(int n, int max = 0, int length = 0, bool perm = false, bool fill = false, bool equal = true) { 
-  int p[n];                         // An array to store a partition 
-  int k = 0;                        // Index of last element in a partition 
-  std::list< std::vector<int> > I;  // List to store all partitions
-  p[k] = n;                         // Initialize first partition as number itself 
-  
+
+  // List to store all partitions
+  std::list< std::vector<int> > I;  
+    
   // Fallback
   if(n<=0){
     std::vector<int> v;
@@ -53,16 +38,24 @@ std::list< std::vector<int> > cpp_partitions(int n, int max = 0, int length = 0,
       for(int i=1; i<length; i++) 
         v.push_back(0);
     }
-    I.push_back(v);
+    if(length<=1 || fill)
+      I.push_back(v);
     return(I);
   }
+  
+  // An array to store a partition
+  std::vector<int> p(n);          
+  // Index of last element in a partition
+  int k = 0;    
+  // Initialize first partition as number itself 
+  p[k] = n;                         
   
   // This loop first prints current partition then generates next 
   // partition. The loop stops when the current partition has all 1s 
   while (true) 
   { 
     // current partition 
-    std::vector<int> v(p, p + k+1);
+    std::vector<int> v(p.begin(), p.begin() + k+1);
     // missing values to fill with zeros
     int miss = length-(k+1);
     // storing
@@ -150,8 +143,8 @@ int cpp_parity(std::vector<int> x, std::vector<int> y) {
     
   }
   
-  int visited[n+1] = {0};
-  int goesTo[n+1]  = {0};
+  std::vector<int> visited(n+1);
+  std::vector<int> goesTo(n+1);
   
   for (int i = 0; i < n; i++) {
     if(goesTo[x[i]] == 0)

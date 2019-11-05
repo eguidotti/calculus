@@ -10,7 +10,7 @@ e2c(x)
 \item{x}{expressions}
 }
 \value{
-characters
+characters.
 }
 \description{
 Converts expressions to characters

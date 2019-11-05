@@ -1,4 +1,4 @@
-#' Partitions
+#' Partitions of an Integer
 #' 
 #' Provides fast algorithms for generating integer partitions.
 #' 

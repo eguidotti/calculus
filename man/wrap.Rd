@@ -10,7 +10,7 @@ wrap(x)
 \item{x}{characters}
 }
 \value{
-wrapped characters
+wrapped characters.
 }
 \description{
 Wraps characters in round brackets.

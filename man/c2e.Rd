@@ -10,7 +10,7 @@ c2e(x)
 \item{x}{characters}
 }
 \value{
-expressions
+expressions.
 }
 \description{
 Converts characters to expressions

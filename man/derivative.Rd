@@ -21,7 +21,7 @@ derivative(f, var = "x", order = 1, accuracy = 2, stepsize = NULL,
 \item{deparse}{logical. Return character instead of expression or call?}
 }
 \value{
-Array of derivatives.
+array of derivatives.
 }
 \description{
 Computes symbolic derivatives based on the \code{\link[stats]{D}} function, or accurate and reliable numerical derivatives based on finite differences.

@@ -21,10 +21,10 @@ integral(f, ..., err = 0.01, rel = TRUE, coordinates = "cartesian",
 \item{verbose}{logical. Print on progress?}
 }
 \value{
-list containing
+list with components
 \describe{
- \item{value}{the final estimate of the integral}
- \item{abs.error}{estimate of the modulus of the absolute error}
+ \item{value}{the final estimate of the integral.}
+ \item{abs.error}{estimate of the modulus of the absolute error.}
 }
 }
 \description{

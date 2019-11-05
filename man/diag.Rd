@@ -16,6 +16,9 @@ diag(x) <- value
 
 \item{value}{the value for the diagonal elements.}
 }
+\value{
+array diagonals.
+}
 \description{
 Extracts or replace the diagonal of a tensor, or construct a diagonal tensor.
 }

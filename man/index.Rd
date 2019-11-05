@@ -14,6 +14,9 @@ index(x) <- value
 
 \item{value}{vector of indices.}
 }
+\value{
+array indices.
+}
 \description{
 Get and set indices: names of the array's dimensions. See also \code{\link{einstein}}.
 }

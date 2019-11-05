@@ -27,7 +27,7 @@
 #' If \code{var} is a named vector, e.g. \code{c(x = 0, y = 0)}, derivatives will be computed at that point. 
 #' Note that if \code{f} is a function, then \code{var} must be a named vector giving the point at which the numerical derivatives will be computed.
 #' 
-#' @return Array of derivatives.
+#' @return array of derivatives.
 #' 
 #' @examples 
 #' # derive f with respect to x

@@ -2,7 +2,7 @@
 % Please edit documentation in R/partitions.R
 \name{partitions}
 \alias{partitions}
-\title{Partitions}
+\title{Partitions of an Integer}
 \usage{
 partitions(n, max = 0, length = 0, perm = FALSE, fill = FALSE,
   equal = T)

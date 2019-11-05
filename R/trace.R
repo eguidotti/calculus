@@ -6,7 +6,7 @@
 #' @param i subset of repeated indices to sum up. If \code{NULL}, the tensor contraction takes place on all repeated indices of \code{x}. 
 #' @param drop logical. Drop summation indices? If \code{FALSE}, keep dummy dimensions.
 #' 
-#' @return array
+#' @return array.
 #' 
 #' @examples 
 #' # trace of numeric matrix

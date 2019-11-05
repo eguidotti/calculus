@@ -9,10 +9,10 @@
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
 #' @param verbose logical. Print on progress?
 #' 
-#' @return list containing
+#' @return list with components
 #' \describe{
-#'  \item{value}{the final estimate of the integral}
-#'  \item{abs.error}{estimate of the modulus of the absolute error}
+#'  \item{value}{the final estimate of the integral.}
+#'  \item{abs.error}{estimate of the modulus of the absolute error.}
 #' }
 #' 
 #' @examples 

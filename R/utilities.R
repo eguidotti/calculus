@@ -10,7 +10,7 @@
 #' \deqn{(a+b) * (c+d)}
 #' To disable this behaviour run \code{options(auto.wrap = FALSE)}.
 #' 
-#' @return wrapped characters
+#' @return wrapped characters.
 #' 
 #' @examples
 #' # wrap characters
@@ -36,7 +36,7 @@ wrap <- function(x){
 #' 
 #' @param x expressions
 #' 
-#' @return characters
+#' @return characters.
 #' 
 #' @examples
 #' # convert expressions
@@ -72,7 +72,7 @@ e2c <- function(x){
 #' 
 #' @param x characters
 #' 
-#' @return expressions
+#' @return expressions.
 #' 
 #' @examples
 #' # convert characters
@@ -108,6 +108,8 @@ c2e <- function(x){
 #' 
 #' @param x array.
 #' @param value vector of indices.
+#' 
+#' @return array indices.
 #' 
 #' @examples
 #' # define array
@@ -162,6 +164,9 @@ index <- function(x){
 #' @param x array, vector or integer.
 #' @param dim the dimension of the tensor. 
 #' @param value the value for the diagonal elements.
+#' 
+#' 
+#' @return array diagonals.
 #' 
 #' @examples 
 #' # construct a diagonal 2x2 matrix

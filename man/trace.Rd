@@ -14,7 +14,7 @@ trace(x, i = NULL, drop = TRUE)
 \item{drop}{logical. Drop summation indices? If \code{FALSE}, keep dummy dimensions.}
 }
 \value{
-array
+array.
 }
 \description{
 Sums over repeated indices in a tensor. Can be seen as a generalization of the trace.

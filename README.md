@@ -4,6 +4,16 @@
 
 Efficient C++ optimized functions for numerical and symbolic calculus. It includes basic symbolic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, accurate high-order derivatives, differential operators (Gradient, Jacobian, Hessian, Divergence, Curl, Laplacian) and Monte Carlo integration in arbitrary orthogonal coordinate systems: cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors.
 
+## Quickstart
+
+```R
+# Install calculus
+install.packages('calculus')
+
+# Load calculus
+require('calculus')
+```
+
 ## Additional Resources
 
 https://emanueleguidotti.dev/calculus

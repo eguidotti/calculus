@@ -526,7 +526,7 @@ std::vector<T> cpp_trace(std::vector<T> const &x, std::vector<int> const &dim, b
   
   int d   = dim[0];
   int d_n = dim.size();
-  int n_z = x.size()/(pow(d, d_n));
+  int n_z = x.size()/(std::pow(static_cast<double>(d), d_n));
   
   std::vector<T> z;
   if(drop) z.resize(n_z);
@@ -535,7 +535,7 @@ std::vector<T> cpp_trace(std::vector<T> const &x, std::vector<int> const &dim, b
     
   int f = 0;
   for(int i=1; i<=d_n; i++)
-    f += pow(d,i-1);
+    f += std::pow(static_cast<double>(d), i-1);
   
   int chunk = n_z*f;
   
@@ -592,7 +592,7 @@ std::string cpp_det_term(int i, std::string x, std::string det){
 
 double cpp_det_term(int i, double x, double det){
   
-  return(pow(-1,i)*x*det);
+  return(std::pow(static_cast<double>(-1), i) * x * det);
   
 }
 
@@ -609,7 +609,7 @@ T cpp_det(std::vector<T> const &x, int n) {
   for(int i=0; i<n; i++) if(!is_zero(x[i])) {
     
     int m = n-1;
-    std::vector<T> minor(pow(m, 2));
+    std::vector<T> minor(std::pow(static_cast<double>(m), 2));
     
     int l = 0;
     for(int ii=1; ii<n; ii++){

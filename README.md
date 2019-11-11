@@ -14,8 +14,8 @@ install.packages('calculus')
 require('calculus')
 ```
 
-## Additional Resources
+## Documentation
 
-https://emanueleguidotti.dev/calculus
+http://calculus.r-package.org
 
 https://cran.r-project.org/package=calculus

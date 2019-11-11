@@ -16,6 +16,6 @@ require('calculus')
 
 ## Documentation
 
-http://calculus.r-package.org
+https://calculus.r-package.org
 
 https://cran.r-project.org/package=calculus

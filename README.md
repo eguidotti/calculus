@@ -50,15 +50,15 @@ The function behaves differently depending on the length of the `order` argument
 If `order` is of length 1, then the n-th order derivative is computed for each function with respect to each
 variable:
 
-<p align="center"><img src="http://www.sciweavers.org/tex2img.php?eq=D%3D%5Cpartial%5E%7B%28n%29%7D%20%5Cotimes%20F%20%5Crightarrow%20D_%7Bi%2C.%2Cj%2Ck%2C.%2Cl%7D%20%3D%20%5Cpartial%5E%7B%28n%29%7D_%7Bk%2C.%2Cl%7D%20F_%7Bi%2C.%2Cj%7D&bc=Transparent&fc=Black&im=png&fs=24&ff=mathdesign&edit=0" height="30"></p>
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58010.png" height="30"></p>
 
-where _F_ is the tensor of functions and <img src="http://bit.ly/2QkGv5D" height="16"> is the tensor of variable names with respect to which the _n_-th order derivatives will be computed.
+where _F_ is the tensor of functions and <img src="http://1.618034.com/blog_data/math/formula.58012.png" height="16"> is the tensor of variable names with respect to which the _n_-th order derivatives will be computed.
 
 If `order` matches the length of `var` , then it is assumed that the differentiation order is provided
 for each variable. In this case, each function will be derived _n<sub>i</sub>_ times with respect to the _i_-th variable,
 for each of the _j_ variables:
 
-<p align="center"><img src="http://bit.ly/2MnTZfp" height="30"></p>
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58011.png" height="30"></p>
 
 where _F_ is the tensor of functions to differentiate.
 

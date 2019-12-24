@@ -681,11 +681,214 @@ hermite(3)
 hermite(3, var = 'z')
 
 # multivariate Hermite polynomials up to order 2
-hermite(order = 2,
-sigma = matrix(c(1,0,0,1), nrow = 2),
-var = c('z1', 'z2'))
+hermite(order = 2, sigma = matrix(c(1,0,0,1), nrow = 2), var = c('z1', 'z2'))
 
 ``` 
+
+
+### `kronecker`: Generalized Kronecker Delta
+
+__Description__
+
+
+Compute the Generalized Kronecker Delta.
+
+
+__Usage__
+
+```r
+kronecker(n, p = 1)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```n```     |     number of elements for each dimension.
+```p```     |     order of the generalized Kronecker delta, `p=1` for the standard Kronecker delta.
+
+__Value__
+
+
+array representing the generalized Kronecker delta tensor.
+
+
+__Examples__
+
+```r 
+# Kronecker delta 3x3
+kronecker(3)
+
+# generalized Kronecker delta 3x3 of order 2 -> 3x3 x 3x3
+kronecker(3, p = 2)
+
+``` 
+
+
+
+### `levicivita`: Levi-Civita Symbol
+
+__Description__
+
+
+Compute the Levi-Civita totally antisymmetric tensor.
+
+
+__Usage__
+
+```r
+levicivita(n)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```n```     |     dimension
+
+__Value__
+
+
+array representing the Levi-Civita tensor.
+
+
+__Examples__
+
+```r 
+# Levi-Civita tensor in 2-d
+levicivita(2)
+
+# Levi-Civita tensor in 3-d
+levicivita(3)
+
+``` 
+
+
+
+### `trace`: Tensor Contraction
+
+__Description__
+
+
+Sum over repeated indices in a tensor. Can be seen as a generalization of the trace.
+
+
+__Usage__
+
+```r
+trace(x, i = NULL, drop = TRUE)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```x```     |     array.
+```i```     |     subset of repeated indices to sum up. If `NULL` , the tensor contraction takes place on all repeated indices of `x` .
+```drop```     |     logical. Drop summation indices? If `FALSE` , keep dummy dimensions.
+
+__Value__
+
+
+array.
+
+
+__Examples__
+
+```r 
+# trace of numeric matrix
+x <- matrix(1:4, nrow = 2)
+trace(x)
+
+# trace of character matrix
+x <- matrix(letters[1:4], nrow = 2)
+trace(x)
+
+# trace of a tensor (sum over diagonals)
+x <- array(1:27, dim = c(3,3,3))
+trace(x)
+
+# tensor contraction over repeated indices
+x <- array(1:27, dim = c(3,3,3))
+index(x) <- c('i','i','j')
+trace(x)
+
+# tensor contraction over specific indices only
+x <- array(1:16, dim = c(2,2,2,2))
+index(x) <- c('i','i','k','k')
+trace(x, i = 'k')
+
+# tensor contraction keeping dummy dimensions
+x <- array(letters[1:16], dim = c(2,2,2,2))
+index(x) <- c('i','i','k','k')
+trace(x, drop = FALSE)
+
+``` 
+
+
+
+### `einstein`: Numerical and Symbolic Einstein Summation
+
+__Description__
+
+
+Implement the Einstein notation for summation over repeated indices.
+
+
+__Usage__
+
+```r
+einstein(..., drop = TRUE)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```...```     |     arbitrary number of indexed arrays.
+```drop```     |     logical. Drop summation indices? If `FALSE` , keep dummy dimensions.
+
+__Value__
+
+
+array.
+
+
+__Examples__
+
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58017.png" height="30"></p>
+
+```r
+a <- array(letters[1:6], dim = c(2,3))
+b <- array(letters[1:12], dim = c(3,4))
+
+index(a) <- c('i','j')
+index(b) <- c('j','k')
+
+einstein(a,b)
+
+``` 
+
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58016.png" height="30"></p>
+
+```r 
+a <- array(1:10, dim = c(2,5))
+b <- array(1:45, dim = c(5,3,3))
+c <- array(1:12, dim = c(3,4))
+d <- array(1:15, dim = c(5,3))
+
+index(a) <- c('i','j')
+index(b) <- c('j','k','k')
+index(c) <- c('k', 'l')
+index(d) <- c('j', 'k')
+
+einstein(a,b,c,d)
+
+```
 
 
 

@@ -881,6 +881,6 @@ einstein(a,b,c,d)
 
 
 
-## Full Documentation
+## Documentation
 
 https://cran.r-project.org/package=calculus

@@ -860,20 +860,7 @@ array.
 
 __Examples__
 
-<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58017.png" height="30"></p>
-
-```r
-a <- array(letters[1:6], dim = c(2,3))
-b <- array(letters[1:12], dim = c(3,4))
-
-index(a) <- c('i','j')
-index(b) <- c('j','k')
-
-einstein(a,b)
-
-``` 
-
-<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58016.png" height="30"></p>
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58016.png" height="25"></p>
 
 ```r 
 a <- array(1:10, dim = c(2,5))

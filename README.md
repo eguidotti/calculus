@@ -505,6 +505,190 @@ integral(E[1], r = 1, theta = c(0,pi), phi = c(0,2*pi), coordinates = 'spherical
 
 
 
+### `partitions`: Partitions of an Integer
+
+__Description__
+
+
+Fast algorithm for generating integer partitions.
+
+
+__Usage__
+
+```r
+partitions(n, max = 0, length = 0, perm = FALSE, fill = FALSE, equal = TRUE)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```n```     |     positive integer.
+```max```     |     maximum integer in the partitions.
+```length```     |     maximum number of elements in the partitions.
+```perm```     |     logical. Permute partitions?
+```fill```     |     logical. Fill partitions with zeros to match `length` ?
+```equal```     |     logical. Return only partition of `n` ? If `FALSE` , partitions of all integers less or equal to `n` are returned.
+
+__Value__
+
+
+`list` of partitions, or `data.frame` if `length>0` and `fill=TRUE` .
+
+
+__Examples__
+
+```r 
+# partitions of 4
+partitions(4)
+
+# partitions of 4 and permute
+partitions(4, perm = TRUE)
+
+# partitions of 4 with max element 2
+partitions(4, max = 2)
+
+# partitions of 4 with 2 elements
+partitions(4, length = 2)
+
+# partitions of 4 with 3 elements, fill with zeros
+partitions(4, length = 3, fill = TRUE)
+
+# partitions of 4 with 3 elements, fill with zeros and permute
+partitions(4, length = 3, fill = TRUE, perm = TRUE)
+
+# partitions of all integers less or equal to 3
+partitions(3, equal = FALSE)
+
+# partitions of all integers less or equal to 3, fill to 2 elements and permute
+partitions(3, equal = FALSE, length = 2, fill = TRUE, perm = TRUE)
+
+``` 
+
+
+
+
+### `taylor`: Taylor Series
+
+__Description__
+
+
+Compute the Taylor series approximation of functions, expressions or characters.
+
+
+__Usage__
+
+```r
+taylor(f, var = "x", order = 1, accuracy = 2, stepsize = NULL)
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```f```     |     function, expression or character
+```var```     |     character. The variables of `f` .
+```order```     |     the order of the Taylor approximation.
+```accuracy```     |     accuracy degree for numerical derivatives.
+```stepsize```     |     finite differences stepsize for numerical derivatives. Auto-optimized by default.
+
+__Value__
+
+`list` with components
+
+Name      |Description
+------------- |----------------
+```f```     |     the Taylor series.
+```order```     |     the approximation order.
+```terms```     |     `data.frame` containing the variables, coefficients and degrees of each term in the Taylor series.
+
+
+__Examples__
+
+```r 
+# univariate taylor series
+taylor('exp(x)', var = 'x', order = 3)
+
+# univariate taylor series of arbitrary functions
+taylor(function(x) exp(x), var = 'x', order = 3)
+
+# multivariate taylor series
+taylor('sin(x*y)', var = c('x','y'), order = 6)
+
+# multivariate taylor series of arbitrary functions
+taylor(function(x,y) sin(x*y), var = c('x','y'), order = 6)
+
+``` 
+
+
+
+
+
+
+### `hermite`: Hermite Polynomials
+
+__Description__
+
+
+Compute univariate and multivariate Hermite polynomials.
+
+
+__Usage__
+
+```r
+hermite(order, sigma = 1, var = "x")
+```
+
+
+__Arguments__
+
+Argument      |Description
+------------- |----------------
+```order```     |     integer. The order of the Hermite polynomial.
+```sigma```     |     the covariance matrix of the Gaussian kernel.
+```var```     |     character. The variables of the polynomial.
+
+__Details__
+
+
+Hermite polynomials are obtained by successive differentiation of the Gaussian kernel
+
+<p align="center"><img src="http://1.618034.com/blog_data/math/formula.58013.png" height="40"></p>
+
+where <img src="http://1.618034.com/blog_data/math/formula.58014.png" height="16"> is a d-dimensional square matrix and <img src="http://1.618034.com/blog_data/math/formula.58015.png" height="16"> is the vector representing the order of differentiation for each variable.
+
+
+__Value__
+
+`list` of Hermite polynomials with components
+
+Name      |Description
+------------- |----------------
+```f```     |     the Hermite polynomial.
+```order```     |     the order of the Hermite polynomial.
+```terms```     |     `data.frame` containing the variables, coefficients and degrees of each term in the Hermite polynomial.
+
+
+__Examples__
+
+```r 
+# univariate Hermite polynomials up to order 3
+hermite(3)
+
+# univariate Hermite polynomials with variable z
+hermite(3, var = 'z')
+
+# multivariate Hermite polynomials up to order 2
+hermite(order = 2,
+sigma = matrix(c(1,0,0,1), nrow = 2),
+var = c('z1', 'z2'))
+
+``` 
+
+
+
 
 
 ## Full Documentation

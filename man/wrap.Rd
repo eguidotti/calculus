@@ -20,7 +20,7 @@ Characters are automatically wrapped when performing basic symbolic operations t
 \deqn{a+b * c+d} 
 instead of 
 \deqn{(a+b) * (c+d)}
-To disable this behaviour run \code{options(auto.wrap = FALSE)}.
+To disable this behaviour run \code{options(calculus.auto.wrap = FALSE)}.
 }
 \examples{
 # wrap characters

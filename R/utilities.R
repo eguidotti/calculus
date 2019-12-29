@@ -8,7 +8,7 @@
 #' \deqn{a+b * c+d} 
 #' instead of 
 #' \deqn{(a+b) * (c+d)}
-#' To disable this behaviour run \code{options(auto.wrap = FALSE)}.
+#' To disable this behaviour run \code{options(calculus.auto.wrap = FALSE)}.
 #' 
 #' @return wrapped characters.
 #' 

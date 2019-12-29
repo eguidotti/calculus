@@ -34,7 +34,7 @@ det <- function(x) {
   if(length(n)!=1)
     stop("not a square matrix")
   
-  if(getOption('auto.wrap', default = TRUE))
+  if(getOption('calculus.auto.wrap', default = TRUE))
     x <- wrap(x)
   
   det <- cpp_det(x, n)

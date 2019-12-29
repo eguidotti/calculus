@@ -54,7 +54,7 @@ einstein <- function(..., drop = TRUE){
   dummy <- NULL
   
   if(!is.numeric(x))
-     if(getOption('auto.wrap', default = TRUE))
+     if(getOption('calculus.auto.wrap', default = TRUE))
        x <- wrap(x)
   
   for(n in 2:a.n){
@@ -104,7 +104,7 @@ einstein <- function(..., drop = TRUE){
       
     } else {
       
-      if(getOption('auto.wrap', default = TRUE))
+      if(getOption('calculus.auto.wrap', default = TRUE))
         y <- wrap(y)
       
       z <- cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x], drop = (drop && all(j.drop)))

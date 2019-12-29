@@ -90,7 +90,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(x-y)
   
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -144,7 +144,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(x*y)
     
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -200,7 +200,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(x/y)
   
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -359,7 +359,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(array(sum(x*y)))
   
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -396,7 +396,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(x %o% y)
   
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -430,7 +430,7 @@
   if(is.numeric(x) && is.numeric(y))
     return(x%x%y)
   
-  if(getOption('auto.wrap', default = TRUE)){
+  if(getOption('calculus.auto.wrap', default = TRUE)){
     x <- wrap(x)
     y <- wrap(y)
   }
@@ -482,7 +482,7 @@ cross <- function(...){
   
   m <- do.call(rbind, args)
   
-  if(!is.numeric(m) && !getOption('auto.wrap', default = TRUE))
+  if(!is.numeric(m) && !getOption('calculus.auto.wrap', default = TRUE))
     return(sapply(seq(len), function(i) {
       wrap(det(m[,-i,drop=FALSE])) %prod% (-1)^(i+1)
     }))
@@ -953,7 +953,7 @@ curl <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian
   index(f)[f.n.dim]   <- 2
   index(f)[f.n.dim+1] <- 1  
   
-  if(!is.numeric(f) && !getOption('auto.wrap', default = TRUE))
+  if(!is.numeric(f) && !getOption('calculus.auto.wrap', default = TRUE))
     f <- wrap(f)
   
   if(is.null(h))

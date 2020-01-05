@@ -147,6 +147,9 @@ integral <- function(f, bounds, relTol = 1e-02, absTol = 1e-03, coordinates = "c
       x <- lapply(bounds, function(x) stats::runif(n = n, min = x[1], max = x[2]))
       y <- evaluate(f1, x)
       
+      if(length(dim(y))==1)
+        y <- matrix(data = y, nrow = n, ncol = length(y), byrow = TRUE)
+
       s <- vol*colSums(y)
       
       if(any(V==0))
@@ -191,7 +194,7 @@ integral <- function(f, bounds, relTol = 1e-02, absTol = 1e-03, coordinates = "c
       if(is.fun)
         return(do.call(f1, args = x))
       
-      return(eval(f1, envir = x))
+      return(evaluate(f1, envir = x))
       
     }
     

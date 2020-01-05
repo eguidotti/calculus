@@ -1,7 +1,7 @@
 Package: calculus
 Type: Package
 Title: High Dimensional Numerical and Symbolic Calculus
-Version: 0.1.2
+Version: 0.2.0
 Authors@R: person(given = "Emanuele", 
 				  family = "Guidotti", 
 				  email = "emanuele.guidotti@unine.ch", 
@@ -11,6 +11,7 @@ Description: Efficient C++ optimized functions for numerical and symbolic calcul
 License: GPL-3
 URL: https://github.com/emanuele-guidotti/calculus/
 BugReports: https://github.com/emanuele-guidotti/calculus/issues/
-Imports: Rcpp (>= 1.0.1)
 LinkingTo: Rcpp
+Imports: Rcpp (>= 1.0.1)
+Suggests: cubature
 RoxygenNote: 6.1.1

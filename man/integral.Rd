@@ -2,29 +2,34 @@
 % Please edit documentation in R/integral.R
 \name{integral}
 \alias{integral}
-\title{Monte Carlo Integration}
+\title{Numerical Integration}
 \usage{
-integral(f, ..., err = 0.01, rel = TRUE, coordinates = "cartesian",
-  verbose = TRUE)
+integral(f, bounds, relTol = 0.01, absTol = 0.001,
+  coordinates = "cartesian", method = "mc", verbose = TRUE, ...)
 }
 \arguments{
-\item{f}{function, expression or characters.}
+\item{f}{function, expression or character.}
 
-\item{...}{integration bounds.}
+\item{bounds}{list of integration bounds.}
 
-\item{err}{acuracy requested.}
+\item{relTol}{relative accuracy requested.}
 
-\item{rel}{logical. Relative accuracy? If \code{FALSE}, use absolute accuracy.}
+\item{absTol}{absolute accuracy requested.}
 
 \item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
 
+\item{method}{the method to use. Should be one of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Naive Monte Carlo integration by default. The additional methods require the cubature package to be installed (efficient integration in C).}
+
 \item{verbose}{logical. Print on progress?}
+
+\item{...}{additional arguments passed to the \code{\link[cubature]{cubintegrate}} function, when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
 }
 \value{
 list with components
 \describe{
  \item{value}{the final estimate of the integral.}
  \item{abs.error}{estimate of the modulus of the absolute error.}
+ \item{cuba}{cubature output when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
 }
 }
 \description{
@@ -32,22 +37,36 @@ Integrates multidimensional functions, expressions, and characters in arbitrary 
 }
 \examples{
 # integrate character
-integral('sin(x)', x = c(0,2*pi), rel = FALSE)
+integral('sin(x)', bounds = list(x = c(0,2*pi)))
 
 # integrate expression
-integral(parse(text = 'x'), x = c(0,1))
+integral(parse(text = 'x'), bounds = list(x = c(0,1)))
 
 # integrate function
-integral(function(x) exp(x), x = c(0,1))
+integral(function(x) exp(x), bounds = list(x = c(0,1)))
 
 # multivariate integral
-integral(function(x,y) x*y, x = c(0,1), y = c(0,1))
+integral(function(x,y) x*y, bounds = list(x = c(0,1), y = c(0,1)))
 
 # surface of a sphere
-integral('1', r = 1, theta = c(0,pi), phi = c(0,2*pi), coordinates = 'spherical')
+integral('1', 
+         bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
+         coordinates = 'spherical')
 
 # volume of a sphere
-integral('1', r = c(0,1), theta = c(0,pi), phi = c(0,2*pi), coordinates = 'spherical')
+integral('1', 
+         bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)), 
+         coordinates = 'spherical')
+         
+\dontrun{
+# efficient integration in C (requires the cubature package to be installed)
+integral('1',
+        bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)),
+        coordinates = 'spherical',
+        method = 'cuhre',
+        relTol = 1e-06,
+        absTol = 1e-12)
+}
 
 ##################################
 # Electric charge contained in a region of space
@@ -61,7 +80,9 @@ V <- '1/(4*pi*r)'
 E <- -1 \%prod\% gradient(V, c('r', 'theta', 'phi'), coordinates = 'spherical')
 
 # electric charge
-integral(E[1], r = 1, theta = c(0,pi), phi = c(0,2*pi), coordinates = 'spherical')
+integral(E[1], 
+         bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
+         coordinates = 'spherical')
 
 
 }

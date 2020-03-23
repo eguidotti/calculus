@@ -1,3 +1,7 @@
+# calculus 0.2.1
+
+- removed startup message
+
 # calculus 0.2.0
 
 - __breaking changes__: rewrite `integral()`; interfacing the function to the `cubature` package for efficient integration in C 

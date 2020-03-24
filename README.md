@@ -876,11 +876,3 @@ index(d) <- c('j', 'k')
 einstein(a,b,c,d)
 
 ```
-
-
-
-
-
-## Documentation
-
-https://cran.r-project.org/package=calculus

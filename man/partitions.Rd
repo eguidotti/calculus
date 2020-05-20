@@ -4,8 +4,7 @@
 \alias{partitions}
 \title{Partitions of an Integer}
 \usage{
-partitions(n, max = 0, length = 0, perm = FALSE, fill = FALSE,
-  equal = T)
+partitions(n, max = 0, length = 0, perm = FALSE, fill = FALSE, equal = T)
 }
 \arguments{
 \item{n}{positive integer.}

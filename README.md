@@ -1,8 +1,10 @@
-# High Dimensional Numerical and Symbolic Calculus in R
+<a href="https://calculus.guidotti.dev"><img src="man/figures/logo.png" width="128" align="right" /></a>
+
+# High Dimensional Numerical and Symbolic Calculus in R 
 
 ![](https://www.r-pkg.org/badges/version/calculus) ![](https://www.r-pkg.org/badges/last-release/calculus) ![](https://cranlogs.r-pkg.org/badges/grand-total/calculus)
 
-Efficient C++ optimized functions for numerical and symbolic calculus. It includes basic symbolic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, accurate high-order derivatives, differential operators (Gradient, Jacobian, Hessian, Divergence, Curl, Laplacian) and Monte Carlo integration in arbitrary orthogonal coordinate systems: cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors.
+Efficient C++ optimized functions for numerical and symbolic calculus. It includes basic symbolic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, accurate high-order derivatives, differential operators (Gradient, Jacobian, Hessian, Divergence, Curl, Laplacian) and numerical integration in arbitrary orthogonal coordinate systems: cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors.
 
 ## Quickstart
 
@@ -103,7 +105,7 @@ f1 <- function(x, y) y*sin(x)
 f2 <- function(x, y) x*cos(y)
 derivative(f = c(f1, f2), var = c("x"=0,"y"=0))
 
-``` 
+```
 
 
 
@@ -171,7 +173,7 @@ gradient('r*theta*phi', var = c('r','theta','phi'), coordinates = 'spherical')
 f <- function(r, theta, phi) r*theta*phi
 gradient(f, var = c('r'=1, 'theta'=pi/4, 'phi'=pi/4), coordinates = 'spherical')
 
-``` 
+```
 
 
 
@@ -230,7 +232,7 @@ hessian('r*theta*phi', var = c('r','theta','phi'), coordinates = 'spherical')
 f <- function(r, theta, phi) r*theta*phi
 hessian(f, var = c('r'=1, 'theta'=pi/4, 'phi'=pi/4), coordinates = 'spherical')
 
-``` 
+```
 
 
 
@@ -291,7 +293,7 @@ a %divergence% c('x','y','z')
 f <- c('sqrt(r)/10','sqrt(r)')
 divergence(f, var = c('r','phi'), coordinates = 'polar')
 
-``` 
+```
 
 
 
@@ -357,7 +359,7 @@ a %curl% c('x','y','z')
 f <- c('sqrt(r)/10','sqrt(r)')
 curl(f, var = c('r','phi'), coordinates = 'polar')
 
-``` 
+```
 
 
 
@@ -422,7 +424,7 @@ a %laplacian% c('x','y','z')
 f <- c('sqrt(r)/10','sqrt(r)')
 laplacian(f, var = c('r','phi'), coordinates = 'polar')
 
-``` 
+```
 
 
 
@@ -501,7 +503,7 @@ E <- -1 %prod% gradient(V, c('r', 'theta', 'phi'), coordinates = 'spherical')
 integral(E[1], r = 1, theta = c(0,pi), phi = c(0,2*pi), coordinates = 'spherical', verbose = FALSE)
 
 
-``` 
+```
 
 
 
@@ -564,7 +566,7 @@ partitions(3, equal = FALSE)
 # partitions of all integers less or equal to 3, fill to 2 elements and permute
 partitions(3, equal = FALSE, length = 2, fill = TRUE, perm = TRUE)
 
-``` 
+```
 
 
 
@@ -620,7 +622,7 @@ taylor('sin(x*y)', var = c('x','y'), order = 6)
 # multivariate taylor series of arbitrary functions
 taylor(function(x,y) sin(x*y), var = c('x','y'), order = 6)
 
-``` 
+```
 
 
 
@@ -683,7 +685,7 @@ hermite(3, var = 'z')
 # multivariate Hermite polynomials up to order 2
 hermite(order = 2, sigma = matrix(c(1,0,0,1), nrow = 2), var = c('z1', 'z2'))
 
-``` 
+```
 
 
 ### `kronecker`: Generalized Kronecker Delta
@@ -723,7 +725,7 @@ kronecker(3)
 # generalized Kronecker delta 3x3 of order 2 -> 3x3 x 3x3
 kronecker(3, p = 2)
 
-``` 
+```
 
 
 
@@ -763,7 +765,7 @@ levicivita(2)
 # Levi-Civita tensor in 3-d
 levicivita(3)
 
-``` 
+```
 
 
 
@@ -826,7 +828,7 @@ x <- array(letters[1:16], dim = c(2,2,2,2))
 index(x) <- c('i','i','k','k')
 trace(x, drop = FALSE)
 
-``` 
+```
 
 
 

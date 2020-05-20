@@ -5,8 +5,7 @@
 \alias{\%gradient\%}
 \title{Numerical and Symbolic Gradient}
 \usage{
-gradient(f, var, accuracy = 2, stepsize = NULL,
-  coordinates = "cartesian")
+gradient(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
 
 f \%gradient\% var
 }

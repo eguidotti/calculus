@@ -5,8 +5,7 @@
 \alias{\%divergence\%}
 \title{Numerical and Symbolic Divergence}
 \usage{
-divergence(f, var, accuracy = 2, stepsize = NULL,
-  coordinates = "cartesian")
+divergence(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
 
 f \%divergence\% var
 }

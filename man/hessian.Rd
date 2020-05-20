@@ -5,8 +5,7 @@
 \alias{\%hessian\%}
 \title{Numerical and Symbolic Hessian}
 \usage{
-hessian(f, var, accuracy = 2, stepsize = NULL,
-  coordinates = "cartesian")
+hessian(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
 
 f \%hessian\% var
 }

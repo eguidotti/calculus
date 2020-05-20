@@ -4,8 +4,14 @@
 \alias{derivative}
 \title{Numerical and Symbolic Derivatives}
 \usage{
-derivative(f, var = "x", order = 1, accuracy = 2, stepsize = NULL,
-  deparse = TRUE)
+derivative(
+  f,
+  var = "x",
+  order = 1,
+  accuracy = 2,
+  stepsize = NULL,
+  deparse = TRUE
+)
 }
 \arguments{
 \item{f}{function, expression or character array.}

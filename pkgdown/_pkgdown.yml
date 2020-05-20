@@ -1,0 +1,20 @@
+--- 
+authors: 
+  ? "Emanuele Guidotti"
+  : 
+    href: "https://guidotti.dev"
+home: 
+  description: "High Dimensional Numerical and Symbolic Calculus in R."
+  title: "Calculus in R"
+navbar: 
+  type: inverse
+  components: 
+    tutorial: 
+      href: https://tutorial.guidotti.dev
+      text: Tutorials
+template: 
+  params: 
+    ganalytics: ""
+    bootswatch: cosmo
+title: "Calculus in R"
+url: "https://calculus.guidotti.dev"

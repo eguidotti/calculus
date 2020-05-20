@@ -4,8 +4,16 @@
 \alias{integral}
 \title{Numerical Integration}
 \usage{
-integral(f, bounds, relTol = 0.01, absTol = 0.001,
-  coordinates = "cartesian", method = "mc", verbose = TRUE, ...)
+integral(
+  f,
+  bounds,
+  relTol = 0.01,
+  absTol = 0.001,
+  coordinates = "cartesian",
+  method = "mc",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{f}{function, expression or character.}

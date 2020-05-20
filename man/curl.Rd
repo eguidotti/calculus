@@ -5,8 +5,7 @@
 \alias{\%curl\%}
 \title{Numerical and Symbolic Curl}
 \usage{
-curl(f, var, accuracy = 2, stepsize = NULL,
-  coordinates = "cartesian")
+curl(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
 
 f \%curl\% var
 }

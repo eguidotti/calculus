@@ -4,8 +4,12 @@
 \alias{evaluate}
 \title{Numerical Evaluation}
 \usage{
-evaluate(x, envir = parent.frame(), enclos = if (is.list(envir) ||
-  is.pairlist(envir)) parent.frame() else baseenv(), simplify = TRUE)
+evaluate(
+  x,
+  envir = parent.frame(),
+  enclos = if (is.list(envir) || is.pairlist(envir)) parent.frame() else baseenv(),
+  simplify = TRUE
+)
 }
 \arguments{
 \item{x}{an object to be evaluated: array of characters, expressions or functions.}

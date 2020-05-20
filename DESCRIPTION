@@ -14,4 +14,4 @@ BugReports: https://github.com/emanuele-guidotti/calculus/issues
 LinkingTo: Rcpp
 Imports: Rcpp (>= 1.0.1)
 Suggests: cubature
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

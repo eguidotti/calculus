@@ -5,8 +5,7 @@
 \alias{\%laplacian\%}
 \title{Numerical and Symbolic Laplacian}
 \usage{
-laplacian(f, var, accuracy = 2, stepsize = NULL,
-  coordinates = "cartesian")
+laplacian(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
 
 f \%laplacian\% var
 }

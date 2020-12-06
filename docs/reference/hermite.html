@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Calculus in R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/emanuele-guidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -133,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Hermite Polynomials</h1>
-    <small class="dont-index">Source: <a href='https://github.com/emanuele-guidotti/calculus/blob/master/R/hermite.R'><code>R/hermite.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/hermite.R'><code>R/hermite.R</code></a></small>
     <div class="hidden name"><code>hermite.Rd</code></div>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Computes univariate and multivariate Hermite polynomials.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>hermite</span>(<span class='no'>order</span>, <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</pre>
+    <pre class="usage"><span class='fu'>hermite</span>(<span class='no'>order</span>, <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +157,10 @@
     <tr>
       <th>var</th>
       <td><p>character. The variables of the polynomial.</p></td>
+    </tr>
+    <tr>
+      <th>transform</th>
+      <td><p>character. Variables transformation: where to compute the function.</p></td>
     </tr>
     </table>
 
@@ -380,6 +384,102 @@ where \(\Sigma\) is a d-dimensional square matrix and \(\nu=(\nu_1, ..., \nu_d)\
 #&gt; 1,1 z1^1*z2^1    1      2
 #&gt; 
 #&gt; </div><div class='input'>
+<span class='co'># multivariate Hermite polynomials with transformation of variables</span>
+<span class='fu'>hermite</span>(<span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+        <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>),
+        <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'z1'</span>, <span class='st'>'z2'</span>),
+        <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'z1+z2'</span>,<span class='st'>'z1-z2'</span>))</div><div class='output co'>#&gt; $`0,0`
+#&gt; $`0,0`$f
+#&gt; [1] "(1) * 1"
+#&gt; 
+#&gt; $`0,0`$order
+#&gt; [1] 0
+#&gt; 
+#&gt; $`0,0`$terms
+#&gt;     var coef degree
+#&gt; 0,0   1    1      0
+#&gt; 
+#&gt; 
+#&gt; $`0,1`
+#&gt; $`0,1`$f
+#&gt; [1] "(-1) * z2^1 + (1) * z1^1"
+#&gt; 
+#&gt; $`0,1`$order
+#&gt; [1] 1
+#&gt; 
+#&gt; $`0,1`$terms
+#&gt;      var coef degree
+#&gt; 0,0    1    0      0
+#&gt; 0,1 z2^1   -1      1
+#&gt; 1,0 z1^1    1      1
+#&gt; 
+#&gt; 
+#&gt; $`1,0`
+#&gt; $`1,0`$f
+#&gt; [1] "(1) * z2^1 + (1) * z1^1"
+#&gt; 
+#&gt; $`1,0`$order
+#&gt; [1] 1
+#&gt; 
+#&gt; $`1,0`$terms
+#&gt;      var coef degree
+#&gt; 0,0    1    0      0
+#&gt; 0,1 z2^1    1      1
+#&gt; 1,0 z1^1    1      1
+#&gt; 
+#&gt; 
+#&gt; $`0,2`
+#&gt; $`0,2`$f
+#&gt; [1] "(-1) * 1 + (1) * z2^2 + (1) * z1^2 + (-2) * z1^1*z2^1"
+#&gt; 
+#&gt; $`0,2`$order
+#&gt; [1] 2
+#&gt; 
+#&gt; $`0,2`$terms
+#&gt;           var coef degree
+#&gt; 0,0         1   -1      0
+#&gt; 0,1      z2^1    0      1
+#&gt; 1,0      z1^1    0      1
+#&gt; 0,2      z2^2    1      2
+#&gt; 2,0      z1^2    1      2
+#&gt; 1,1 z1^1*z2^1   -2      2
+#&gt; 
+#&gt; 
+#&gt; $`2,0`
+#&gt; $`2,0`$f
+#&gt; [1] "(-1) * 1 + (1) * z2^2 + (1) * z1^2 + (2) * z1^1*z2^1"
+#&gt; 
+#&gt; $`2,0`$order
+#&gt; [1] 2
+#&gt; 
+#&gt; $`2,0`$terms
+#&gt;           var coef degree
+#&gt; 0,0         1   -1      0
+#&gt; 0,1      z2^1    0      1
+#&gt; 1,0      z1^1    0      1
+#&gt; 0,2      z2^2    1      2
+#&gt; 2,0      z1^2    1      2
+#&gt; 1,1 z1^1*z2^1    2      2
+#&gt; 
+#&gt; 
+#&gt; $`1,1`
+#&gt; $`1,1`$f
+#&gt; [1] "(-1) * z2^2 + (1) * z1^2"
+#&gt; 
+#&gt; $`1,1`$order
+#&gt; [1] 2
+#&gt; 
+#&gt; $`1,1`$terms
+#&gt;           var coef degree
+#&gt; 0,0         1    0      0
+#&gt; 0,1      z2^1    0      1
+#&gt; 1,0      z1^1    0      1
+#&gt; 0,2      z2^2   -1      2
+#&gt; 2,0      z1^2    1      2
+#&gt; 1,1 z1^1*z2^1    0      2
+#&gt; 
+#&gt; </div><div class='input'>        
+        
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

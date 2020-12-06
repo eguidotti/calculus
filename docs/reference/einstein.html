@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Calculus in R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/emanuele-guidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -133,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Numerical and Symbolic Einstein Summation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/emanuele-guidotti/calculus/blob/master/R/einstein.R'><code>R/einstein.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/einstein.R'><code>R/einstein.R</code></a></small>
     <div class="hidden name"><code>einstein.Rd</code></div>
     </div>
 
@@ -161,7 +161,7 @@
     <p>array.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>index</code>, <code><a href='https://rdrr.io/r/base/trace.html'>trace</a></code></p></div>
+    <div class='dont-index'><p><code><a href='index.html'>index</a></code>, <code><a href='trace.html'>trace</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##################################</span>
@@ -173,10 +173,10 @@
 <span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>))
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>15</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>3</span>))
 
-<span class='fu'>index</span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'j'</span>)
-<span class='fu'>index</span>(<span class='no'>b</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
-<span class='fu'>index</span>(<span class='no'>c</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'k'</span>, <span class='st'>'l'</span>)
-<span class='fu'>index</span>(<span class='no'>d</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>, <span class='st'>'k'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'j'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>b</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>c</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'k'</span>, <span class='st'>'l'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>d</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>, <span class='st'>'k'</span>)
 
 <span class='fu'>einstein</span>(<span class='no'>a</span>,<span class='no'>b</span>,<span class='no'>c</span>,<span class='no'>d</span>)</div><div class='output co'>#&gt;       [,1]   [,2]   [,3]   [,4]
 #&gt; [1,] 56370 118800 181230 243660
@@ -189,8 +189,8 @@
 <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>6</span>], <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>12</span>], <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>))
 
-<span class='fu'>index</span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'j'</span>)
-<span class='fu'>index</span>(<span class='no'>b</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>,<span class='st'>'k'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'j'</span>)
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>b</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'j'</span>,<span class='st'>'k'</span>)
 
 <span class='fu'>einstein</span>(<span class='no'>a</span>,<span class='no'>b</span>)</div><div class='output co'>#&gt;      [,1]                                [,2]                               
 #&gt; [1,] "(a) * (a) + (c) * (b) + (e) * (c)" "(a) * (d) + (c) * (e) + (e) * (f)"

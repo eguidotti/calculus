@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Calculus in R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/emanuele-guidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -133,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tensor Contraction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/emanuele-guidotti/calculus/blob/master/R/trace.R'><code>R/trace.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/trace.R'><code>R/trace.R</code></a></small>
     <div class="hidden name"><code>trace.Rd</code></div>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Sums over repeated indices in a tensor. Can be seen as a generalization of the trace.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>trace</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,32 +165,32 @@
     <p>array.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>index</code>, <code>einstein</code></p></div>
+    <div class='dont-index'><p><code><a href='index.html'>index</a></code>, <code><a href='einstein.html'>einstein</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># trace of numeric matrix</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+<span class='fu'>trace</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'># trace of character matrix</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "a + d"</div><div class='input'>
+<span class='fu'>trace</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "a + d"</div><div class='input'>
 <span class='co'># trace of a tensor (sum over diagonals)</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>27</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 42</div><div class='input'>
+<span class='fu'>trace</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 42</div><div class='input'>
 <span class='co'># tensor contraction over repeated indices</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>27</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>))
-<span class='fu'>index</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'j'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 15 42 69</div><div class='input'>
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'j'</span>)
+<span class='fu'>trace</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 15 42 69</div><div class='input'>
 <span class='co'># tensor contraction over specific indices only</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>1</span>:<span class='fl'>16</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>))
-<span class='fu'>index</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>'k'</span>)</div><div class='output co'>#&gt;      [,1] [,2]
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
+<span class='fu'>trace</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>'k'</span>)</div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]   14   18
 #&gt; [2,]   16   20</div><div class='input'>
 <span class='co'># tensor contraction keeping dummy dimensions</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>16</span>], <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>))
-<span class='fu'>index</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/trace.html'>trace</a></span>(<span class='no'>x</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;      [,1] [,2]
+<span class='fu'><a href='index.html'>index</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'i'</span>,<span class='st'>'i'</span>,<span class='st'>'k'</span>,<span class='st'>'k'</span>)
+<span class='fu'>trace</span>(<span class='no'>x</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,] "a"  "m" 
 #&gt; [2,] "d"  "p" </div><div class='input'>
 </div></pre>

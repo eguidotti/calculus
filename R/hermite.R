@@ -5,6 +5,7 @@
 #' @param order integer. The order of the Hermite polynomial.
 #' @param sigma the covariance matrix of the Gaussian kernel.
 #' @param var character. The variables of the polynomial.
+#' @param transform character. Variables transformation: where to compute the function. 
 #' 
 #' @details 
 #' Hermite polynomials are obtained by successive differentiation of the Gaussian kernel
@@ -30,18 +31,28 @@
 #' hermite(order = 2, 
 #'         sigma = matrix(c(1,0,0,1), nrow = 2), 
 #'         var = c('z1', 'z2'))
-#' 
+#'         
+#' # multivariate Hermite polynomials with transformation of variables
+#' hermite(order = 2, 
+#'         sigma = matrix(c(1,0,0,1), nrow = 2), 
+#'         var = c('z1', 'z2'),
+#'         transform = c('z1+z2','z1-z2'))
+#'         
+#'         
 #' @export
 #' 
-hermite <- function(order, sigma = 1, var = 'x'){
+hermite <- function(order, sigma = 1, var = 'x', transform = NULL){
   
   sigma <- as.matrix(sigma)
   
   if(length(var)==1 && var=='x' && ncol(sigma)>1) 
-      var <- paste0('x', 1:ncol(sigma))
+    var <- paste0('x', 1:ncol(sigma))
   
   if(any(dim(sigma)!=length(var)))
     stop("sigma must be a square matrix with ncol and nrow equal to the length of var")
+  
+  if(!is.null(transform)) if(any(dim(var)!=dim(transform)))
+    stop("parameters transform and var must be of the same length")
   
   # cache
   H <- list()
@@ -66,7 +77,27 @@ hermite <- function(order, sigma = 1, var = 'x'){
     h <- paste0((-1)^sum(v - nu[,prev]), " * ", wrap(e2c(h)))
     h <- gsub(x = h, pattern = kernel, replacement = '1', fixed = T)  
     
-    H[[paste(v, collapse = ',')]] <- taylor(h, var = var, order = sum(v))
+    if(is.null(transform))
+      H[[paste(v, collapse = ',')]] <- taylor(h, var = var, order = sum(v))  
+    else
+      H[[paste(v, collapse = ',')]] <- list(f = h, order = sum(v))
+    
+  }
+  
+  if(!is.null(transform)){
+    
+    d <- length(var)
+    var.tmp <- paste0("#",var,"#")
+    var.new <- wrap(transform)
+    
+    H <- lapply(H, function(h){
+      
+      for(i in 1:d) h$f <- gsub(x = h$f, pattern = var[i], replacement = var.tmp[i], fixed = TRUE)
+      for(i in 1:d) h$f <- gsub(x = h$f, pattern = var.tmp[i], replacement = var.new[i], fixed = TRUE)
+      
+      taylor(h$f, var = var, order = h$order)
+      
+    })
     
   }
   

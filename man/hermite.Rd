@@ -4,7 +4,7 @@
 \alias{hermite}
 \title{Hermite Polynomials}
 \usage{
-hermite(order, sigma = 1, var = "x")
+hermite(order, sigma = 1, var = "x", transform = NULL)
 }
 \arguments{
 \item{order}{integer. The order of the Hermite polynomial.}
@@ -12,6 +12,8 @@ hermite(order, sigma = 1, var = "x")
 \item{sigma}{the covariance matrix of the Gaussian kernel.}
 
 \item{var}{character. The variables of the polynomial.}
+
+\item{transform}{character. Variables transformation: where to compute the function.}
 }
 \value{
 list of Hermite polynomials with components
@@ -40,5 +42,12 @@ hermite(3, var = 'z')
 hermite(order = 2, 
         sigma = matrix(c(1,0,0,1), nrow = 2), 
         var = c('z1', 'z2'))
-
+        
+# multivariate Hermite polynomials with transformation of variables
+hermite(order = 2, 
+        sigma = matrix(c(1,0,0,1), nrow = 2), 
+        var = c('z1', 'z2'),
+        transform = c('z1+z2','z1-z2'))
+        
+        
 }

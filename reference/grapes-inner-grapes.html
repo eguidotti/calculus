@@ -165,7 +165,7 @@
 <span class='co'># symbolic inner product </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%inner%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] "(a) * (a) + (b) * (b) + (c) * (c) + (d) * (d) + (e) * (e) + (f) * (f) + (g) * (g) + (h) * (h) + (i) * (i) + (j) * (j) + (k) * (k) + (l) * (l)"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_inner(as.character(x), as.character(y)): object '_calculus_cpp_inner' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -161,35 +161,16 @@
     <pre class="examples"><div class='input'><span class='co'># sum vector </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a+1"</span>,<span class='st'>"b+2"</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%sum%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] "a+1 + a+1" "b+2 + b+2"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_paste(as.character(x), as.character(y), sep = " + "): object '_calculus_cpp_paste' not found</span></div><div class='input'>
 <span class='co'># sum matrix </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%sum%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt;      [,1]    [,2]   
-#&gt; [1,] "a + a" "c + c"
-#&gt; [2,] "b + b" "d + d"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_paste(as.character(x), as.character(y), sep = " + "): object '_calculus_cpp_paste' not found</span></div><div class='input'>
 <span class='co'># sum array</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%sum%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; , , 1
-#&gt; 
-#&gt;      [,1]    [,2]   
-#&gt; [1,] "a + a" "c + c"
-#&gt; [2,] "b + b" "d + d"
-#&gt; 
-#&gt; , , 2
-#&gt; 
-#&gt;      [,1]    [,2]   
-#&gt; [1,] "e + e" "g + g"
-#&gt; [2,] "f + f" "h + h"
-#&gt; 
-#&gt; , , 3
-#&gt; 
-#&gt;      [,1]    [,2]   
-#&gt; [1,] "i + i" "k + k"
-#&gt; [2,] "j + j" "l + l"
-#&gt; </div><div class='input'><span class='va'>y</span> <span class='op'>%sum%</span> <span class='va'>y</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_paste(as.character(x), as.character(y), sep = " + "): object '_calculus_cpp_paste' not found</span></div><div class='input'><span class='va'>y</span> <span class='op'>%sum%</span> <span class='va'>y</span>
 </div><div class='output co'>#&gt; , , 1
 #&gt; 
 #&gt;      [,1] [,2]
@@ -208,24 +189,7 @@
 #&gt; [1,]   18   22
 #&gt; [2,]   20   24
 #&gt; </div><div class='input'><span class='va'>x</span> <span class='op'>%sum%</span> <span class='va'>y</span>
-</div><div class='output co'>#&gt; , , 1
-#&gt; 
-#&gt;      [,1]    [,2]   
-#&gt; [1,] "a + 1" "c + 3"
-#&gt; [2,] "b + 2" "d + 4"
-#&gt; 
-#&gt; , , 2
-#&gt; 
-#&gt;      [,1]    [,2]   
-#&gt; [1,] "e + 5" "g + 7"
-#&gt; [2,] "f + 6" "h + 8"
-#&gt; 
-#&gt; , , 3
-#&gt; 
-#&gt;      [,1]     [,2]    
-#&gt; [1,] "i + 9"  "k + 11"
-#&gt; [2,] "j + 10" "l + 12"
-#&gt; </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_paste(as.character(x), as.character(y), sep = " + "): object '_calculus_cpp_paste' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -161,17 +161,13 @@
     <pre class="examples"><div class='input'><span class='co'># inner product </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%dot%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] 650</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = x, y = y, dim = x.dim[j.x], drop = (drop &amp;&amp;     all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'>
 <span class='co'># inner product on last dimensions </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>24</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%dot%</span> <span class='va'>y</span>
-</div><div class='output co'>#&gt; [1] "1 * (a) + 4 * (b) + 7 * (c) + 10 * (d) + 13 * (e) + 16 * (f) + 19 * (g) + 22 * (h)"
-#&gt; [2] "2 * (a) + 5 * (b) + 8 * (c) + 11 * (d) + 14 * (e) + 17 * (f) + 20 * (g) + 23 * (h)"
-#&gt; [3] "3 * (a) + 6 * (b) + 9 * (c) + 12 * (d) + 15 * (e) + 18 * (f) + 21 * (g) + 24 * (h)"</div><div class='input'><span class='va'>y</span> <span class='op'>%dot%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] "(a) * (1) + (b) * (4) + (c) * (7) + (d) * (10) + (e) * (13) + (f) * (16) + (g) * (19) + (h) * (22)"
-#&gt; [2] "(a) * (2) + (b) * (5) + (c) * (8) + (d) * (11) + (e) * (14) + (f) * (17) + (g) * (20) + (h) * (23)"
-#&gt; [3] "(a) * (3) + (b) * (6) + (c) * (9) + (d) * (12) + (e) * (15) + (f) * (18) + (g) * (21) + (h) * (24)"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x],     drop = (drop &amp;&amp; all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'><span class='va'>y</span> <span class='op'>%dot%</span> <span class='va'>x</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x],     drop = (drop &amp;&amp; all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

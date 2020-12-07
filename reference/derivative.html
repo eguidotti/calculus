@@ -239,7 +239,9 @@ Note that if <code>f</code> is a function, then <code>var</code> must be a named
 <span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='va'>y</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 <span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span><span class='op'>=</span><span class='fl'>0</span>,<span class='st'>"y"</span><span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = x, y = y, dim = x.dim[j.x], drop = (drop &amp;&amp;     all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    0    0
+#&gt; [2,]    1    0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

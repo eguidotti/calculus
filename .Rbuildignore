@@ -1,8 +1,11 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^LICENSE$
-^index\.md$
+^\.github$
 ^docs$
 ^pkgdown$
-^\.travis\.yml$
-^\.Rhistory$
+.travis.yml
+.Rhistory
+.RData
+.Ruserdata
+index.md
+LICENSE

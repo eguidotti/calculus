@@ -166,7 +166,8 @@
 <span class='co'># symbolic inner product </span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
 <span class='va'>x</span> <span class='op'>%matrix%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x],     drop = (drop &amp;&amp; all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt;      [,1]                                           
+#&gt; [1,] "(a) * (a) + (b) * (b) + (c) * (c) + (d) * (d)"</div><div class='input'>
 <span class='co'># matrix products</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
@@ -177,8 +178,17 @@
 #&gt; [2,]    2    6   10
 #&gt; [3,]    3    7   11
 #&gt; [4,]    4    8   12</div><div class='input'><span class='va'>y</span> <span class='op'>%matrix%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x],     drop = (drop &amp;&amp; all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'><span class='va'>x</span> <span class='op'>%matrix%</span> <span class='va'>z</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x],     drop = (drop &amp;&amp; all(j.drop))): object '_calculus_cpp_einstein' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt;      [,1]     
+#&gt; [1,] "1 * (a)"
+#&gt; [2,] "1 * (b)"
+#&gt; [3,] "1 * (c)"
+#&gt; [4,] "1 * (d)"</div><div class='input'><span class='va'>x</span> <span class='op'>%matrix%</span> <span class='va'>z</span>
+</div><div class='output co'>#&gt;      [,1]                                           
+#&gt; [1,] "(a) * (1) + (b) * (2) + (c) * (3) + (d) * (4)"
+#&gt;      [,2]                                           
+#&gt; [1,] "(a) * (5) + (b) * (6) + (c) * (7) + (d) * (8)"
+#&gt;      [,3]                                              
+#&gt; [1,] "(a) * (9) + (b) * (10) + (c) * (11) + (d) * (12)"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -5,3 +5,4 @@
 .Ruserdata
 src/*.o
 src/*.dll
+src/RcppExports.cpp

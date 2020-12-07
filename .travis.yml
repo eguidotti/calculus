@@ -14,5 +14,5 @@ env:
 script:
   - |
     R CMD build .
-    R CMD check --no-build-vignettes --no-manual *tar.gz
+    R CMD check --no-build-vignettes --no-manual --as-cran *tar.gz
   

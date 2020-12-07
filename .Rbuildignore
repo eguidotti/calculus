@@ -4,3 +4,5 @@
 ^index\.md$
 ^docs$
 ^pkgdown$
+^\.travis\.yml$
+^\.Rhistory$

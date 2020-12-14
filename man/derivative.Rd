@@ -10,21 +10,27 @@ derivative(
   order = 1,
   accuracy = 2,
   stepsize = NULL,
-  deparse = TRUE
+  drop = TRUE,
+  deparse = TRUE,
+  ...
 )
 }
 \arguments{
-\item{f}{function, expression or character array.}
+\item{f}{\code{function} returning a vector, matrix, or array; \code{array} of \code{character}; or \code{array} of \code{expression}.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point. See examples.}
+\item{var}{character vector, giving the variable names with respect to which the derivatives are computed. If a named vector is provided, the derivatives will be computed at that point. See examples.}
 
 \item{order}{integer vector, giving the differentiation order for each variable. See details.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{deparse}{logical. Return character instead of expression or call?}
+\item{drop}{drop dimensions when...}
+
+\item{deparse}{logical. Return \code{character} instead of \code{expression}? Default \code{TRUE}.}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 array of derivatives.
@@ -33,22 +39,22 @@ array of derivatives.
 Computes symbolic derivatives based on the \code{\link[stats]{D}} function, or accurate and reliable numerical derivatives based on finite differences.
 }
 \details{
-The function behaves differently depending on the length of the \code{order} argument.
+The function behaves differently depending on the arguents \code{order} and \code{var}.
 
-If \code{order} is of length 1, then the n-th order derivative is computed for each function with respect to each 
+If \code{order} is an integer and more than one \code{var} are provided, then the n-th order derivative is computed for each element with respect to each 
 variable.
 \deqn{D = \partial^{(n)} \otimes F \rightarrow D_{i,.,j,k,.,l} = \partial^{(n)}_{k,.,l} F_{i,.,j}}
-where \eqn{F} is the tensor of functions and \eqn{\partial} is the tensor of variable names with respect to which 
-the \eqn{n}-th order derivatives will be computed.
+where \eqn{F} is a tensor of functions and \eqn{\partial} is the tensor of variable names with respect to which 
+the \eqn{n}-th order derivatives are computed.
 
-If \code{order} matches the length of \code{var}, then it is assumed that the differentiation order is provided
-for each variable. In this case, each function will be derived \eqn{n_i} times with respect to the \eqn{i}-th variable, 
+If \code{order} is a named vector, or it matches the length of \code{var}, then it is assumed that the differentiation order is provided
+for each variable. In this case, each element is derived \eqn{n_i} times with respect to the \eqn{i}-th variable, 
 for each of the \eqn{j} variables.
 \deqn{D = \partial^{(n_1)}_1\partial^{(...)}_{...}\partial^{(n_i)}_i\partial^{(...)}_{...}\partial^{(n_j)}_j F}
 where \eqn{F} is the tensor of functions to differentiate. 
 
 If \code{var} is a named vector, e.g. \code{c(x = 0, y = 0)}, derivatives will be computed at that point. 
-Note that if \code{f} is a function, then \code{var} must be a named vector giving the point at which the numerical derivatives will be computed.
+Note that if \code{f} is a function, then \code{var} must be a named vector giving the point in which the numerical derivatives have to be computed.
 }
 \examples{
 # derive f with respect to x
@@ -57,11 +63,24 @@ derivative(f = "sin(x)", var = "x")
 # derive f with respect to x and evaluate in x = 0
 derivative(f = "sin(x)", var = c("x" = 0))
 
+# derive a generica function f with respect to x, in x = 0
+f <- function(x) sin(x)
+derivative(f = f, var = c(x = 0))
+
 # derive f twice with respect to x
 derivative(f = "sin(x)", var = "x", order = 2)
 
 # derive f once with respect to x, and twice with respect to y
-derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(1,2))
+derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(1, 2))
+# or equivalently
+derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(x = 1, y = 2))
+
+# derive f twice with respect to y only
+derivative(f = "y^2*sin(x)", var = "y", order = 2)
+# or equivalently
+derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(0, 2))
+# or equivalently
+derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(y = 2))
 
 # compute the gradient of f with respect to (x,y)
 derivative(f = "y*sin(x)", var = c("x","y"))
@@ -70,13 +89,8 @@ derivative(f = "y*sin(x)", var = c("x","y"))
 f <- c("y*sin(x)", "x*cos(y)")
 derivative(f = f, var = c("x","y"))
 
-# compute the Hessian of f with respect to (x,y)
-g <- derivative(f = "y^2*sin(x)", var = c("x","y"))
-derivative(f = g, var = c("x","y"))
-
-# compute the Jacobian of f with respect to (x,y) and evaluate in (0,0)
-f1 <- function(x, y) y*sin(x)
-f2 <- function(x, y) x*cos(y)
-derivative(f = c(f1, f2), var = c("x"=0,"y"=0))
+# compute the Jacobian of a generic function f with respect to (x,y) in (0,0) 
+f <- function(x, y) c(y*sin(x), x*cos(y))
+derivative(f = f, var = c(x = 0, y = 0))
 
 }

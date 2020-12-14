@@ -280,7 +280,7 @@ ccheck <- function(var, coordinates){
 
 
 sf <- function(var, coordinates){
-  # check coordinates
+  
   ccheck(var = var, coordinates = coordinates)
   
   if(length(coordinates)>1)
@@ -319,4 +319,17 @@ is.fun <- function(x){
   
 }
 
+f.eval <- function(f, var, ...){
+  
+  if(is.null(names(var)))
+    return(f(var, ...))
+  
+  do.call(f, c(as.list(var), list(...)))
+  
+}
 
+f.dim <- function(f, var, ...){
+  
+  dim(as.array(f.eval(f, var, ...)))
+  
+}

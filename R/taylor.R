@@ -7,6 +7,7 @@
 #' @param order the order of the Taylor approximation.
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
+#' @param ... additional arguments to \code{f}.
 #' 
 #' @return list with components
 #' \describe{
@@ -30,7 +31,7 @@
 #' 
 #' @export
 #' 
-taylor <- function(f, var = 'x', order = 1, accuracy = 2, stepsize = NULL){
+taylor <- function(f, var = 'x', order = 1, accuracy = 2, stepsize = NULL, ...){
   
   cache <- list()
   n.v <- length(var)
@@ -77,7 +78,7 @@ taylor <- function(f, var = 'x', order = 1, accuracy = 2, stepsize = NULL){
     }
     else {
       
-      c$coef <- DD.n(f = f, x0 = unlist(x0), order = v, accuracy = accuracy, stepsize = stepsize)
+      c$coef <- D.num(f = f, x0 = unlist(x0), order = v, accuracy = accuracy, stepsize = stepsize, drop = TRUE, ...)
       c$coef <- c$coef/prod(factorial(v))
       
     }

@@ -4,7 +4,7 @@
 \alias{taylor}
 \title{Taylor Series}
 \usage{
-taylor(f, var = "x", order = 1, accuracy = 2, stepsize = NULL)
+taylor(f, var = "x", order = 1, accuracy = 2, stepsize = NULL, ...)
 }
 \arguments{
 \item{f}{function, expression or character}
@@ -16,6 +16,8 @@ taylor(f, var = "x", order = 1, accuracy = 2, stepsize = NULL)
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+
+\item{...}{additional arguments to \code{f}.}
 }
 \value{
 list with components

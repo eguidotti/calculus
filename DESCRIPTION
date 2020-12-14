@@ -1,7 +1,7 @@
 Package: calculus
 Type: Package
 Title: High Dimensional Numerical and Symbolic Calculus
-Version: 0.2.2
+Version: 0.3.0
 Authors@R: person(given = "Emanuele", 
 				  family = "Guidotti", 
 				  email = "emanuele.guidotti@unine.ch", 

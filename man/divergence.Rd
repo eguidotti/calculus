@@ -5,7 +5,15 @@
 \alias{\%divergence\%}
 \title{Numerical and Symbolic Divergence}
 \usage{
-divergence(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
+divergence(
+  f,
+  var,
+  coordinates = "cartesian",
+  accuracy = 2,
+  stepsize = NULL,
+  drop = TRUE,
+  ...
+)
 
 f \%divergence\% var
 }
@@ -14,11 +22,15 @@ f \%divergence\% var
 
 \item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
 
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{drop}{drop dimensions when...}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 divergence array.
@@ -40,16 +52,9 @@ divergence(f, var = c('x','y','z'))
 f \%divergence\% c('x','y','z')
 
 # numerical divergence of a vector field
-f <- c(function(x,y,z) x^2, function(x,y,z) y^3, function(x,y,z) z^4)
+f <- function(x,y,z) c(x^2, y^3, z^4)
 divergence(f, var = c('x'=1,'y'=1,'z'=1))
 f \%divergence\% c('x'=1,'y'=1,'z'=1)
-
-# divergence of array of vector fields
-f1 <- c('x^2','y^3','z^4')
-f2 <- c('x','y','z')
-a <- matrix(c(f1,f2), nrow = 2, byrow = TRUE)
-divergence(a, var = c('x','y','z'))
-a \%divergence\% c('x','y','z')
 
 # divergence in polar coordinates
 f <- c('sqrt(r)/10','sqrt(r)')

@@ -521,6 +521,8 @@ cross <- function(...){
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param drop drop dimensions when...
+#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return gradient or jacobian array.
 #' 
@@ -543,7 +545,7 @@ cross <- function(...){
 #' f %gradient% c("x","y")
 #' 
 #' # jacobian with respect to (x,y) and evaluate in (x = 0, y = 0)
-#' f <- c(function(x, y) y*sin(x), function(x, y) x*cos(y))
+#' f <- function(x, y) c(y*sin(x), x*cos(y))
 #' gradient(f = f, var = c(x=0,y=0))
 #' f %gradient% c(x=0,y=0)
 #' 
@@ -556,14 +558,20 @@ cross <- function(...){
 #' 
 #' @export
 #' 
-gradient <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian'){
+gradient <- function(f, var, coordinates = 'cartesian', accuracy = 2, stepsize = NULL, drop = TRUE, ...){
   
   x <- names(var)
   if(is.null(x))
     x <- var
   
-  f <- derivative(f = f, var = var, accuracy = accuracy, stepsize = stepsize)
+  f <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
   
+  n <- length(var)
+  m <- length(f)
+  
+  if(drop & m==n)
+    dim(f) <- NULL
+    
   h <- sf(var = x, coordinates = coordinates)
   
   if(is.null(h))
@@ -572,14 +580,14 @@ gradient <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'carte
   if(is.numeric(f)){
     
     h <- evaluate(h, as.list(var))
-    h <- rep(h, each = length(f)/length(var))
+    h <- rep(h, each = m/n)
     f <- f/h
     
   }
   else{
   
     h <- sprintf("1/%s", h)
-    h <- rep(h, each = length(f)/length(var))
+    h <- rep(h, each = m/n)
     f[] <- cpp_paste(h, wrap(f), sep = " * ")
     
   }
@@ -614,6 +622,8 @@ gradient <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'carte
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param drop drop dimensions when...
+#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return hessian matrix.
 #' 
@@ -639,71 +649,74 @@ gradient <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'carte
 #' 
 #' @export
 #' 
-hessian <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian'){
+hessian <- function(f, var, coordinates = 'cartesian', accuracy = 2, stepsize = NULL, drop = TRUE, ...){
   
-  if(length(f)>1)
-    stop("f must be of length 1")
-  
+  n <- length(var)
   x <- names(var)
   if(is.null(x))
     x <- var
   
-  if(is.fun(f)){
-      
-    n <- length(x)
-    p <- partitions(n = 2, length = n, perm = TRUE, fill = TRUE)
-    h <- sf(var = x, coordinates = coordinates)
-    hess <- matrix(nrow = n, ncol = n)
+  if(is.function(f)){
     
-    apply(p, 2, function(o){
-      
-      ij <- which(o!=0)
-      if(length(ij)==1) 
-        ij <- c(ij, ij)
-      
-      d.ij <- DD.n(f = f, x0 = var, order = o, accuracy = accuracy, stepsize = stepsize)
-      
-      if(is.null(h)){
-      
-        hess[ij[1], ij[2]] <<- d.ij
-        hess[ij[2], ij[1]] <<- d.ij
-        
-      }
-      else{
-
-        for(i in 1:2){
-        
-          h.i <- evaluate(h[ij[1]], as.list(var))
-          h.j <- evaluate(h[ij[2]], as.list(var))
-          
-          o <- rep(0, n)
-          o[ij[1]] <- 1
-          d.i <- derivative(f = sprintf("1/%s", h[ij[2]]), var = var, order = o)[[1]]
-
-          o <- rep(0, n)
-          o[ij[2]] <- 1
-          d.j <- DD.n(f = f, x0 = var, order = o, accuracy = accuracy, stepsize = stepsize)
-          
-          hess[ij[2], ij[1]] <<- 1/h.i * (d.i*d.j + 1/h.j*d.ij)
-          
-          if(ij[1]!=ij[2])
-            ij <- rev(ij)
-          else 
-            break
-          
-        }
-        
-      }
-      
-      return(NULL)
-      
-    })
-     
-    return(hess)
-         
-  } 
+    f.dim <- f.dim(f, var, ...)
+    m <- prod(f.dim)
+    
+    ii <- D.num(f = f, x0 = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, ...)
+    if(n>1)
+      ij <- D.num(f = f, x0 = var, order = 1, accuracy = accuracy, stepsize = stepsize, cross = TRUE, drop = FALSE, ...)
+    
+    lwr <- lower.tri(matrix(nrow = n, ncol = n))
+    dia <- lower.tri(lwr, diag = TRUE) & !lwr
+    lwr <- rep(lwr, each = m)
+    dia <- rep(dia, each = m)
+    
+    f.dij <- array(0, dim = c(m, n, n))
+    if(n>1){
+      f.dij[lwr] <- ij
+      for(d in 1:m)
+        f.dij[d,,] <- f.dij[d,,] + t(f.dij[d,,])
+    }
+    f.dij[dia] <- ii
   
-  return(gradient(gradient(f = f, var = x, coordinates = coordinates), var = var, coordinates = coordinates)[1,,])
+    q <- paste0("q",1:n)
+    h <- sf(var = q, coordinates = coordinates)
+    if(is.null(h)){
+      
+      H <- f.dij
+      
+    }
+    else {
+    
+      qvar <- var
+      names(qvar) <- q
+      
+      h.ij <- derivative(sprintf("1/(%s)", h), var = qvar, order = 1, drop = FALSE, ...)
+      h.i <- h.j <- 1/evaluate(h, as.list(qvar))
+      
+      h.ij <- rep(h.ij, each = m)
+      h.i <- rep(h.i, each = m)
+      h.j <- rep(h.j, each = m*n)
+      
+      f.di <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = FALSE, ...)
+      
+      H <- h.j*(c(h.ij)*c(f.di)+h.i*c(f.dij))
+      
+    }
+    
+    H <- array(H, dim = c(f.dim, n, n))
+    
+  } 
+  else {
+
+    g <- gradient(f = f, var = x, coordinates = coordinates, drop = FALSE, ...)
+    H <- gradient(f = g, var = var, coordinates = coordinates, drop = FALSE, ...)
+        
+  }
+
+  if(drop & length(H)==n^2)
+    dim(H) <- c(n, n)
+
+  return(H)
   
 }
 
@@ -736,6 +749,8 @@ hessian <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartes
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param drop drop dimensions when...
+#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return divergence array.
 #' 
@@ -746,16 +761,9 @@ hessian <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartes
 #' f %divergence% c('x','y','z')
 #' 
 #' # numerical divergence of a vector field
-#' f <- c(function(x,y,z) x^2, function(x,y,z) y^3, function(x,y,z) z^4)
+#' f <- function(x,y,z) c(x^2, y^3, z^4)
 #' divergence(f, var = c('x'=1,'y'=1,'z'=1))
 #' f %divergence% c('x'=1,'y'=1,'z'=1)
-#' 
-#' # divergence of array of vector fields
-#' f1 <- c('x^2','y^3','z^4')
-#' f2 <- c('x','y','z')
-#' a <- matrix(c(f1,f2), nrow = 2, byrow = TRUE)
-#' divergence(a, var = c('x','y','z'))
-#' a %divergence% c('x','y','z')
 #' 
 #' # divergence in polar coordinates
 #' f <- c('sqrt(r)/10','sqrt(r)')
@@ -763,73 +771,91 @@ hessian <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartes
 #' 
 #' @export
 #' 
-divergence <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian'){
+divergence <- function(f, var, coordinates = 'cartesian', accuracy = 2, stepsize = NULL, drop = TRUE, ...){
   
-  is.fun <- is.fun(f)
+  is.fun <- is.function(f)
+  if(is.fun)
+    f.di <- as.array(f.eval(f, var, ...))
+  else
+    f.di <- as.array(f)
   
-  if(is.fun && !is.array(f))
-    f <- array(c(f))
-  else 
-    f <- as.array(f)
-  
-  n       <- length(var)
-  f.dim   <- dim(f)
+  n <- length(var)
+  f.dim <- dim(f.di)
   f.n.dim <- length(f.dim)
-  
-  x <- names(var)
-  if(is.null(x))
-    x <- var
   
   if(f.dim[f.n.dim]!=n)
     stop('f must be the same length of var on the last dimension')
+
+  if(is.fun){
+    qvar <- var
+    q <- paste0("q",1:n)
+    names(qvar) <- q
+  }
+  else{
+    qvar <- var
+    q <- names(var)
+    if(is.null(q))
+      q <- var
+  } 
   
-  H <- NULL
-  h <- sf(var = x, coordinates = coordinates)
+  h <- sf(var = q, coordinates = coordinates)
   
-  if(!is.null(h)){
+  if(is.null(h)){
     
-    if(is.fun){
-      f.orig <- f
-      f[] <- sapply(1:length(f), function(i){
-        sprintf('do.call(get("f.orig")[[%s]], list(%s))', i, paste(x, x, sep = '=', collapse = ','))
-      })
-    }
+    df.dij <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    index(df.dij)[f.n.dim+0:1] <- "i"
     
-    H <- paste0(h, collapse = "*")
+    D <- einstein(df.dij)
     
-    if(n==1) 
+  }
+  else {
+    
+    J <- paste0(h, collapse = "*")
+    
+    if(n==1)
       h <- "1"
     else
       h <- sapply(1:n, function(k) paste0(h[-k], collapse = "*"))
     
-    index(h)          <- 1
-    index(f)[f.n.dim] <- 1
-    
-    f <- einstein(f, h, drop = FALSE)
-    
     if(is.fun){
-      f <- array(sapply(f, function(f){
-        eval(c2e(sprintf("function(%s) {%s}", paste0(x, collapse = ','), f)))
-      }), dim = dim(f))
+      
+      index(f.di)[f.n.dim] <- "i"
+      
+      h.i <- evaluate(h, as.list(qvar))
+      index(h.i) <- "i"
+      
+      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(dh.i) <- c("i","i")
+      
+      df.dij <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(df.dij)[f.n.dim+0:1] <- "i"
+      
+      D <- (einstein(dh.i,f.di) + einstein(h.i,df.dij)) 
+      
+    }
+    else {
+      
+      f[] <- cpp_paste(wrap(f), rep(h, each = prod(f.dim)/n), sep = " * ")
+
+      df <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(df)[f.n.dim+0:1] <- "i"
+
+      D <- einstein(df)
+      
     }
     
-  }
-  
-  f <- derivative(f = f, var = var, accuracy = accuracy, stepsize = stepsize)
-  index(f)[f.n.dim+0:1] <- 1  
-  
-  f <- trace(f)
-  
-  if(!is.null(H)){
-    
-    if(is.numeric(f))
-      f <- f / as.numeric(evaluate(H, as.list(var)))
+    if(is.numeric(D))
+      D <- D / eval(parse(text = J), as.list(qvar))
     else
-      f[] <- sprintf("(%s)/(%s)", f, H)
+      D[] <- cpp_paste(wrap(D), wrap(J), sep = " / ")
     
   }
 
-  return(f)
+  index(D) <- NULL
+  if(drop & length(D)==1)
+    dim(D) <- NULL
+
+  return(D)
 
 }
 
@@ -862,6 +888,8 @@ divergence <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'car
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param drop drop dimensions when...
+#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return curl array.
 #' 
@@ -877,16 +905,9 @@ divergence <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'car
 #' f %curl% c('x','y','z')
 #' 
 #' # numerical curl of a vector field
-#' f <- c(function(x,y,z) x*y, function(x,y,z) y*z, function(x,y,z) x*z)
+#' f <- function(x,y,z) c(x*y, y*z, x*z)
 #' curl(f, var = c('x'=1,'y'=1,'z'=1))
 #' f %curl% c('x'=1,'y'=1,'z'=1)
-#' 
-#' # curl of array of vector fields
-#' f1 <- c('x*y','y*z','z*x')
-#' f2 <- c('x','-y','z')
-#' a <- matrix(c(f1,f2), nrow = 2, byrow = TRUE)
-#' curl(a, var = c('x','y','z'))
-#' a %curl% c('x','y','z')
 #' 
 #' # curl in polar coordinates
 #' f <- c('sqrt(r)/10','sqrt(r)')
@@ -894,77 +915,90 @@ divergence <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'car
 #' 
 #' @export
 #'
-curl <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian'){
+curl <- function(f, var, coordinates = 'cartesian', accuracy = 2, stepsize = NULL, drop = TRUE, ...){
   
-  is.fun <- is.fun(f)
-  
-  if(is.fun && !is.array(f))
-    f <- array(c(f))
-  else 
-    f <- as.array(f)
-  
-  f.dim   <- dim(f)
-  f.n.dim <- length(f.dim)
-  
-  x <- names(var)
-  if(is.null(x))
-    x <- var
+  is.fun <- is.function(f)
+  if(is.fun)
+    f.dj <- as.array(f.eval(f, var, ...))
+  else
+    f.dj <- as.array(f)
   
   n <- length(var)
+  f.dim <- dim(f.dj)
+  f.n.dim <- length(f.dim)
+  
   if(f.dim[f.n.dim]!=n)
     stop('f must be the same length of var on the last dimension')
   
-  if(n==1)
-    return(array("0", dim = f.dim))
+  if(n<2)
+    stop('at least 2 dimensions are required to compute the curl')
   
-  h <- sf(var = x, coordinates = coordinates)
+  if(is.fun){
+    qvar <- var
+    q <- paste0("q",1:n)
+    names(qvar) <- q
+  }
+  else{
+    qvar <- var
+    q <- names(var)
+    if(is.null(q))
+      q <- var
+  } 
   
   eps <- levicivita(n)
-  index(eps) <- 1:n
+  index(eps)[1:2] <- c("i","j")
   
-  if(!is.null(h)){
+  h <- sf(var = q, coordinates = coordinates)
+  
+  if(is.null(h)){
     
-    if(is.fun){
-      f.orig <- f
-      f[] <- sapply(1:length(f), function(i){
-        sprintf('do.call(get("f.orig")[[%s]], list(%s))', i, paste(x, x, sep = '=', collapse = ','))
-      })
-    }
+    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    index(df.dji)[f.n.dim+0:1] <- c("j","i")
     
-    h.i <- sprintf("1/%s", h)
-    index(h.i) <- 1
+    D <- einstein(df.dji, eps)
     
-    h.j <- sprintf("1/%s", h)
-    index(h.j) <- 2
+  }
+  else if(is.fun){
     
-    index(h)          <- 2
-    index(f)[f.n.dim] <- 2
-    f                 <- einstein(f, h, drop = FALSE)
+    h.i <- h.j <- evaluate(h, as.list(qvar))
+    index(h.i) <- "i"
+    index(h.j) <- "j"
     
-    if(is.fun){
-      f <- array(sapply(f, function(f){
-        eval(c2e(sprintf("function(%s) {%s}", paste0(x, collapse = ','), f)))
-      }), dim = dim(f))
-    }
+    dh.ji <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE)
+    index(dh.ji) <- c("j","i")   
+    
+    index(f.dj)[f.n.dim] <- "j"
+    
+    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    index(df.dji)[f.n.dim+0:1] <- c("j","i")
+    
+    D <- einstein(f.dj, eps, 1/h.i, 1/h.j, dh.ji) + einstein(df.dji, eps, 1/h.i, 1/h.j, h.j)
+    
+  }
+  else {
+    
+    f[] <- cpp_paste(wrap(f), rep(h, each = prod(f.dim)/n), sep = " * ")
+    
+    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    index(df.dji)[f.n.dim+0:1] <- c("j","i")
+    
+    if(is.numeric(df.dji))
+      h.i <- h.j <- 1/evaluate(h, as.list(var))
+    else
+      h.i <- h.j <- sprintf("%s^-1", h)
+    
+    index(h.i) <- "i"
+    index(h.j) <- "j"
+    
+    D <- einstein(df.dji, eps, h.i, h.j)
     
   }
   
-  f <- derivative(f = f, var = var, accuracy = accuracy, stepsize = stepsize)
-  index(f)[f.n.dim]   <- 2
-  index(f)[f.n.dim+1] <- 1  
+  index(D) <- NULL
+  if(drop & length(D)==n^(n-2) & n<=3)
+    dim(D) <- NULL
   
-  if(!is.numeric(f) && !getOption('calculus.auto.wrap', default = TRUE))
-    f <- wrap(f)
-  
-  if(is.null(h))
-    return(einstein(f, eps))
-
-  if(is.numeric(f)){
-    h.i <- evaluate(h.i, as.list(var))
-    h.j <- evaluate(h.j, as.list(var))
-  }
-  
-  return(einstein(f, eps, h.i, h.j))
+  return(D)
   
 }
   
@@ -1000,6 +1034,8 @@ curl <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian
 #' @param accuracy accuracy degree for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param drop drop dimensions when...
+#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return laplacian array.
 #' 
@@ -1014,11 +1050,6 @@ curl <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian
 #' laplacian(f, var = c('x','y','z'))
 #' f %laplacian% c('x','y','z')
 #' 
-#' # numerical laplacian of scalar fields
-#' f <- c(function(x,y,z) x^2, function(x,y,z) y^3, function(x,y,z) z^4)
-#' laplacian(f, var = c('x'=1,'y'=1,'z'=1))
-#' f %laplacian% c('x'=1,'y'=1,'z'=1)
-#' 
 #' # laplacian of array of scalar fields
 #' f1 <- c('x^2','y^3','z^4')
 #' f2 <- c('x','y','z')
@@ -1032,65 +1063,66 @@ curl <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian
 #' 
 #' @export
 #' 
-laplacian <- function(f, var, accuracy = 2, stepsize = NULL, coordinates = 'cartesian'){
-  
-  x <- names(var)
-  if(is.null(x))
-    x <- var
-  
-  if(is.fun(f)){
-    
-    if(!is.array(f))
-      f <- array(c(f))
-    
+laplacian <- function(f, var, coordinates = 'cartesian', accuracy = 2, stepsize = NULL, drop = TRUE, ...){
+
+  if(is.function(f)){
+
     n <- length(var)
-    h <- sf(var = x, coordinates = coordinates)
     
-    if(!is.null(h)){
+    qvar <- var
+    q <- paste0("q",1:n)
+    names(qvar) <- q
+    
+    h <- sf(var = q, coordinates = coordinates)
+    
+    if(is.null(h)){
       
-      H <- as.numeric(evaluate(paste0(h, collapse = "*"), as.list(var)))
-      
-      if(n==1) 
-        h <- sprintf("1/%s", h)
-      else
-        h <- sapply(1:n, function(i) sprintf("(%s)/%s", paste0(h[-i], collapse = "*"), h[i]))
-      
-      d.h <- sapply(1:n, function(i) {
-        o <- rep(0, n)
-        o[i] <- 1
-        derivative(f = h[i], var = var, order = o)[[1]]
-      })
-      
-      h <- evaluate(h, as.list(var))
+      ddf.di <- derivative(f = f, var = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      L <- rowSums(ddf.di, dims = length(dim(ddf.di))-1)
       
     }
+    else{
+     
+      J <- paste0(h, collapse = "*")
+      
+      if(n==1)
+        h <- sprintf("1/%s", h)
+      else
+        h <- sapply(1:n, function(i) sprintf("%s/%s", paste0(h[-i], collapse = "*"), h[i]))
+      
+      h.i <- evaluate(h, as.list(qvar))
+      index(h.i) <- "i"
+      
+      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(dh.i) <- c("i","i")
+      
+      df.di <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(df.di)[length(dim(df.di))] <- "i"
+      
+      ddf.di <- derivative(f = f, var = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      index(ddf.di)[length(dim(ddf.di))] <- "i"
+      
+      L <- (einstein(df.di, dh.i) + einstein(ddf.di, h.i)) / eval(parse(text = J), as.list(qvar))
+       
+    }
     
-    nabla <- sapply(f, function(f){
+  }
+  else {
     
-      sum(sapply(1:n, function(i){
-        
-        o <- rep(0, n)
-        o[i] <- 2
-        d.ff <- DD.n(f = f, x0 = var, order = o, accuracy = accuracy, stepsize = stepsize)
-        
-        if(is.null(h))
-          return(d.ff)
-          
-        o <- rep(0, n)
-        o[i] <- 1
-        d.f <- DD.n(f = f, x0 = var, order = o, accuracy = accuracy, stepsize = stepsize)
-        
-        return((d.h[i]*d.f + h[i]*d.ff)/H)
-        
-      }))
-        
-    })
+    x <- names(var)
+    if(is.null(x))
+      x <- var
     
-    return(array(nabla, dim = dim(f)))
+    g <- gradient(f = f, var = x, coordinates = coordinates, drop = FALSE)
+    L <- divergence(g, var = var, coordinates = coordinates, drop = drop)
     
   }
   
-  return(divergence(gradient(f = f, var = x, coordinates = coordinates), var = var, coordinates = coordinates))
+  index(L) <- NULL
+  if(drop & length(L)==1)
+    dim(L) <- NULL
+  
+  return(L)
   
 }
 

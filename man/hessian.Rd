@@ -5,7 +5,15 @@
 \alias{\%hessian\%}
 \title{Numerical and Symbolic Hessian}
 \usage{
-hessian(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
+hessian(
+  f,
+  var,
+  coordinates = "cartesian",
+  accuracy = 2,
+  stepsize = NULL,
+  drop = TRUE,
+  ...
+)
 
 f \%hessian\% var
 }
@@ -14,11 +22,15 @@ f \%hessian\% var
 
 \item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
 
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{drop}{drop dimensions when...}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 hessian matrix.

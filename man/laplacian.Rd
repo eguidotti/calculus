@@ -5,7 +5,15 @@
 \alias{\%laplacian\%}
 \title{Numerical and Symbolic Laplacian}
 \usage{
-laplacian(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
+laplacian(
+  f,
+  var,
+  coordinates = "cartesian",
+  accuracy = 2,
+  stepsize = NULL,
+  drop = TRUE,
+  ...
+)
 
 f \%laplacian\% var
 }
@@ -14,11 +22,15 @@ f \%laplacian\% var
 
 \item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
 
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{drop}{drop dimensions when...}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 laplacian array.
@@ -43,11 +55,6 @@ f \%laplacian\% c('x','y','z')
 f <- c('x^2','y^3','z^4')
 laplacian(f, var = c('x','y','z'))
 f \%laplacian\% c('x','y','z')
-
-# numerical laplacian of scalar fields
-f <- c(function(x,y,z) x^2, function(x,y,z) y^3, function(x,y,z) z^4)
-laplacian(f, var = c('x'=1,'y'=1,'z'=1))
-f \%laplacian\% c('x'=1,'y'=1,'z'=1)
 
 # laplacian of array of scalar fields
 f1 <- c('x^2','y^3','z^4')

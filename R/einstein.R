@@ -104,8 +104,9 @@ einstein <- function(..., drop = TRUE){
       
     } else {
       
-      if(getOption('calculus.auto.wrap', default = TRUE))
-        y <- wrap(y)
+      if(!is.numeric(y))
+        if(getOption('calculus.auto.wrap', default = TRUE))
+          y <- wrap(y)
       
       z <- cpp_einstein(x = as.character(x), y = as.character(y), dim = x.dim[j.x], drop = (drop && all(j.drop)))
       

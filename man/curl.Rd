@@ -5,7 +5,15 @@
 \alias{\%curl\%}
 \title{Numerical and Symbolic Curl}
 \usage{
-curl(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
+curl(
+  f,
+  var,
+  coordinates = "cartesian",
+  accuracy = 2,
+  stepsize = NULL,
+  drop = TRUE,
+  ...
+)
 
 f \%curl\% var
 }
@@ -14,11 +22,15 @@ f \%curl\% var
 
 \item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
 
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{drop}{drop dimensions when...}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 curl array.
@@ -45,16 +57,9 @@ curl(f, var = c('x','y','z'))
 f \%curl\% c('x','y','z')
 
 # numerical curl of a vector field
-f <- c(function(x,y,z) x*y, function(x,y,z) y*z, function(x,y,z) x*z)
+f <- function(x,y,z) c(x*y, y*z, x*z)
 curl(f, var = c('x'=1,'y'=1,'z'=1))
 f \%curl\% c('x'=1,'y'=1,'z'=1)
-
-# curl of array of vector fields
-f1 <- c('x*y','y*z','z*x')
-f2 <- c('x','-y','z')
-a <- matrix(c(f1,f2), nrow = 2, byrow = TRUE)
-curl(a, var = c('x','y','z'))
-a \%curl\% c('x','y','z')
 
 # curl in polar coordinates
 f <- c('sqrt(r)/10','sqrt(r)')

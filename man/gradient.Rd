@@ -5,7 +5,15 @@
 \alias{\%gradient\%}
 \title{Numerical and Symbolic Gradient}
 \usage{
-gradient(f, var, accuracy = 2, stepsize = NULL, coordinates = "cartesian")
+gradient(
+  f,
+  var,
+  coordinates = "cartesian",
+  accuracy = 2,
+  stepsize = NULL,
+  drop = TRUE,
+  ...
+)
 
 f \%gradient\% var
 }
@@ -14,11 +22,15 @@ f \%gradient\% var
 
 \item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
 
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
 \item{accuracy}{accuracy degree for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{drop}{drop dimensions when...}
+
+\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 gradient or jacobian array.
@@ -52,7 +64,7 @@ gradient(f = f, var = c("x","y"))
 f \%gradient\% c("x","y")
 
 # jacobian with respect to (x,y) and evaluate in (x = 0, y = 0)
-f <- c(function(x, y) y*sin(x), function(x, y) x*cos(y))
+f <- function(x, y) c(y*sin(x), x*cos(y))
 gradient(f = f, var = c(x=0,y=0))
 f \%gradient\% c(x=0,y=0)
 

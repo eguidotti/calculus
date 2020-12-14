@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/eguidotti/calculus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -144,7 +144,9 @@
   order <span class='op'>=</span> <span class='fl'>1</span>,
   accuracy <span class='op'>=</span> <span class='fl'>2</span>,
   stepsize <span class='op'>=</span> <span class='cn'>NULL</span>,
-  deparse <span class='op'>=</span> <span class='cn'>TRUE</span>
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  deparse <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -152,11 +154,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>f</th>
-      <td><p>function, expression or character array.</p></td>
+      <td><p><code>function</code> returning a vector, matrix, or array; <code>array</code> of <code>character</code>; or <code>array</code> of <code>expression</code>.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point. See examples.</p></td>
+      <td><p>character vector, giving the variable names with respect to which the derivatives are computed. If a named vector is provided, the derivatives will be computed at that point. See examples.</p></td>
     </tr>
     <tr>
       <th>order</th>
@@ -164,15 +166,23 @@
     </tr>
     <tr>
       <th>accuracy</th>
-      <td><p>accuracy degree for numerical derivatives.</p></td>
+      <td><p>degree of accuracy for numerical derivatives.</p></td>
     </tr>
     <tr>
       <th>stepsize</th>
       <td><p>finite differences stepsize for numerical derivatives. Auto-optimized by default.</p></td>
     </tr>
     <tr>
+      <th>drop</th>
+      <td><p>drop dimensions when...</p></td>
+    </tr>
+    <tr>
       <th>deparse</th>
-      <td><p>logical. Return character instead of expression or call?</p></td>
+      <td><p>logical. Return <code>character</code> instead of <code>expression</code>? Default <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additinal arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
     </table>
 
@@ -181,64 +191,59 @@
     <p>array of derivatives.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function behaves differently depending on the length of the <code>order</code> argument.</p>
-<p>If <code>order</code> is of length 1, then the n-th order derivative is computed for each function with respect to each 
+    <p>The function behaves differently depending on the arguents <code>order</code> and <code>var</code>.</p>
+<p>If <code>order</code> is an integer and more than one <code>var</code> are provided, then the n-th order derivative is computed for each element with respect to each 
 variable.
 $$D = \partial^{(n)} \otimes F \rightarrow D_{i,.,j,k,.,l} = \partial^{(n)}_{k,.,l} F_{i,.,j}$$
-where \(F\) is the tensor of functions and \(\partial\) is the tensor of variable names with respect to which 
-the \(n\)-th order derivatives will be computed.</p>
-<p>If <code>order</code> matches the length of <code>var</code>, then it is assumed that the differentiation order is provided
-for each variable. In this case, each function will be derived \(n_i\) times with respect to the \(i\)-th variable, 
+where \(F\) is a tensor of functions and \(\partial\) is the tensor of variable names with respect to which 
+the \(n\)-th order derivatives are computed.</p>
+<p>If <code>order</code> is a named vector, or it matches the length of <code>var</code>, then it is assumed that the differentiation order is provided
+for each variable. In this case, each element is derived \(n_i\) times with respect to the \(i\)-th variable, 
 for each of the \(j\) variables.
 $$D = \partial^{(n_1)}_1\partial^{(...)}_{...}\partial^{(n_i)}_i\partial^{(...)}_{...}\partial^{(n_j)}_j F$$
 where \(F\) is the tensor of functions to differentiate.</p>
 <p>If <code>var</code> is a named vector, e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(x = 0, y = 0)</a></code>, derivatives will be computed at that point. 
-Note that if <code>f</code> is a function, then <code>var</code> must be a named vector giving the point at which the numerical derivatives will be computed.</p>
+Note that if <code>f</code> is a function, then <code>var</code> must be a named vector giving the point in which the numerical derivatives have to be computed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># derive f with respect to x</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"sin(x)"</span>, var <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        [,1]    
-#&gt; sin(x) "cos(x)"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "cos(x)"</div><div class='input'>
 <span class='co'># derive f with respect to x and evaluate in x = 0</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span> <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1]
-#&gt; [1,]    1</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
+<span class='co'># derive a generica function f with respect to x, in x = 0</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
 <span class='co'># derive f twice with respect to x</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"sin(x)"</span>, var <span class='op'>=</span> <span class='st'>"x"</span>, order <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        [,1]     
-#&gt; sin(x) "-sin(x)"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "-sin(x)"</div><div class='input'>
 <span class='co'># derive f once with respect to x, and twice with respect to y</span>
-<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            [,1]        
-#&gt; y^2*sin(x) "2 * cos(x)"</div><div class='input'>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2 * cos(x)"</div><div class='input'><span class='co'># or equivalently</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span>, y <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2 * cos(x)"</div><div class='input'>
+<span class='co'># derive f twice with respect to y only</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='st'>"y"</span>, order <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2 * sin(x)"</div><div class='input'><span class='co'># or equivalently</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2 * sin(x)"</div><div class='input'><span class='co'># or equivalently</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2 * sin(x)"</div><div class='input'>
 <span class='co'># compute the gradient of f with respect to (x,y)</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;          [,1]         [,2]    
-#&gt; y*sin(x) "y * cos(x)" "sin(x)"</div><div class='input'>
+</div><div class='output co'>#&gt;      [,1]         [,2]    
+#&gt; [1,] "y * cos(x)" "sin(x)"</div><div class='input'>
 <span class='co'># compute the Jacobian of f with respect to (x,y)</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y*sin(x)"</span>, <span class='st'>"x*cos(y)"</span><span class='op'>)</span>
 <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;          [,1]         [,2]           
-#&gt; y*sin(x) "y * cos(x)" "sin(x)"       
-#&gt; x*cos(y) "cos(y)"     "-(x * sin(y))"</div><div class='input'>
-<span class='co'># compute the Hessian of f with respect to (x,y)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y^2*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>g</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , 1
-#&gt; 
-#&gt;      [,1]              [,2]            
-#&gt; [1,] "-(y^2 * sin(x))" "2 * y * cos(x)"
-#&gt; 
-#&gt; , , 2
-#&gt; 
-#&gt;      [,1]             [,2]        
-#&gt; [1,] "2 * y * cos(x)" "2 * sin(x)"
-#&gt; </div><div class='input'>
-<span class='co'># compute the Jacobian of f with respect to (x,y) and evaluate in (0,0)</span>
-<span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='va'>y</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-<span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span><span class='op'>=</span><span class='fl'>0</span>,<span class='st'>"y"</span><span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]         [,2]           
+#&gt; [1,] "y * cos(x)" "sin(x)"       
+#&gt; [2,] "cos(y)"     "-(x * sin(y))"</div><div class='input'>
+<span class='co'># compute the Jacobian of a generic function f with respect to (x,y) in (0,0) </span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='va'>x</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>derivative</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>0</span>, y <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    0    0
 #&gt; [2,]    1    0</div><div class='input'>

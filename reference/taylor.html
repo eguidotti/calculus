@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/eguidotti/calculus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -138,7 +138,7 @@
     <p>Computes the Taylor series for functions, expressions or characters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='st'>"x"</span>, order <span class='op'>=</span> <span class='fl'>1</span>, accuracy <span class='op'>=</span> <span class='fl'>2</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='st'>"x"</span>, order <span class='op'>=</span> <span class='fl'>1</span>, accuracy <span class='op'>=</span> <span class='fl'>2</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,6 +162,10 @@
     <tr>
       <th>stepsize</th>
       <td><p>finite differences stepsize for numerical derivatives. Auto-optimized by default.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments to <code>f</code>.</p></td>
     </tr>
     </table>
 
@@ -194,7 +198,7 @@
 <span class='co'># univariate taylor series of arbitrary functions</span>
 <span class='fu'>taylor</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='st'>'x'</span>, order <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $f
-#&gt; [1] "(1) * 1 + (1.00000000248338) * x^1 + (0.499999999915303) * x^2 + (0.166769224538825) * x^3"
+#&gt; [1] "(1) * 1 + (1.00000000001439) * x^1 + (0.500000252309588) * x^2 + (0.166680509794145) * x^3"
 #&gt; 
 #&gt; $order
 #&gt; [1] 3
@@ -203,8 +207,8 @@
 #&gt;   var      coef degree
 #&gt; 0   1 1.0000000      0
 #&gt; 1 x^1 1.0000000      1
-#&gt; 2 x^2 0.5000000      2
-#&gt; 3 x^3 0.1667692      3
+#&gt; 2 x^2 0.5000003      2
+#&gt; 3 x^3 0.1666805      3
 #&gt; </div><div class='input'>
 <span class='co'># multivariate taylor series </span>
 <span class='fu'>taylor</span><span class='op'>(</span><span class='st'>'sin(x*y)'</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
@@ -248,7 +252,7 @@
 <span class='co'># multivariate taylor series of arbitrary functions</span>
 <span class='fu'>taylor</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>*</span><span class='va'>y</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $f
-#&gt; [1] "(0.999999997516473) * x^1*y^1 + (4.44089209850062e-15) * x^1*y^2 + (4.44089209850062e-15) * x^2*y^1 + (-0.00184136771422416) * x^1*y^3 + (-0.00184136771422416) * x^3*y^1 + (5.91645678915759e-30) * x^2*y^2 + (-3.01980662698043e-14) * x^1*y^4 + (-3.01980662698043e-14) * x^4*y^1 + (-5.9211894646675e-15) * x^2*y^3 + (-3.46944695195361e-18) * x^3*y^2 + (2.04897128321946e-05) * x^1*y^5 + (2.04897128321946e-05) * x^5*y^1 + (-1.22273440309257e-29) * x^2*y^4 + (-8.67746995743112e-30) * x^4*y^2 + (-0.166154533034737) * x^3*y^3"
+#&gt; [1] "(0.999999999993889) * x^1*y^1 + (-0.00041012992923167) * x^1*y^3 + (-0.00041012992923167) * x^3*y^1 + (2.76822776384238e-06) * x^1*y^5 + (2.76822776384238e-06) * x^5*y^1 + (-0.16659746296504) * x^3*y^3"
 #&gt; 
 #&gt; $order
 #&gt; [1] 6
@@ -263,26 +267,26 @@
 #&gt; 1,1 x^1*y^1  1.000000e+00      2
 #&gt; 0,3     y^3  0.000000e+00      3
 #&gt; 3,0     x^3  0.000000e+00      3
-#&gt; 1,2 x^1*y^2  4.440892e-15      3
-#&gt; 2,1 x^2*y^1  4.440892e-15      3
+#&gt; 1,2 x^1*y^2  0.000000e+00      3
+#&gt; 2,1 x^2*y^1  0.000000e+00      3
 #&gt; 0,4     y^4  0.000000e+00      4
 #&gt; 4,0     x^4  0.000000e+00      4
-#&gt; 1,3 x^1*y^3 -1.841368e-03      4
-#&gt; 3,1 x^3*y^1 -1.841368e-03      4
-#&gt; 2,2 x^2*y^2  5.916457e-30      4
+#&gt; 1,3 x^1*y^3 -4.101299e-04      4
+#&gt; 3,1 x^3*y^1 -4.101299e-04      4
+#&gt; 2,2 x^2*y^2  0.000000e+00      4
 #&gt; 0,5     y^5  0.000000e+00      5
 #&gt; 5,0     x^5  0.000000e+00      5
-#&gt; 1,4 x^1*y^4 -3.019807e-14      5
-#&gt; 4,1 x^4*y^1 -3.019807e-14      5
-#&gt; 2,3 x^2*y^3 -5.921189e-15      5
-#&gt; 3,2 x^3*y^2 -3.469447e-18      5
+#&gt; 1,4 x^1*y^4  0.000000e+00      5
+#&gt; 4,1 x^4*y^1  0.000000e+00      5
+#&gt; 2,3 x^2*y^3  0.000000e+00      5
+#&gt; 3,2 x^3*y^2  0.000000e+00      5
 #&gt; 0,6     y^6  0.000000e+00      6
 #&gt; 6,0     x^6  0.000000e+00      6
-#&gt; 1,5 x^1*y^5  2.048971e-05      6
-#&gt; 5,1 x^5*y^1  2.048971e-05      6
-#&gt; 2,4 x^2*y^4 -1.222734e-29      6
-#&gt; 4,2 x^4*y^2 -8.677470e-30      6
-#&gt; 3,3 x^3*y^3 -1.661545e-01      6
+#&gt; 1,5 x^1*y^5  2.768228e-06      6
+#&gt; 5,1 x^5*y^1  2.768228e-06      6
+#&gt; 2,4 x^2*y^4  0.000000e+00      6
+#&gt; 4,2 x^4*y^2  0.000000e+00      6
+#&gt; 3,3 x^3*y^3 -1.665975e-01      6
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/eguidotti/calculus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -138,7 +138,15 @@
     <p>Computes the divergence of functions, expressions and characters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>divergence</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, accuracy <span class='op'>=</span> <span class='fl'>2</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span>, coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>divergence</span><span class='op'>(</span>
+  <span class='va'>f</span>,
+  <span class='va'>var</span>,
+  coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>,
+  accuracy <span class='op'>=</span> <span class='fl'>2</span>,
+  stepsize <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='va'>f</span> <span class='op'>%divergence%</span> <span class='va'>var</span></pre>
 
@@ -154,6 +162,10 @@
       <td><p>character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.</p></td>
     </tr>
     <tr>
+      <th>coordinates</th>
+      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each varibale.</p></td>
+    </tr>
+    <tr>
       <th>accuracy</th>
       <td><p>accuracy degree for numerical derivatives.</p></td>
     </tr>
@@ -162,8 +174,12 @@
       <td><p>finite differences stepsize for numerical derivatives. Auto-optimized by default.</p></td>
     </tr>
     <tr>
-      <th>coordinates</th>
-      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each varibale.</p></td>
+      <th>drop</th>
+      <td><p>drop dimensions when...</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additinal arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
     </table>
 
@@ -185,21 +201,14 @@
 </div><div class='output co'>#&gt; [1] "2 * x + 3 * y^2 + 4 * z^3"</div><div class='input'><span class='va'>f</span> <span class='op'>%divergence%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span>,<span class='st'>'z'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "2 * x + 3 * y^2 + 4 * z^3"</div><div class='input'>
 <span class='co'># numerical divergence of a vector field</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>,<span class='va'>z</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>,<span class='va'>z</span><span class='op'>)</span> <span class='va'>y</span><span class='op'>^</span><span class='fl'>3</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>,<span class='va'>z</span><span class='op'>)</span> <span class='va'>z</span><span class='op'>^</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>,<span class='va'>z</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span>, <span class='va'>y</span><span class='op'>^</span><span class='fl'>3</span>, <span class='va'>z</span><span class='op'>^</span><span class='fl'>4</span><span class='op'>)</span>
 <span class='fu'>divergence</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>'y'</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>'z'</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='va'>f</span> <span class='op'>%divergence%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>'y'</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>'z'</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 9</div><div class='input'>
-<span class='co'># divergence of array of vector fields</span>
-<span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x^2'</span>,<span class='st'>'y^3'</span>,<span class='st'>'z^4'</span><span class='op'>)</span>
-<span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span>,<span class='st'>'z'</span><span class='op'>)</span>
-<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>f1</span>,<span class='va'>f2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>2</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>divergence</span><span class='op'>(</span><span class='va'>a</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span>,<span class='st'>'z'</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2 * x + 3 * y^2 + 4 * z^3" "1 + 1 + 1"                </div><div class='input'><span class='va'>a</span> <span class='op'>%divergence%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span>,<span class='st'>'z'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2 * x + 3 * y^2 + 4 * z^3" "1 + 1 + 1"                </div><div class='input'>
 <span class='co'># divergence in polar coordinates</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'sqrt(r)/10'</span>,<span class='st'>'sqrt(r)'</span><span class='op'>)</span>
 <span class='fu'>divergence</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'r'</span>,<span class='st'>'phi'</span><span class='op'>)</span>, coordinates <span class='op'>=</span> <span class='st'>'polar'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "(0.5 * r^-0.5/10 * (r) + (sqrt(r)/10))/(1*r)"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "(0.5 * r^-0.5/10 * r + (sqrt(r)/10)) / (1*r)"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

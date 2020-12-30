@@ -9,7 +9,7 @@ gradient(
   f,
   var,
   coordinates = "cartesian",
-  accuracy = 2,
+  accuracy = 4,
   stepsize = NULL,
   drop = TRUE,
   ...
@@ -18,61 +18,68 @@ gradient(
 f \%gradient\% var
 }
 \arguments{
-\item{f}{function, expression or character array.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{drop}{drop dimensions when...}
+\item{drop}{if \code{TRUE}, return the gradient as a vector and not as an \code{array} for scalar-valued functions.}
 
-\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-gradient or jacobian array.
+Gradient vector for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 }
 \description{
-Computes the gradient or jacobian of functions, expressions and characters.
+Computes the numerical gradient of \code{functions} or the symbolic gradient of \code{characters} 
+in arbitrary orthogonal coordinate systems.
+}
+\details{
+The gradient of a scalar-valued function \eqn{F} is the vector 
+\eqn{(\nabla F)_i} whose components are the partial derivatives of \eqn{F} 
+with respect to each variable \eqn{i}. 
+The \code{gradient} is computed in arbitrary orthogonal coordinate systems using the 
+scale factors \eqn{h_i}:
+
+\deqn{(\nabla F)_i = \frac{1}{h_i}\partial_iF}
+
+When the function \eqn{F} is a tensor-valued function \eqn{F_{d_1,\dots,d_n}}, 
+the \code{gradient} is computed for each scalar component. In particular, it becomes
+the Jacobian matrix for vector-valued function.
+
+\deqn{(\nabla F_{d_1,\dots,d_n})_i = \frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}}
 }
 \section{Functions}{
 \itemize{
-\item \code{gradient}: arbitrary coordinate system
-
-\item \code{\%gradient\%}: cartesian coordinates
+\item \code{\%gradient\%}: binary operator with default parameters.
 }}
 
 \examples{
-# gradient with respect to x
-gradient(f = "sin(x)", var = "x")
-"sin(x)" \%gradient\% "x"
+### symbolic gradient 
+gradient("x*y*z", var = c("x", "y", "z"))
 
-# gradient with respect to x and evaluate in x = 0
-gradient(f = "sin(x)", var = c("x" = 0))
-"sin(x)" \%gradient\% c(x=0)
+### numerical gradient in (x=1, y=2, z=3)
+f <- function(x, y, z) x*y*z
+gradient(f = f, var = c(x=1, y=2, z=3))
 
-# gradient with respect to (x,y)
-gradient(f = "y*sin(x)", var = c("x","y"))
-"y*sin(x)" \%gradient\% c("x","y")
+### vectorized interface
+f <- function(x) x[1]*x[2]*x[3]
+gradient(f = f, var = c(1, 2, 3))
 
-# jacobian with respect to (x,y)
+### symbolic vector-valued functions
 f <- c("y*sin(x)", "x*cos(y)")
 gradient(f = f, var = c("x","y"))
-f \%gradient\% c("x","y")
 
-# jacobian with respect to (x,y) and evaluate in (x = 0, y = 0)
-f <- function(x, y) c(y*sin(x), x*cos(y))
-gradient(f = f, var = c(x=0,y=0))
-f \%gradient\% c(x=0,y=0)
+### numerical vector-valued functions
+f <- function(x) c(sum(x), prod(x))
+gradient(f = f, var = c(0,0,0))
 
-# gradient in spherical coordinates
-gradient('r*theta*phi', var = c('r','theta','phi'), coordinates = 'spherical')
-
-# numerical gradient in spherical coordinates
-f <- function(r, theta, phi) r*theta*phi
-gradient(f, var = c('r'=1, 'theta'=pi/4, 'phi'=pi/4), coordinates = 'spherical')
+### binary operator
+"x*y^2" \%gradient\% c(x=1, y=3)
 
 }

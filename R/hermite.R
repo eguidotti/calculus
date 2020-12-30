@@ -2,42 +2,48 @@
 #' 
 #' Computes univariate and multivariate Hermite polynomials.
 #' 
-#' @param order integer. The order of the Hermite polynomial.
-#' @param sigma the covariance matrix of the Gaussian kernel.
-#' @param var character. The variables of the polynomial.
-#' @param transform character. Variables transformation: where to compute the function. 
+#' @param order the order of the Hermite polynomial.
+#' @param sigma the covariance \code{matrix} of the Gaussian kernel.
+#' @param var \code{character} vector giving the variables of the polynomial.
+#' @param transform \code{character} vector representing a change of variables. See details.
 #' 
-#' @details 
-#' Hermite polynomials are obtained by successive differentiation of the Gaussian kernel
-#' \deqn{H_{\nu}(x,\Sigma) = exp \Bigl( \frac{1}{2} x^\dagger \Sigma x \Bigl) (- \partial_x )^\nu exp \Bigl( -\frac{1}{2} x^\dagger \Sigma x \Bigl)}
-#' where \eqn{\Sigma} is a d-dimensional square matrix and \eqn{\nu=(\nu_1, ..., \nu_d)} is the vector representing the order of differentiation for each variable.
+#' @details Hermite polynomials are obtained by differentiation of the Gaussian kernel:
+#' 
+#' \deqn{H_{\nu}(x,\Sigma) = exp \Bigl( \frac{1}{2} x_i \Sigma_{ij} x_j \Bigl) (- \partial_x )^\nu exp \Bigl( -\frac{1}{2} x_i \Sigma_{ij} x_j \Bigl)}
+#' 
+#' where \eqn{\Sigma} is a \eqn{d}-dimensional square matrix and 
+#' \eqn{\nu=(\nu_1 \dots \nu_d)} is the vector representing the order of 
+#' differentiation for each variable \eqn{x = (x_1\dots x_d)}. 
+#' In the case where \eqn{\Sigma=1} and \eqn{x=x_1} the formula reduces to the 
+#' standard univariate Hermite polynomials:
+#' 
+#' \deqn{H_{\nu}(x) = e^{\frac{x^2}{2}}(-1)^\nu \frac{d^\nu}{dx^\nu}e^{-\frac{x^2}{2}}}
+#' 
+#' If \code{transform} is not \code{NULL}, the variables \code{var} \eqn{x} are replaced with
+#' \code{transform} \eqn{f(x)} to compute the polynomials \eqn{H_{\nu}(f(x),\Sigma)}
 #' 
 #' @return 
-#' list of Hermite polynomials with components
+#' \code{list} of Hermite polynomials with components:
 #' \describe{
 #'  \item{f}{the Hermite polynomial.}
 #'  \item{order}{the order of the Hermite polynomial.}
-#'  \item{terms}{data.frame containing the variables, coefficients and degrees of each term in the Hermite polynomial.}
+#'  \item{terms}{\code{data.frame} containing the variables, coefficients and degrees of each term in the Hermite polynomial.}
 #' }
 #' 
 #' @examples
-#' # univariate Hermite polynomials up to order 3
+#' ### univariate Hermite polynomials up to order 3
 #' hermite(3)
-#' 
-#' # univariate Hermite polynomials with variable z
-#' hermite(3, var = 'z')
-#' 
-#' # multivariate Hermite polynomials up to order 2
+#'
+#' ### multivariate Hermite polynomials up to order 2
 #' hermite(order = 2, 
 #'         sigma = matrix(c(1,0,0,1), nrow = 2), 
 #'         var = c('z1', 'z2'))
 #'         
-#' # multivariate Hermite polynomials with transformation of variables
+#' ### multivariate Hermite polynomials with transformation of variables
 #' hermite(order = 2, 
 #'         sigma = matrix(c(1,0,0,1), nrow = 2), 
 #'         var = c('z1', 'z2'),
 #'         transform = c('z1+z2','z1-z2'))
-#'         
 #'         
 #' @export
 #' 

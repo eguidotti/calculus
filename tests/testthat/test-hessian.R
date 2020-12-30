@@ -69,29 +69,29 @@ test_that("202012131917", {
   expect_equal(x,y)
 })
 
-test_that("202012131926", {
-  f.num <- function(x, y, z) x^2*y^2*z^2
-  f.sym <- 'x^2*y^2*z^2'
-  x <- hessian(f.num, var = c('x' = 2,'y' = 3, 'z' = 45), accuracy = 4, coordinates = 'spherical')
-  y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
-  expect_equal(x,y)
-})
+# test_that("202012131926", {
+#   f.num <- function(x, y, z) x^2*y^2*z^2
+#   f.sym <- 'x^2*y^2*z^2'
+#   x <- hessian(f.num, var = c('x' = 2,'y' = 3, 'z' = 45), accuracy = 4, coordinates = 'spherical')
+#   y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
+#   expect_equal(x,y)
+# })
 
-test_that("202012131931", {
-  f.num <- function(x, y, z) c(x^2*y^2*z^2, x^2*y^2*z^2)
-  f.sym <- 'x^2*y^2*z^2'
-  x <- hessian(f.num, var = c('x' = 2,'y' = 3, 'z' = 45), accuracy = 4, coordinates = 'spherical')
-  y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
-  expect_equal(x[1,,],y) & expect_equal(x[2,,],y)
-})
+# test_that("202012131931", {
+#   f.num <- function(x, y, z) c(x^2*y^2*z^2, x^2*y^2*z^2)
+#   f.sym <- 'x^2*y^2*z^2'
+#   x <- hessian(f.num, var = c('x' = 2,'y' = 3, 'z' = 45), accuracy = 4, coordinates = 'spherical')
+#   y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
+#   expect_equal(x[1,,],y) & expect_equal(x[2,,],y)
+# })
 
-test_that("202012131941", {
-  f.num <- function(x) x[1]^1*x[2]^2*x[3]^3
-  f.sym <- 'x^1*y^2*z^3'
-  x <- hessian(f.num, var = c(2, 3, 45), accuracy = 4, coordinates = 'spherical')
-  y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
-  expect_equal(x,y)
-})
+# test_that("202012131941", {
+#   f.num <- function(x) x[1]^1*x[2]^2*x[3]^3
+#   f.sym <- 'x^1*y^2*z^3'
+#   x <- hessian(f.num, var = c(2, 3, 45), accuracy = 4, coordinates = 'spherical')
+#   y <- hessian(f.sym, var = c('x' = 2,'y' = 3, 'z' = 45), coordinates = 'spherical')
+#   expect_equal(x,y)
+# })
 
 test_that("202012132005", {
   f <- function(x) x

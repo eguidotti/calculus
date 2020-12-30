@@ -1,8 +1,8 @@
-#' Wrap Character
+#' Wrap Characters in Parentheses
 #' 
-#' Wraps characters in round brackets.
+#' Wraps \code{characters} in round brackets.
 #' 
-#' @param x characters
+#' @param x \code{character}.
 #' 
 #' @details Characters are automatically wrapped when performing basic symbolic operations to prevent unwanted results. E.g.: 
 #' \deqn{a+b * c+d} 
@@ -10,13 +10,13 @@
 #' \deqn{(a+b) * (c+d)}
 #' To disable this behaviour run \code{options(calculus.auto.wrap = FALSE)}.
 #' 
-#' @return wrapped characters.
+#' @return \code{character}.
 #' 
 #' @examples
-#' # wrap characters
-#' wrap('a+b')
+#' ### wrap characters
+#' wrap("a+b")
 #' 
-#' # wrap array of characters
+#' ### wrap array of characters
 #' wrap(array(letters[1:9], dim = c(3,3)))
 #' 
 #' @export
@@ -28,32 +28,28 @@ wrap <- function(x){
   
 }
 
-
-
-#' Expression to Character
+#' Expressions to Characters
 #' 
-#' Converts expressions to characters
+#' Converts \code{expressions} to \code{characters}.
 #' 
-#' @param x expressions
+#' @param x \code{expression}.
 #' 
-#' @return characters.
+#' @return \code{character}.
 #' 
 #' @examples
-#' # convert expressions
-#' expr <- parse(text = 'a')
+#' ### convert expressions
+#' expr <- parse(text = "a")
 #' e2c(expr)
 #' 
-#' # convert array of expressions
-#' expr <- array(parse(text = 'a'), dim = c(2,2))
+#' ### convert array of expressions
+#' expr <- array(parse(text = "a"), dim = c(2,2))
 #' e2c(expr)
-#' 
-#' @seealso \code{\link{c2e}}
 #' 
 #' @export
 #' 
 e2c <- function(x){
   
-  char <- gsub(x = gsub(x = c(x), pattern = '\\s*\\\n\\s*', replacement = ' '), pattern = ' +', ' ')
+  char <- gsub(x = c(x), pattern = '\\s*\\\n\\s*', replacement = ' ')
   
   if(is.array(x)) 
     x <- array(char, dim = dim(x))
@@ -64,24 +60,20 @@ e2c <- function(x){
   
 }
 
-
-
-#' Character to Expression
+#' Characters to Expressions
 #' 
-#' Converts characters to expressions
+#' Converts \code{characters} to \code{expressions}.
 #' 
-#' @param x characters
+#' @param x \code{character}.
 #' 
-#' @return expressions.
+#' @return \code{expression}.
 #' 
 #' @examples
-#' # convert characters
-#' c2e('a')
+#' ### convert characters
+#' c2e("a")
 #' 
-#' # convert array of characters
-#' c2e(array('a', dim = c(2,2)))
-#' 
-#' @seealso \code{\link{e2c}}
+#' ### convert array of characters
+#' c2e(array("a", dim = c(2,2)))
 #' 
 #' @export
 #' 
@@ -98,47 +90,40 @@ c2e <- function(x){
   
 }
 
-
-
-#' Einstein Notation Indices
+#' Tensor Indices
 #' 
-#' Get and set indices: names of the array's dimensions. See also \code{\link{einstein}}.
+#' Functions to get or set the names of the dimensions of an \code{array}. 
 #' 
-#' @describeIn index get indices.
+#' @param x \code{array}.
 #' 
-#' @param x array.
-#' @param value vector of indices.
-#' 
-#' @return array indices.
+#' @return Vector of indices.
 #' 
 #' @examples
-#' # define array
-#' a <- array(1, dim = c(1,3,2))
+#' ### array with no indices
+#' x <- array(1, dim = c(1, 3, 2))
+#' index(x)
 #' 
-#' # get indices
-#' index(a)
-#' 
-#' # set indices
-#' index(a) <- c('i', 'j', 'k')
-#' 
-#' # get indices
-#' index(a)
-#' 
-#' # dimensions
-#' dim(a)
-#' 
-#' @seealso \code{\link{einstein}}, \code{\link[base]{dim}}
+#' ### indices on initialization
+#' x <- array(1, dim = c(i=1, j=3, k=2))
+#' index(x)
 #' 
 #' @export
 #' 
 index <- function(x){
-  
-  return(names(dim(x)))
+
+  names(dim(x))
   
 }
 
-
 #' @describeIn index set indices.
+#' 
+#' @param value vector of indices.
+#' 
+#' @examples 
+#' ### set indices on the fly
+#' x <- array(1, dim = c(1, 3, 2))
+#' index(x) <- c("i", "j", "k")
+#' index(x)
 #' 
 #' @export
 #' 
@@ -152,81 +137,56 @@ index <- function(x){
   
 }
 
-
-
-
 #' Tensor Diagonals
 #' 
-#' Extracts or replace the diagonal of a tensor, or construct a diagonal tensor.
+#' Functions to extract or replace the diagonals of an \code{array}, or construct a diagonal \code{array}.
 #' 
-#' @describeIn diag get diagonals.
+#' @param x an \code{array}, or vector giving the values of the diagonal entries.
+#' @param dim the dimensions of the (square) \code{array}. 
 #' 
-#' @param x array, vector or integer.
-#' @param dim the dimension of the tensor. 
-#' @param value the value for the diagonal elements.
-#' 
-#' 
-#' @return array diagonals.
+#' @return Vector of the diagonal entries of \code{x} if \code{x} is an \code{array}. 
+#' If \code{x} is a vector, returns the diagonal \code{array} with the 
+#' entries given by \code{x}.
 #' 
 #' @examples 
-#' # construct a diagonal 2x2 matrix
-#' diag(2)
+#' ### 3x3 matrix
+#' diagonal(x = 1, dim = c(3,3))
 #'
-#' # construct a diagonal 2x2x2 tensor
-#' diag(2, dim = 3)
+#' ### 2x2x2 array
+#' diagonal(x = 1:2, dim = c(2,2,2))
 #' 
-#' # construct a diagonal 2x2x2 tensor with values 3 and 4
-#' diag(2, dim = 3, value = c(3,4))
-#'   
-#' # construct a diagonal 3x3 matrix with values 1,2,3
-#' diag(1:3) 
-#'   
-#' # extract diagonals 
-#' x <- diag(1:4, dim = 3)
-#' diag(x)
+#' ### extract diagonals 
+#' x <- diagonal(1:5, dim = c(5,5,5))
+#' diagonal(x)
 #' 
-#' # replace diagonals
-#' x <- diag(1:4, dim = 3)
-#' diag(x) <- c(5,6,7,8)
+#' @export
+#' 
+diagonal <- function(x = 1, dim = rep(2,2)){
+  
+  d <- dim(x)
+  n <- length(d)
+  if(n>0)
+    return(x[1 + 0:(d[1]-1) * sum(d[1]^(n-1:n))])
+  
+  a <- array(0, dim = dim)
+  diagonal(a) <- x
+  
+  return(a)
+}
+
+#' @describeIn diagonal set diagonals.
+#' 
+#' @param value vector giving the values of the diagonal entries.
+#' 
+#' @examples 
+#' ### set diagonals
+#' x <- array(0, dim = c(2,2,2))
+#' diagonal(x) <- 1:2
 #' x
 #' 
 #' @export
 #' 
-diag <- function(x, dim = 2, value = 1){
-  
-  if(is.array(x) && length(x)>1){
-    
-    d <- dim(x)
-    n <- length(d)
-    
-    if(length(unique(d))!=1)
-      stop("not a square array")
-    
-    return(x[1 + 0:(d[1]-1) * sum(d[1]^(n-1:n))])
-    
-  }
-  
-  if(length(x)>1){
-    
-    value <- x
-    x     <- length(x)
-    
-  }
-  
-  a       <- array(0, dim = rep(x, dim))
-  diag(a) <- value
-  
-  return(a)
-  
-}
-
-
-
-#' @describeIn diag set diagonals.
-#' 
-#' @export
-#' 
-"diag<-" <- function(x, value){
+"diagonal<-" <- function(x, value){
   
   x <- as.array(x)
   d <- dim(x)
@@ -241,9 +201,7 @@ diag <- function(x, dim = 2, value = 1){
   
 }
 
-
-
-
+# check coordinates
 ccheck <- function(var, coordinates){
   
   n   <- length(var)
@@ -276,9 +234,7 @@ ccheck <- function(var, coordinates){
   
 }
 
-
-
-
+# scale factors
 sf <- function(var, coordinates){
   
   ccheck(var = var, coordinates = coordinates)
@@ -307,18 +263,7 @@ sf <- function(var, coordinates){
   
 }
 
-
-is.fun <- function(x){
-  
-  is.fun <- try(is.function(x[[1]]), silent = TRUE)
-  
-  if(class(is.fun)=='try-error')
-    is.fun  <- is.function(x) || (is.array(x) && is.function(x[[1]]))
-  
-  return(is.fun)
-  
-}
-
+# function evaluation
 f.eval <- function(f, var, ...){
   
   if(is.null(names(var)))
@@ -328,6 +273,7 @@ f.eval <- function(f, var, ...){
   
 }
 
+# function dimension
 f.dim <- function(f, var, ...){
   
   dim(as.array(f.eval(f, var, ...)))

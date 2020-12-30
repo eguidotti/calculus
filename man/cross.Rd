@@ -10,30 +10,34 @@ cross(...)
 x \%cross\% y
 }
 \arguments{
-\item{...}{N-1 vectors of length N.}
+\item{...}{\eqn{n-1} vectors of length \eqn{n}.}
 
-\item{x}{3-d vector}
+\item{x}{\code{numeric} or \code{character} vector of length 3.}
 
-\item{y}{3-d vector}
+\item{y}{\code{numeric} or \code{character} vector of length 3.}
 }
 \value{
-N-dimensional vector orthogonal to the N-1 vectors.
+\eqn{n}-dimensional vector orthogonal to the \eqn{n-1} vectors.
 }
 \description{
-Computes the generic cross product of N-1 vectors of length N.
+Computes the cross product of \eqn{n-1} vectors of length \eqn{n}.
 }
 \section{Functions}{
 \itemize{
-\item \code{cross}: N-d cross product
-
-\item \code{\%cross\%}: 3-d cross product
+\item \code{\%cross\%}: binary operator for 3-dimensional cross products.
 }}
 
 \examples{
-# canonical basis 3-d
+### canonical basis 4-d
+cross(c(1,0,0,0), c(0,1,0,0), c(0,0,0,1))
+
+### canonical basis 3-d
+cross(c(1,0,0), c(0,1,0))
+
+### symbolic cross product 3-d
 c(1,0,0) \%cross\% c(0,1,0)
 
-# canonical basis 4-d
-cross(c(1,0,0,0), c(0,1,0,0), c(0,0,0,1))
+### symbolic cross product 3-d
+c("a","b","c") \%cross\% c(0,0,1)
 
 }

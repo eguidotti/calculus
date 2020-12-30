@@ -7,21 +7,21 @@
 x \%kronecker\% y
 }
 \arguments{
-\item{x}{character or numeric array.}
+\item{x}{\code{numeric} or \code{character} array.}
 
-\item{y}{character or numeric array.}
+\item{y}{\code{numeric} or \code{character} array.}
 }
 \value{
-character or numeric array.
+\code{array}.
 }
 \description{
-Computes the Kronecker product of two character or numeric arrays.
+Computes the generalised Kronecker product of two \code{numeric} or \code{character} arrays.
 }
 \examples{
-# numeric Kronecker product 
+### numeric Kronecker product 
 c(1,2) \%kronecker\% c(2,3)
 
-# symbolic Kronecker product 
-array(1:4, dim = c(2,2)) \%kronecker\% c('c','d')
+### symbolic Kronecker product 
+array(1:4, dim = c(2,2)) \%kronecker\% c("a","b")
 
 }

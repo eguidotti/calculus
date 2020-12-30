@@ -7,30 +7,28 @@
 x \%diff\% y
 }
 \arguments{
-\item{x}{character or numeric array.}
+\item{x}{\code{numeric} or \code{character} array.}
 
-\item{y}{character or numeric array.}
+\item{y}{\code{numeric} or \code{character} array.}
 }
 \value{
-character or numeric array.
+\code{array}.
 }
 \description{
-Substracts numeric or character arrays element by element.
+Elementwise difference of \code{numeric} or \code{character} arrays.
 }
 \examples{
-# diff vector 
+### vector 
 x <- c("a+1","b+2")
 x \%diff\% x
 
-# diff matrix 
+### matrix 
 x <- matrix(letters[1:4], ncol = 2)
 x \%diff\% x
 
-# diff array
+### array
 x <- array(letters[1:12], dim = c(2,2,3))
 y <- array(1:12, dim = c(2,2,3))
-x \%diff\% x
-y \%diff\% y
 x \%diff\% y
 
 }

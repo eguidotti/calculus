@@ -7,18 +7,20 @@
 integral(
   f,
   bounds,
-  relTol = 0.01,
-  absTol = 0.001,
+  relTol = 0.001,
+  absTol = 1e-12,
   coordinates = "cartesian",
-  method = "mc",
-  verbose = TRUE,
+  method = NULL,
+  vectorize = FALSE,
+  drop = TRUE,
+  verbose = FALSE,
   ...
 )
 }
 \arguments{
-\item{f}{function, expression or character.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{bounds}{list of integration bounds.}
+\item{bounds}{\code{list} containing the lower and upper bounds for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed.}
 
 \item{relTol}{relative accuracy requested.}
 
@@ -26,71 +28,75 @@ integral(
 
 \item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
 
-\item{method}{the method to use. Should be one of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Naive Monte Carlo integration by default. The additional methods require the cubature package to be installed (efficient integration in C).}
+\item{method}{the method to use. One of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Methods other than \code{"mc"} (naive Monte Carlo) require the \pkg{cubature} package to be installed (efficient integration in C). The defaul uses \code{"hcubature"} if \pkg{cubature} is installed or \code{"mc"} otherwise.}
 
-\item{verbose}{logical. Print on progress?}
+\item{vectorize}{\code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.}
 
-\item{...}{additional arguments passed to the \code{\link[cubature]{cubintegrate}} function, when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
+\item{drop}{if \code{TRUE}, return the integral as a vector and not as an \code{array} for vector-valued functions.}
+
+\item{verbose}{\code{logical}. Print on progress?}
+
+\item{...}{additional arguments passed to \code{\link[cubature]{cubintegrate}}, when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
 }
 \value{
 list with components
 \describe{
  \item{value}{the final estimate of the integral.}
- \item{abs.error}{estimate of the modulus of the absolute error.}
- \item{cuba}{cubature output when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
+ \item{error}{estimate of the modulus of the absolute error.}
+ \item{cuba}{\pkg{cubature} output when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used.}
 }
 }
 \description{
-Integrates multidimensional functions, expressions, and characters in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
+Computes the integrals of \code{functions} or \code{characters} in arbitrary 
+\href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
+}
+\details{
+The function integrates seamlessly with \pkg{cubature} for efficient 
+numerical integration in \proglang{C}. If the package \pkg{cubature} is not 
+installed, the function implements a naive Monte Carlo integration by default.
+For arbitrary orthogonal coordinates \eqn{q_1\dots q_n} the integral is computed as:
+
+\deqn{\int J\cdot f(q_1\dots q_n) dq_1\dots dq_n}
+
+where \eqn{J=\prod_i h_i} is the Jacobian determinant of the transformation 
+and is equal to the product of the scale factors \eqn{h_1\dots h_n}.
 }
 \examples{
-# integrate character
-integral('sin(x)', bounds = list(x = c(0,2*pi)))
+### unidimensional integral
+i <- integral("sin(x)", bounds = list(x = c(0,pi)))
+i$value
 
-# integrate expression
-integral(parse(text = 'x'), bounds = list(x = c(0,1)))
+### multidimensional integral
+f <- function(x,y) x*y
+i <- integral(f, bounds = list(x = c(0,1), y = c(0,1)))
+i$value
 
-# integrate function
-integral(function(x) exp(x), bounds = list(x = c(0,1)))
+### vector-valued integrals
+f <- function(x,y) c(x, y, x*y)
+i <- integral(f, bounds = list(x = c(0,1), y = c(0,1)))
+i$value
 
-# multivariate integral
-integral(function(x,y) x*y, bounds = list(x = c(0,1), y = c(0,1)))
+### tensor-valued integrals
+f <- function(x,y) array(c(x^2, x*y, x*y, y^2), dim = c(2,2))
+i <- integral(f, bounds = list(x = c(0,1), y = c(0,1)))
+i$value
 
-# surface of a sphere
-integral('1', 
-         bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
-         coordinates = 'spherical')
+### area of a circle
+i <- integral(1, 
+              bounds = list(r = c(0,1), theta = c(0,2*pi)), 
+              coordinates = "polar")
+i$value
 
-# volume of a sphere
-integral('1', 
+### surface of a sphere
+i <- integral(1, 
+              bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
+              coordinates = "spherical")
+i$value
+
+### volume of a sphere
+i <- integral(1, 
          bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)), 
-         coordinates = 'spherical')
+         coordinates = "spherical")
+i$value
          
-\dontrun{
-# efficient integration in C (requires the cubature package to be installed)
-integral('1',
-        bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)),
-        coordinates = 'spherical',
-        method = 'cuhre',
-        relTol = 1e-06,
-        absTol = 1e-12)
-}
-
-##################################
-# Electric charge contained in a region of space
-# (see divergence theorem and Maxwell's equations)
-# 
-
-# electric potential of unitary point charge 
-V <- '1/(4*pi*r)'
-
-# electric field
-E <- -1 \%prod\% gradient(V, c('r', 'theta', 'phi'), coordinates = 'spherical')
-
-# electric charge
-integral(E[1], 
-         bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
-         coordinates = 'spherical')
-
-
 }

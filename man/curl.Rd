@@ -9,7 +9,7 @@ curl(
   f,
   var,
   coordinates = "cartesian",
-  accuracy = 2,
+  accuracy = 4,
   stepsize = NULL,
   drop = TRUE,
   ...
@@ -18,51 +18,81 @@ curl(
 f \%curl\% var
 }
 \arguments{
-\item{f}{function, expression or character array.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{drop}{drop dimensions when...}
+\item{drop}{if \code{TRUE}, return the curl as a vector and not as an \code{array} for vector-valued functions.}
 
-\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-curl array.
+Vector for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 }
 \description{
-Computes the curl of functions, expressions and characters.
+Computes the numerical curl of \code{functions} or the symbolic curl of \code{characters}
+in arbitrary orthogonal coordinate systems.
+}
+\details{
+The curl of a vector-valued function \eqn{F_i} at a point is represented by a 
+vector whose length and direction denote the magnitude and axis of the maximum 
+circulation. 
+In 2 dimensions, the \code{curl} is computed in arbitrary orthogonal coordinate 
+systems using the scale factors \eqn{h_i} and the Levi-Civita symbol \code{\link{epsilon}}:
+
+\deqn{\nabla \times F = \frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)= \frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)}
+
+In 3 dimensions:
+
+\deqn{(\nabla \times F)_k = \frac{h_k}{J}\sum_{ij}\epsilon_{ijk}\partial_i\Bigl(h_jF_j\Bigl)}
+
+where \eqn{J=\prod_i h_i}. In \eqn{m+2} dimensions, the \code{curl} is implemented in such
+a way that the formula reduces correctly to the previous cases for \eqn{m=0} and \eqn{m=1}:
+
+\deqn{(\nabla \times F)_{k_1\dots k_m} = \frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_j\Bigl)}
+
+When \eqn{F} is an \code{array} of vector-valued functions \eqn{F_{d_1,\dots,d_n,j}} the \code{curl} 
+is computed for each vector:
+
+\deqn{(\nabla \times F)_{d_1\dots d_n,k_1\dots k_m} = \frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl)}
 }
 \section{Functions}{
 \itemize{
-\item \code{curl}: arbitrary coordinate system
-
-\item \code{\%curl\%}: cartesian coordinates
+\item \code{\%curl\%}: binary operator with default parameters.
 }}
 
 \examples{
-# curl of a vector field
-f <- c('x*y','y*z','x*z')
-curl(f, var = c('x','y','z'))
-f \%curl\% c('x','y','z')
+### symbolic curl of a 2-d vector field
+f <- c("x^3*y^2","x")
+curl(f, var = c("x","y"))
 
-# irrotational vector field
-f <- c('x','-y','z')
-curl(f, var = c('x','y','z'))
-f \%curl\% c('x','y','z')
+### numerical curl of a 2-d vector field in (x=1, y=1)
+f <- function(x,y) c(x^3*y^2, x)
+curl(f, var = c(x=1, y=1))
 
-# numerical curl of a vector field
-f <- function(x,y,z) c(x*y, y*z, x*z)
-curl(f, var = c('x'=1,'y'=1,'z'=1))
-f \%curl\% c('x'=1,'y'=1,'z'=1)
+### numerical curl of a 3-d vector field in (x=1, y=1, z=1)
+f <- function(x,y,z) c(x^3*y^2, x, z)
+curl(f, var = c(x=1, y=1, z=1))
 
-# curl in polar coordinates
-f <- c('sqrt(r)/10','sqrt(r)')
-curl(f, var = c('r','phi'), coordinates = 'polar')
+### vectorized interface
+f <- function(x) c(x[1]^3*x[2]^2, x[1], x[3])
+curl(f, var = c(1,1,1)) 
+
+### symbolic array of vector-valued 3-d functions
+f <- array(c("x*y","x","y*z","y","x*z","z"), dim = c(2,3))
+curl(f, var = c("x","y","z"))
+
+### numeric array of vector-valued 3-d functions in (x=1, y=1, z=1)
+f <- function(x,y,z) array(c(x*y,x,y*z,y,x*z,z), dim = c(2,3))
+curl(f, var = c(x=1, y=1, z=1))
+
+### binary operator
+c("x*y","y*z","x*z") \%curl\% c("x","y","z")
 
 }

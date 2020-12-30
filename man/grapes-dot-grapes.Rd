@@ -7,25 +7,28 @@
 x \%dot\% y
 }
 \arguments{
-\item{x}{character or numeric array.}
+\item{x}{\code{numeric} or \code{character} array.}
 
-\item{y}{character or numeric array.}
+\item{y}{\code{numeric} or \code{character} array.}
 }
 \value{
-character or numeric array.
+\code{array}.
 }
 \description{
-Computes the inner product on the last dimensions of two character or numeric arrays.
+The dot product between arrays with different dimensions is computed by taking the inner product on the last dimensions of the two arrays.
+}
+\details{
+The dot product between two arrays \code{A} and \code{B} is computed as:
+\deqn{C_{i_1\dots i_m} = \sum_{j_1\dots j_n} A_{i_1\dots i_mj_1\dots j_n}B_{j_1\dots j_n}}
 }
 \examples{
-# inner product 
+### inner product 
 x <- array(1:12, dim = c(3,4))
 x \%dot\% x
 
-# inner product on last dimensions 
+### dot product 
 x <- array(1:24, dim = c(3,2,4))
 y <- array(letters[1:8], dim = c(2,4))
 x \%dot\% y
-y \%dot\% x
 
 }

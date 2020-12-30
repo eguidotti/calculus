@@ -9,7 +9,7 @@ laplacian(
   f,
   var,
   coordinates = "cartesian",
-  accuracy = 2,
+  accuracy = 4,
   stepsize = NULL,
   drop = TRUE,
   ...
@@ -18,53 +18,67 @@ laplacian(
 f \%laplacian\% var
 }
 \arguments{
-\item{f}{function, expression or character array.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{drop}{drop dimensions when...}
+\item{drop}{if \code{TRUE}, return the Laplacian as a scalar and not as an \code{array} for scalar-valued functions.}
 
-\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-laplacian array.
+Scalar for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 }
 \description{
-Computes the laplacian of functions, expressions and characters.
+Computes the numerical Laplacian of \code{functions} or the symbolic Laplacian of \code{characters} 
+in arbitrary orthogonal coordinate systems.
+}
+\details{
+The Laplacian is a differential operator given by the divergence of the 
+gradient of a scalar-valued function \eqn{F}, resulting in a scalar value giving 
+the flux density of the gradient flow of a function. 
+The \code{laplacian} is computed in arbitrary orthogonal coordinate systems using 
+the scale factors \eqn{h_i}:
+
+\deqn{\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)}
+
+where \eqn{J=\prod_ih_i}. When the function \eqn{F} is a tensor-valued function 
+\eqn{F_{d_1\dots d_n}}, the \code{laplacian} is computed for each scalar component:
+
+\deqn{(\nabla^2F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots d_n}\Biggl)}
 }
 \section{Functions}{
 \itemize{
-\item \code{laplacian}: arbitrary coordinate system
-
-\item \code{\%laplacian\%}: cartesian coordinates
+\item \code{\%laplacian\%}: binary operator with default parameters.
 }}
 
 \examples{
-# laplacian of a scalar field
-f <- 'x^2+y^2+z^2'
-laplacian(f, var = c('x','y','z'))
-f \%laplacian\% c('x','y','z')
+### symbolic Laplacian 
+laplacian("x^3+y^3+z^3", var = c("x","y","z"))
 
-# laplacian of scalar fields
-f <- c('x^2','y^3','z^4')
-laplacian(f, var = c('x','y','z'))
-f \%laplacian\% c('x','y','z')
+### numerical Laplacian in (x=1, y=1, z=1)
+f <- function(x, y, z) x^3+y^3+z^3
+laplacian(f = f, var = c(x=1, y=1, z=1))
 
-# laplacian of array of scalar fields
-f1 <- c('x^2','y^3','z^4')
-f2 <- c('x','y','z')
-a <- matrix(c(f1,f2), nrow = 2, byrow = TRUE)
-laplacian(a, var = c('x','y','z'))
-a \%laplacian\% c('x','y','z')
+### vectorized interface
+f <- function(x) sum(x^3)
+laplacian(f = f, var = c(1, 1, 1))
 
-# laplacian in polar coordinates
-f <- c('sqrt(r)/10','sqrt(r)')
-laplacian(f, var = c('r','phi'), coordinates = 'polar')
+### symbolic vector-valued functions
+f <- array(c("x^2","x*y","x*y","y^2"), dim = c(2,2))
+laplacian(f = f, var = c("x","y"))
+
+### numerical vector-valued functions
+f <- function(x, y) array(c(x^2,x*y,x*y,y^2), dim = c(2,2))
+laplacian(f = f, var = c(x=0,y=0))
+
+### binary operator
+"x^3+y^3+z^3" \%laplacian\% c("x","y","z")
 
 }

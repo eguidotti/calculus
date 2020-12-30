@@ -1,29 +1,27 @@
 #' Numerical and Symbolic Determinant
 #' 
-#' Calculates the determinant of a matrix.
+#' Computes the determinant of a \code{numeric} or \code{character} matrix.
 #' 
-#' @param x numeric or character matrix. 
+#' @param x \code{numeric} or \code{character} matrix.
 #' 
-#' @return numeric or character determinant.
+#' @return \code{numeric} or \code{character}.
 #' 
 #' @examples 
-#' # numeric matrix
+#' ### numeric matrix
 #' x <- matrix(1:4, nrow = 2)
-#' det(x)
+#' mxdet(x)
 #' 
-#' # symbolic matrix
+#' ### symbolic matrix
 #' x <- matrix(letters[1:4], nrow = 2)
-#' det(x)
+#' mxdet(x)
 #' 
 #' @export
 #' 
-det <- function(x) {
+mxdet <- function(x) {
 
-  x <- as.matrix(x)
   if(is.numeric(x))
     return(base::det(x))
   
-  x       <- as.matrix(x)
   x.dim   <- dim(x)
   x.n.dim <- length(x.dim)
 

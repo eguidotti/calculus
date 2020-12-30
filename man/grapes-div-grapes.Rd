@@ -7,30 +7,28 @@
 x \%div\% y
 }
 \arguments{
-\item{x}{character or numeric array.}
+\item{x}{\code{numeric} or \code{character} array.}
 
-\item{y}{character or numeric array.}
+\item{y}{\code{numeric} or \code{character} array.}
 }
 \value{
-character or numeric array.
+\code{array}.
 }
 \description{
-Divide numeric or character arrays element by element.
+Elementwise division of \code{numeric} or \code{character} arrays.
 }
 \examples{
-# div vector 
+### vector 
 x <- c("a+1","b+2")
 x \%div\% x
 
-# div matrix 
+### matrix 
 x <- matrix(letters[1:4], ncol = 2)
 x \%div\% x
 
-# div array
+### array
 x <- array(letters[1:12], dim = c(2,2,3))
 y <- array(1:12, dim = c(2,2,3))
-x \%div\% x
-y \%div\% y
 x \%div\% y 
 
 }

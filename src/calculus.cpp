@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
 // Check if string is zero
 bool is_zero (std::string const &x){
   return((x=="0") | (x=="(0)") | (x=="((0))") | (x=="{0}") | (x=="0+0i") | (x=="(0+0i)") | (x==""));
@@ -20,9 +19,9 @@ int dfs(int i, std::vector<int>& visited, std::vector<int>& goesTo) {
   
   visited[i] = 1; 
   int x = dfs(goesTo[i], visited, goesTo); 
+  
   return (x + 1); 
 } 
-
 
 // [[Rcpp::export]]
 std::list< std::vector<int> > cpp_partitions(int n, int max = 0, int length = 0, bool perm = false, bool fill = false, bool equal = true) { 
@@ -101,7 +100,6 @@ std::list< std::vector<int> > cpp_partitions(int n, int max = 0, int length = 0,
     p[k]--; 
     rem_val++; 
     
-    
     // If rem_val is more, then the sorted order is violated.  Divide 
     // rem_val in different values of size p[k] and copy these values at 
     // different positions after p[k] 
@@ -118,9 +116,7 @@ std::list< std::vector<int> > cpp_partitions(int n, int max = 0, int length = 0,
   } 
 } 
 
-
-
-// internal overload 
+// parity 
 int cpp_parity(std::vector<int> x, std::vector<int> y) {
   
   int n = x.size();
@@ -165,13 +161,9 @@ int cpp_parity(std::vector<int> x, std::vector<int> y) {
   if((transpositions%2)==1)
     return -1;
   
-  // odd permutation
+  // even permutation
   return 1;
 }
-
-
-
-
 
 // [[Rcpp::export]]
 std::vector<int> cpp_parity(Rcpp::NumericMatrix x, Rcpp::NumericMatrix y) { 
@@ -189,10 +181,7 @@ std::vector<int> cpp_parity(Rcpp::NumericMatrix x, Rcpp::NumericMatrix y) {
   }
   
   return(parity);
-  
 } 
-
-
 
 // [[Rcpp::export]]
 std::vector<std::string> cpp_paste(std::vector<std::string> const &x, std::vector<std::string> const &y, std::string const sep) {
@@ -202,129 +191,308 @@ std::vector<std::string> cpp_paste(std::vector<std::string> const &x, std::vecto
   if( (n_x!=n_y) && (n_x!=1) && (n_y!=1)) 
     Rcpp::stop("x and y must be the same length");
   
-  bool is_p = (sep==" * ");
-  bool is_s = (sep==" + ");
-  bool is_m = (sep==" - ");
-  bool is_d = (sep==" / ");
-  
   int n = std::max(n_x,n_y);
   std::vector<std::string> out(n);
   
-  std::string a = x[0];
-  std::string b = y[0];
-  
   bool one_x = (n_x==1);
   bool one_y = (n_y==1);
-  for(int i=0; i<n; i++){
-    
-    if(!one_x) a = x[i];
-    if(!one_y) b = y[i];
   
-    // x * y
-    if(is_p) {
-      
-      if(is_zero(a) || is_zero(b))
-        out[i] = "0";
-      else 
-        out[i] = a + sep + b;
-      
-    }  
-    
-    // x / y
-    if(is_d) {
-      
-      if(is_zero(a))
-        out[i] = "0";
-      else 
-        out[i] = a + sep + b;
-      
+  // x * y
+  if(sep==" * ") {
+    if(one_x) {
+      if(is_zero(x[0])){
+        for(int i=0; i<n; i++){
+            out[i] = "0";  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(y[i]))
+            out[i] = "0";
+          else 
+            out[i] = x[0] + sep + y[i];
+        }
+      }
     }
-    
-    // x + y
-    if(is_s) {
-      
-      if(is_zero(b) && !is_zero(a)) 
-        out[i] = a;
-      else if(is_zero(a) && !is_zero(b)) 
-        out[i] = b;
-      else if(is_zero(a) && is_zero(b))
-        out[i] = "0";
-      else 
-        out[i] = a + sep + b;
-      
+    else if(one_y) {
+      if(is_zero(y[0])){
+        for(int i=0; i<n; i++){
+          out[i] = "0";  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(x[i]))
+            out[i] = "0";
+          else 
+            out[i] = x[i] + sep + y[0];
+        }
+      }
     }
-    
-    // x - y
-    if(is_m) {
-      
-      if(is_zero(b) && !is_zero(a)) 
-        out[i] = a;
-      else if(is_zero(a) && !is_zero(b)) 
-        out[i] = sep + b;
-      else if(is_zero(a) && is_zero(b))
-        out[i] = "0";
-      else
-        out[i] = a + sep + b;
-      
+    else {
+      for(int i=0; i<n; i++){
+        if(is_zero(x[i]) || is_zero(y[i]))
+          out[i] = "0";
+        else 
+          out[i] = x[i] + sep + y[i];
+      }
     }
-    
+  }
+  
+  // x / y
+  if(sep==" / ") {
+    if(one_x) {
+      if(is_zero(x[0])){
+        for(int i=0; i<n; i++){
+          out[i] = "0";  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(x[0]==y[i])
+            out[i] = "1";
+          else
+            out[i] = x[0] + sep + y[i];
+        }
+      }
+    }
+    else if(one_y) {
+      for(int i=0; i<n; i++){
+        if(is_zero(x[i]))
+          out[i] = "0";
+        else if(x[i]==y[0])
+          out[i] = "1";
+        else
+          out[i] = x[i] + sep + y[0];
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        if(is_zero(x[i]))
+          out[i] = "0";
+        else if(x[i]==y[i])
+          out[i] = "1";
+        else
+          out[i] = x[i] + sep + y[i];
+      }
+    }
+  }
+  
+  // x + y
+  if(sep==" + ") {
+    if(one_x) {
+      if(is_zero(x[0])){
+        for(int i=0; i<n; i++){
+          out[i] = y[i];  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(y[i]))
+            out[i] = x[0];
+          else 
+            out[i] = x[0] + sep + y[i];
+        }
+      }
+    }
+    else if(one_y) {
+      if(is_zero(y[0])){
+        for(int i=0; i<n; i++){
+          out[i] = x[i];  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(x[i]))
+            out[i] = y[0];
+          else 
+            out[i] = x[i] + sep + y[0];
+        }
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        bool zero_x = is_zero(x[i]);
+        bool zero_y = is_zero(y[i]);
+        if(zero_x){
+          if(zero_y)
+            out[i] = "0";
+          else
+            out[i] = y[i];
+        }
+        else if(zero_y){
+          if(zero_x)
+            out[i] = "0";
+          else
+            out[i] = x[i];
+        }
+        else {
+          out[i] = x[i] + sep + y[i];
+        }
+      }
+    }
+  }
+  
+  // x - y
+  if(sep==" - ") {
+    if(one_x) {
+      if(is_zero(x[0])){
+        for(int i=0; i<n; i++){
+          if(is_zero(y[i]))
+            out[i] = "0";
+          else
+            out[i] = sep + y[i];  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(y[i]))
+            out[i] = x[0];
+          else if(x[0]==y[i])
+            out[i] = "0";
+          else
+            out[i] = x[0] + sep + y[i];
+        }
+      }
+    }
+    else if(one_y) {
+      if(is_zero(y[0])){
+        for(int i=0; i<n; i++){
+          out[i] = x[i];  
+        }
+      }
+      else {
+        for(int i=0; i<n; i++){
+          if(is_zero(x[i]))
+            out[i] = sep + y[0];
+          else if(x[i]==y[0])
+            out[i] = "0";
+          else
+            out[i] = x[i] + sep + y[0];
+        }
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        bool zero_x = is_zero(x[i]);
+        bool zero_y = is_zero(y[i]);
+        if(zero_x){
+          if(zero_y)
+            out[i] = "0";
+          else
+            out[i] = sep + y[i];
+        }
+        else if(zero_y){
+          if(zero_x)
+            out[i] = "0";
+          else
+            out[i] = x[i];
+        }
+        else {
+          if(x[i]==y[i])
+            out[i] = "0";
+          else
+            out[i] = x[i] + sep + y[i];
+        }
+      }
+    }
   }
   
   return(out);
 }
 
-
-
+// numeric paste
 std::vector<double> cpp_paste(std::vector<double> const &x, std::vector<double> const &y, std::string const sep) {
   
   int n_x = x.size();
   int n_y = y.size();
-  if( (n_x!=n_y) && (n_x!=1) && (n_y!=1)) 
+  if((n_x!=n_y) && (n_x!=1) && (n_y!=1)) 
     Rcpp::stop("x and y must be the same length");
-  
-  bool is_p = (sep==" * ");
-  bool is_s = (sep==" + ");
-  bool is_m = (sep==" - ");
-  bool is_d = (sep==" / ");
   
   int n = std::max(n_x,n_y);
   std::vector<double> out(n);
-  
-  double a = x[0];
-  double b = y[0];
-  
+
   bool one_x = (n_x==1);
   bool one_y = (n_y==1);
-  for(int i=0; i<n; i++){
-    
-    if(!one_x) a = x[i];
-    if(!one_y) b = y[i];
-    
-    // x * y
-    if(is_p) 
-      out[i] = a * b;
   
-    // x / y
-    if(is_d) 
-      out[i] = a / b;
-    
-    // x + y
-    if(is_s) 
-      out[i] = a + b;
-        
-    // x - y
-    if(is_m) 
-      out[i] = a - b;
-    
+  // x * y
+  if(sep==" * ") {
+    if(one_x) {
+      for(int i=0; i<n; i++){
+        out[i] = x[0] * y[i];
+      }
+    }
+    else if(one_y) {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] * y[0];
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] * y[i];
+      }
+    }
+  }
+  
+  // x / y
+  if(sep==" / ") {
+    if(one_x) {
+      for(int i=0; i<n; i++){
+        out[i] = x[0] / y[i];
+      }
+    }
+    else if(one_y) {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] / y[0];
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] / y[i];
+      }
+    }
+  }
+  
+  // x + y
+  if(sep==" + ") {
+    if(one_x) {
+      for(int i=0; i<n; i++){
+        out[i] = x[0] + y[i];
+      }
+    }
+    else if(one_y) {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] + y[0];
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] + y[i];
+      }
+    }
+  }
+  
+  // x - y
+  if(sep==" - ") {
+    if(one_x) {
+      for(int i=0; i<n; i++){
+        out[i] = x[0] - y[i];
+      }
+    }
+    else if(one_y) {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] - y[0];
+      }
+    }
+    else {
+      for(int i=0; i<n; i++){
+        out[i] = x[i] - y[i];
+      }
+    }
   }
   
   return(out);
 }
-
-
-
-
-
 
 // [[Rcpp::export]]
 std::string cpp_collapse(std::vector<std::string> const &x, std::string const sep) {
@@ -334,84 +502,55 @@ std::string cpp_collapse(std::vector<std::string> const &x, std::string const se
   
   if(n>1){
     
-    bool is_s = (sep==" + ");
-    bool is_p = (sep==" * ");
+    if(sep==" + "){
+      if(is_zero(s))
+        s = "0";  
+      for(int i=1; i<n; i++){
+        if(!is_zero(x[i])){
+          if(s=="0")
+            s = x[i];
+          else
+            s += sep + x[i];  
+        }
+      }
+    }
     
-    if(is_p && is_zero(s))
-      return("0");
-    
-    for(int i=1; i<n; i++) if(x[i]!="") {
-      
-      if(is_p) {
-        
+    if(sep==" * "){
+      if(is_zero(s))
+        return("0");  
+      for(int i=1; i<n; i++) {
         if(is_zero(x[i]))
           return("0");
         else 
           s += sep + x[i];
-        
-      }  
-      else if(is_s){
-        
-        if(!is_zero(x[i])){
-          
-          if(is_zero(s)) 
-            s = x[i];
-          else 
-            s += sep + x[i]; 
-          
-        }
-        
       }
-      else {
-        
-        s += sep + x[i];
-        
-      }
-        
-      
     }
     
   }
   
   return(s);
-  
 }
 
-
-
-// overload
+// collapse
 double cpp_collapse(std::vector<double> const &x, std::string const sep) {
   
-  int n    = x.size();
+  int n = x.size();
   double s = x[0];
-  
-  bool is_p = (sep==" * ");
-  bool is_s = (sep==" + ");
-  bool is_m = (sep==" - ");
-  bool is_d = (sep==" / ");
   
   if(n>1){
     
-    for(int i=1; i<n; i++) {
-      
-      if(is_p) 
+    if(sep==" * ") 
+      for(int i=1; i<n; i++)
         s = s * x[i];
-      else if(is_s)
+    
+    if(sep==" + ")
+      for(int i=1; i<n; i++)
         s = s + x[i];
-      else if(is_m)
-        s = s - x[i];
-      else if(is_d)
-        s = s / x[i];
-      
-    }
     
   }
   
   return(s);
-  
 }
-
-
 
 // [[Rcpp::export]]
 std::string cpp_inner(std::vector<std::string> const &x, std::vector<std::string> const &y) { 
@@ -420,13 +559,12 @@ std::string cpp_inner(std::vector<std::string> const &x, std::vector<std::string
   
 }
 
+// numeric inner
 double cpp_inner(std::vector<double> const &x, std::vector<double> const &y) { 
   
   return(std::inner_product(x.begin(), x.end(), y.begin(), 0.0));
   
 }
-
-
 
 // [[Rcpp::export]]
 std::vector<std::string> cpp_outer(std::vector<std::string> const &x, std::vector<std::string> const &y) { 
@@ -450,12 +588,7 @@ std::vector<std::string> cpp_outer(std::vector<std::string> const &x, std::vecto
   return(out);
 } 
 
-
-
-
-
-
-// Template
+// einstein Template
 template <typename T>
 std::vector<T> cpp_einstein(std::vector<T> const &x, std::vector<T> const &y, std::vector<int> const &dim, bool drop) { 
   
@@ -505,7 +638,6 @@ std::vector<T> cpp_einstein(std::vector<T> const &x, std::vector<T> const &y, st
   return(z);
 }
 
-
 // [[Rcpp::export]]
 SEXP cpp_einstein(SEXP const &x, SEXP const &y, std::vector<int> const &dim, bool drop = true){
   
@@ -518,9 +650,7 @@ SEXP cpp_einstein(SEXP const &x, SEXP const &y, std::vector<int> const &dim, boo
   
 }
 
-
-
-// Template
+// trace Template
 template <typename T>
 std::vector<T> cpp_trace(std::vector<T> const &x, std::vector<int> const &dim, bool drop) { 
   
@@ -558,12 +688,10 @@ std::vector<T> cpp_trace(std::vector<T> const &x, std::vector<int> const &dim, b
       
     }
     
-    
   }
   
   return(z);
 }
-
 
 // [[Rcpp::export]]
 SEXP cpp_trace(SEXP const &x, std::vector<int> const &dim, bool drop = true){
@@ -577,7 +705,7 @@ SEXP cpp_trace(SEXP const &x, std::vector<int> const &dim, bool drop = true){
   
 }
 
-
+// symbolic det 
 std::string cpp_det_term(int i, std::string x, std::string det){
   
   if(is_zero(x) || is_zero(det))
@@ -590,14 +718,14 @@ std::string cpp_det_term(int i, std::string x, std::string det){
   
 }
 
+// numeric det
 double cpp_det_term(int i, double x, double det){
   
   return(std::pow(static_cast<double>(-1), i) * x * det);
   
 }
 
-
-// Template
+// det Template
 template <typename T>
 T cpp_det(std::vector<T> const &x, int n) { 
   
@@ -626,12 +754,7 @@ T cpp_det(std::vector<T> const &x, int n) {
   }
     
   return(cpp_collapse(det, " + "));
-  
 }
-
-
-
-
 
 // [[Rcpp::export]]
 SEXP cpp_det(SEXP const &x, int n){
@@ -644,11 +767,3 @@ SEXP cpp_det(SEXP const &x, int n){
   }
   
 }
-
-
-
-
-
-
-
-

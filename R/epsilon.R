@@ -2,20 +2,20 @@
 #' 
 #' Computes the Levi-Civita totally antisymmetric tensor.
 #' 
-#' @param n dimension
+#' @param n number of dimensions.
 #' 
-#' @return array representing the Levi-Civita tensor.
+#' @return \code{array} representing the Levi-Civita symbol.
 #' 
 #' @examples 
-#' # Levi-Civita tensor in 2-d
-#' levicivita(2)
+#' ### Levi-Civita symbol in 2 dimensions
+#' epsilon(2)
 #' 
-#' # Levi-Civita tensor in 3-d
-#' levicivita(3)
+#' ### Levi-Civita symbol in 3 dimensions
+#' epsilon(3)
 #' 
 #' @export
 #'
-levicivita <- function(n){
+epsilon <- function(n){
   
   mu <- as.matrix(expand.grid(lapply(1:n, function(i) 1:n)))
   

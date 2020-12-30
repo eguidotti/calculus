@@ -5,18 +5,18 @@
 #' @param n number of elements for each dimension.
 #' @param p order of the generalized Kronecker delta, \code{p=1} for the standard Kronecker delta.
 #' 
-#' @return array representing the generalized Kronecker delta tensor.
+#' @return \code{array} representing the generalized Kronecker delta tensor.
 #' 
 #' @examples
-#' # Kronecker delta 3x3
-#' kronecker(3)
+#' ### Kronecker delta 3x3
+#' delta(3)
 #' 
-#' # generalized Kronecker delta 3x3 of order 2 -> 3x3 x 3x3
-#' kronecker(3, p = 2)  
+#' ### generalized Kronecker delta 3x3 of order 2
+#' delta(3, p = 2)  
 #' 
 #' @export
 #'
-kronecker <- function(n, p = 1){
+delta <- function(n, p = 1){
   
   mu <- as.matrix(expand.grid(lapply(1:p, function(i) 1:n)))
   

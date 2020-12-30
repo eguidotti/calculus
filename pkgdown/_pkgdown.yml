@@ -8,6 +8,64 @@ home:
   title: "High Dimensional Numerical and Symbolic Calculus in R"
 navbar: 
   type: inverse
+reference:
+  - title: "Binary Operators"
+    contents:
+    - "%sum%"
+    - "%diff%"
+    - "%prod%"
+    - "%div%"
+    - "%dot%"
+    - "%inner%"
+    - "%outer%"
+    - "%kronecker%"
+  - title: "Number Theory"
+    contents: 
+    - partitions
+  - title: "Polynomials"
+    contents:
+    - taylor
+    - hermite
+  - title: "Vector Algebra"
+    contents:
+    - cross
+  - title: "Matrix Algebra"
+    contents:
+    - mx
+    - mxtr
+    - mxdet
+    - mxinv
+  - title: "Tensor Algebra"
+    contents:
+    - einstein
+    - contraction
+    - index
+    - diagonal
+    - delta
+    - epsilon
+  - title: "Derivatives"
+    contents:
+    - derivative
+  - title: "Differential Equations"
+    contents:
+    - ode
+  - title: "Differential Operators"
+    contents:
+    - gradient
+    - jacobian
+    - hessian
+    - divergence
+    - curl
+    - laplacian
+  - title: "Multidimensional Integrals"
+    contents:
+    - integral
+  - title: "Utils"
+    contents:
+    - c2e
+    - e2c
+    - wrap
+    - evaluate
 template: 
   params: 
     ganalytics: UA-112916657-3

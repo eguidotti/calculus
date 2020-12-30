@@ -2,45 +2,53 @@
 % Please edit documentation in R/taylor.R
 \name{taylor}
 \alias{taylor}
-\title{Taylor Series}
+\title{Taylor Series Expansion}
 \usage{
-taylor(f, var = "x", order = 1, accuracy = 2, stepsize = NULL, ...)
+taylor(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-07, ...)
 }
 \arguments{
-\item{f}{function, expression or character}
+\item{f}{\code{character}, or \code{function} returning a \code{numeric} scalar value.}
 
-\item{var}{character. The variables of \code{f}.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated (the center of the Taylor series). See \code{\link{derivative}}.}
 
 \item{order}{the order of the Taylor approximation.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{...}{additional arguments to \code{f}.}
+\item{zero}{tolerance used for deciding which derivatives are zero. Absolute values less than this number are set to zero.}
+
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-list with components
+\code{list} with components:
 \describe{
  \item{f}{the Taylor series.}
  \item{order}{the approximation order.}
- \item{terms}{data.frame containing the variables, coefficients and degrees of each term in the Taylor series.}
+ \item{terms}{\code{data.frame} containing the variables, coefficients and degrees of each term in the Taylor series.}
 }
 }
 \description{
-Computes the Taylor series for functions, expressions or characters.
+Computes the Taylor series of \code{functions} or \code{characters}.
 }
 \examples{
-# univariate taylor series 
-taylor('exp(x)', var = 'x', order = 3)
+### univariate taylor series (in x=0)
+taylor("exp(x)", var = "x", order = 2)
 
-# univariate taylor series of arbitrary functions
-taylor(function(x) exp(x), var = 'x', order = 3)
+### univariate taylor series of user-defined functions (in x=0)
+f <- function(x) exp(x)
+taylor(f = f, var = c(x=0), order = 2)
 
-# multivariate taylor series 
-taylor('sin(x*y)', var = c('x','y'), order = 6)
+### multivariate taylor series (in x=0 and y=1)
+taylor("x*(y-1)", var = c(x=0, y=1), order = 4)
 
-# multivariate taylor series of arbitrary functions
-taylor(function(x,y) sin(x*y), var = c('x','y'), order = 6)
+### multivariate taylor series of user-defined functions (in x=0 and y=1)
+f <- function(x,y) x*(y-1)
+taylor(f, var = c(x=0, y=1), order = 4)
+
+### vectorized interface
+f <- function(x) prod(x)
+taylor(f, var = c(0,0,0), order = 3)
 
 }

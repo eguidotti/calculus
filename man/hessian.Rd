@@ -5,64 +5,72 @@
 \alias{\%hessian\%}
 \title{Numerical and Symbolic Hessian}
 \usage{
-hessian(
-  f,
-  var,
-  coordinates = "cartesian",
-  accuracy = 2,
-  stepsize = NULL,
-  drop = TRUE,
-  ...
-)
+hessian(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...)
 
 f \%hessian\% var
 }
 \arguments{
-\item{f}{function, expression or character.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{drop}{if \code{TRUE}, return the Hessian as a matrix and not as an \code{array} for scalar-valued functions.}
 
-\item{drop}{drop dimensions when...}
-
-\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-hessian matrix.
+Hessian matrix for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 }
 \description{
-Computes the hessian matrix of functions, expressions and characters.
+Computes the numerical Hessian of \code{functions} or the symbolic Hessian of \code{characters}.
+}
+\details{
+In Cartesian coordinates, the Hessian of a scalar-valued function \eqn{F} is the 
+square matrix of second-order partial derivatives:
+
+\deqn{(H(F))_{ij} = \partial_{ij}F}
+
+When the function \eqn{F} is a tensor-valued function \eqn{F_{d_1,\dots,d_n}}, 
+the \code{hessian} is computed for each scalar component.
+
+\deqn{(H(F))_{d_1\dots d_n,ij} = \partial_{ij}F_{d_1\dots d_n}}
+
+It might be tempting to apply the definition of the Hessian as the Jacobian of the 
+gradient to write it in arbitrary orthogonal coordinate systems. However, this results in a 
+Hessian matrix that is not symmetric and ignores the distinction between vector 
+and covectors in tensor analysis. The generalization to arbitrary coordinate system 
+is not currently supported.
 }
 \section{Functions}{
 \itemize{
-\item \code{hessian}: arbitrary coordinate system
-
-\item \code{\%hessian\%}: cartesian coordinates
+\item \code{\%hessian\%}: binary operator with default parameters.
 }}
 
 \examples{
-# hessian with respect to x
-hessian(f = "sin(x)", var = "x")
-"sin(x)" \%hessian\% "x"
+### symbolic Hessian 
+hessian("x*y*z", var = c("x", "y", "z"))
 
-# hessian with respect to x and evaluate in x = 0
-hessian(f = "sin(x)", var = c("x" = 0))
-"sin(x)" \%hessian\% c(x=0)
+### numerical Hessian in (x=1, y=2, z=3)
+f <- function(x, y, z) x*y*z
+hessian(f = f, var = c(x=1, y=2, z=3))
 
-# hessian with respect to (x,y)
-hessian(f = "y*sin(x)", var = c("x","y"))
-"y*sin(x)" \%hessian\% c("x","y")
+### vectorized interface
+f <- function(x) x[1]*x[2]*x[3]
+hessian(f = f, var = c(1, 2, 3))
 
-# hessian in spherical coordinates
-hessian('r*theta*phi', var = c('r','theta','phi'), coordinates = 'spherical')
+### symbolic vector-valued functions
+f <- c("y*sin(x)", "x*cos(y)")
+hessian(f = f, var = c("x","y"))
 
-# numerical hessian in spherical coordinates
-f <- function(r, theta, phi) r*theta*phi
-hessian(f, var = c('r'=1, 'theta'=pi/4, 'phi'=pi/4), coordinates = 'spherical')
+### numerical vector-valued functions
+f <- function(x) c(sum(x), prod(x))
+hessian(f = f, var = c(0,0,0))
+
+### binary operator
+"x*y^2" \%hessian\% c(x=1, y=3)
 
 }

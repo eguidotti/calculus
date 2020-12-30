@@ -7,21 +7,25 @@
 x \%outer\% y
 }
 \arguments{
-\item{x}{character or numeric array.}
+\item{x}{\code{numeric} or \code{character} array.}
 
-\item{y}{character or numeric array.}
+\item{y}{\code{numeric} or \code{character} array.}
 }
 \value{
-character or numeric array.
+\code{array}.
 }
 \description{
-Computes the outer product of two character or numeric arrays.
+Computes the outer product of two \code{numeric} or \code{character} arrays.
+}
+\details{
+The outer product between two arrays \code{A} and \code{B} is computed as:
+\deqn{C_{i_1\dots i_mj_1\dots j_n} = A_{i_1\dots i_m}B_{j_1\dots j_n}}
 }
 \examples{
-# numeric outer product 
+### numeric outer product 
 c(1,2) \%outer\% c(2,3)
 
-# symbolic outer product 
-c('a','b') \%outer\% c('c','d') \%outer\% c('e','f')
+### symbolic outer product 
+c("a","b") \%outer\% c("c","d")
 
 }

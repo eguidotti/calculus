@@ -1,46 +1,40 @@
-#' Tensor Contraction
+#' Numerical and Symbolic Tensor Contraction
 #' 
-#' Sums over repeated indices in a tensor. Can be seen as a generalization of the trace.
+#' Sums over repeated indices in an \code{array}.
 #' 
-#' @param x array.
-#' @param i subset of repeated indices to sum up. If \code{NULL}, the tensor contraction takes place on all repeated indices of \code{x}. 
-#' @param drop logical. Drop summation indices? If \code{FALSE}, keep dummy dimensions.
+#' @param x indexed \code{array}. See \code{\link{index}}.
+#' @param i subset of repeated indices to sum up. If \code{NULL}, the summation takes place on all the repeated indices. 
+#' @param drop \code{logical}. Drop summation indices? If \code{FALSE}, keep dummy dimensions.
 #' 
-#' @return array.
+#' @return \code{array}.
 #' 
 #' @examples 
-#' # trace of numeric matrix
-#' x <- matrix(1:4, nrow = 2)
-#' trace(x)
-#' 
-#' # trace of character matrix
+#' ### matrix trace
 #' x <- matrix(letters[1:4], nrow = 2)
-#' trace(x)
+#' contraction(x)
 #' 
-#' # trace of a tensor (sum over diagonals)
+#' ### tensor trace
 #' x <- array(1:27, dim = c(3,3,3))
-#' trace(x)
+#' contraction(x)
 #' 
-#' # tensor contraction over repeated indices
+#' #### tensor contraction over repeated indices
 #' x <- array(1:27, dim = c(3,3,3))
-#' index(x) <- c('i','i','j')
-#' trace(x)
+#' index(x) <- c("i","i","j")
+#' contraction(x)
 #' 
-#' # tensor contraction over specific indices only
+#' #### tensor contraction over specific repeated indices only
 #' x <- array(1:16, dim = c(2,2,2,2))
-#' index(x) <- c('i','i','k','k')
-#' trace(x, i = 'k')
+#' index(x) <- c("i","i","k","k")
+#' contraction(x, i = "k")
 #' 
-#' # tensor contraction keeping dummy dimensions
+#' #### tensor contraction keeping dummy dimensions
 #' x <- array(letters[1:16], dim = c(2,2,2,2))
-#' index(x) <- c('i','i','k','k')
-#' trace(x, drop = FALSE)
-#' 
-#' @seealso \code{\link{index}}, \code{\link{einstein}}
+#' index(x) <- c("i","i","k","k")
+#' contraction(x, drop = FALSE)
 #' 
 #' @export
 #' 
-trace <- function(x, i = NULL, drop = TRUE){
+contraction <- function(x, i = NULL, drop = TRUE){
   
   x <- as.array(x)
   j <- i  
@@ -93,8 +87,4 @@ trace <- function(x, i = NULL, drop = TRUE){
   }  
   
   return(x)
-  
 }
-
-
-

@@ -2,61 +2,33 @@
 % Please edit documentation in R/evaluate.R
 \name{evaluate}
 \alias{evaluate}
-\title{Numerical Evaluation}
+\title{Evaluate Characters and Expressions}
 \usage{
-evaluate(
-  x,
-  envir = parent.frame(),
-  enclos = if (is.list(envir) || is.pairlist(envir)) parent.frame() else baseenv(),
-  simplify = TRUE
-)
+evaluate(f, var)
 }
 \arguments{
-\item{x}{an object to be evaluated: array of characters, expressions or functions.}
+\item{f}{array of \code{characters} or \code{expressions} to be evaluated.}
 
-\item{envir}{the \code{\link[base]{environment}} in which \code{x} is to be evaluated. May also be \code{NULL}, a list, a data frame, a pairlist or an integer as specified to \code{\link[base]{sys.call}}.}
-
-\item{enclos}{relevant when \code{envir} is a (pair)list or a data frame. Specifies the enclosure, i.e., where \code{R} looks for objects not found in \code{envir}. This can be \code{NULL} (interpreted as the base package environment, \code{\link[base]{baseenv}()}) or an environment.}
-
-\item{simplify}{logical. Simplify the output? If \code{FALSE}, return a \code{list}.}
+\item{var}{named vector or \code{data.frame} in which \code{f} is to be evaluated.}
 }
 \value{
-evaluated object.
+Evaluated object. When \code{var} is a named vector, the return is an array 
+with the same dimensions of \code{f}. When \code{var} is a \code{data.frame}, the
+return is a \code{matrix} with columns corresponding to the entries of \code{f} and 
+rows corresponding to the rows of \code{var}.
 }
 \description{
-Evaluate an array of characters, expressions or functions.
+Evaluates an array of \code{characters} or \code{expressions}.
 }
 \examples{
-##################################
-# Evaluate an array of characters
-#
+### single evaluation
+f <- array(letters[1:4], dim = c(2,2))
+var <- c(a = 1, b = 2, c = 3, d = 4)
+evaluate(f, var)
 
-x <- array(letters[1:4], dim = c(2,2))
+### vectorized evaluation
+f <- array(letters[1:4], dim = c(2,2))
+var <- data.frame(a = 1:3, b = 2:4, c = 3:5, d = 4:6)
+evaluate(f, var)
 
-e <- list(a = 1, b = 2, c = 3, d = 4)
-evaluate(x, env = e)
-evaluate(x, env = e, simplify = FALSE)
-
-e <- list(a = 1:3, b = 2, c = 3, d = 4)
-evaluate(x, env = e)
-evaluate(x, env = e, simplify = FALSE)
-
-
-##################################
-# Evaluate an array of functions
-#
-
-f1 <- function(x,y) sin(x)
-f2 <- function(x,y) sin(y)
-f3 <- function(x,y) x*y
-x <- array(c(f1,f3,f3,f2), dim = c(2,2))
-
-e <- list(x = 0, y = pi/2)
-evaluate(x, env = e)
-evaluate(x, env = e, simplify = FALSE)
-
-e <- list(x = c(0, pi/2), y = c(0, pi/2))
-evaluate(x, env = e)
-evaluate(x, env = e, simplify = FALSE)
-  
 }

@@ -1,76 +1,86 @@
 #' Numerical and Symbolic Derivatives
 #' 
-#' Computes symbolic derivatives based on the \code{\link[stats]{D}} function, or accurate and reliable numerical derivatives based on finite differences.
+#' Computes symbolic derivatives based on the \code{\link[stats]{D}} function, or numerical derivatives based on finite differences.
 #' 
-#' @param f \code{function} returning a vector, matrix, or array; \code{array} of \code{character}; or \code{array} of \code{expression}.
-#' @param var character vector, giving the variable names with respect to which the derivatives are computed. If a named vector is provided, the derivatives will be computed at that point. See examples.
+#' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
+#' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See details.
 #' @param order integer vector, giving the differentiation order for each variable. See details.
 #' @param accuracy degree of accuracy for numerical derivatives.
-#' @param stepsize finite differences stepsize for numerical derivatives. Auto-optimized by default.
-#' @param deparse logical. Return \code{character} instead of \code{expression}? Default \code{TRUE}.
-#' @param drop drop dimensions when...
-#' @param ... additinal arguments passed to \code{f}, when \code{f} is a \code{function}.
+#' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
+#' @param deparse if \code{TRUE}, return \code{character} instead of \code{expression}.
+#' @param drop if \code{TRUE}, return the array of derivatives without adding a dummy dimension when \code{order} is of length 1.
+#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
-#' @details 
-#' The function behaves differently depending on the arguents \code{order} and \code{var}.
+#' @details The function behaves differently depending on the arguents \code{order}, 
+#' the order of differentiation, and \code{var}, the variable names with respect to 
+#' which the derivatives are computed.
 #' 
-#' If \code{order} is an integer and more than one \code{var} are provided, then the n-th order derivative is computed for each element with respect to each 
-#' variable.
-#' \deqn{D = \partial^{(n)} \otimes F \rightarrow D_{i,.,j,k,.,l} = \partial^{(n)}_{k,.,l} F_{i,.,j}}
-#' where \eqn{F} is a tensor of functions and \eqn{\partial} is the tensor of variable names with respect to which 
-#' the \eqn{n}-th order derivatives are computed.
+#' When multiple variables are provided and \code{order} is a single integer \eqn{n}, 
+#' then the \eqn{n}-th order derivative is computed for each element of \code{f} 
+#' with respect to each variable:
 #' 
-#' If \code{order} is a named vector, or it matches the length of \code{var}, then it is assumed that the differentiation order is provided
-#' for each variable. In this case, each element is derived \eqn{n_i} times with respect to the \eqn{i}-th variable, 
-#' for each of the \eqn{j} variables.
-#' \deqn{D = \partial^{(n_1)}_1\partial^{(...)}_{...}\partial^{(n_i)}_i\partial^{(...)}_{...}\partial^{(n_j)}_j F}
-#' where \eqn{F} is the tensor of functions to differentiate. 
+#' \deqn{D = \partial^{(n)} \otimes F}
 #' 
-#' If \code{var} is a named vector, e.g. \code{c(x = 0, y = 0)}, derivatives will be computed at that point. 
-#' Note that if \code{f} is a function, then \code{var} must be a named vector giving the point in which the numerical derivatives have to be computed.
+#' that is:
 #' 
-#' @return array of derivatives.
+#' \deqn{D_{i,\dots,j,k} = \partial^{(n)}_{k} F_{i,\dots,j}}
+#' 
+#' where \eqn{F} is the array of functions and \eqn{\partial_k^{(n)}} denotes the 
+#' \eqn{n}-th order partial derivative with respect to the \eqn{k}-th variable.
+#'     
+#' When \code{order} matches the length of \code{var}, it is assumed that the 
+#' differentiation order is provided for each variable. In this case, each element 
+#' is derived \eqn{n_k} times with respect to the \eqn{k}-th variable, for each 
+#' of the \eqn{m} variables.
+#'     
+#' \deqn{D_{i,\dots,j} = \partial^{(n_1)}_1\cdots\partial^{(n_m)}_m F_{i,\dots,j}}
+#'     
+#' The same applies when \code{order} is a named vector giving the differentiation 
+#' order for each variable. For example, \code{order = c(x=1, y=2)} differentiates 
+#' once with respect to \eqn{x} and twice with respect to \eqn{y}. A call with 
+#' \code{order = c(x=1, y=0)} is equivalent to \code{order = c(x=1)}. 
+#'     
+#' To compute numerical derivatives or to evaluate symbolic derivatives at a point, 
+#' the function accepts a named vector for the argument \code{var}; e.g. 
+#' \code{var = c(x=1, y=2)} evaluates the derivatives in \eqn{x=1} and \eqn{y=2}. 
+#' For \code{functions} where the first argument is used as a parameter vector, 
+#' \code{var} should be a \code{numeric} vector indicating the point at which the 
+#' derivatives are to be calculated.
+#' 
+#' @return \code{array}.
 #' 
 #' @examples 
-#' # derive f with respect to x
+#' ### symbolic derivatives
 #' derivative(f = "sin(x)", var = "x")
 #' 
-#' # derive f with respect to x and evaluate in x = 0
-#' derivative(f = "sin(x)", var = c("x" = 0))
-#' 
-#' # derive a generica function f with respect to x, in x = 0
+#' ### numerical derivatives
 #' f <- function(x) sin(x)
-#' derivative(f = f, var = c(x = 0))
+#' derivative(f = f, var = c(x=0))
+#'
+#' ### higher order derivatives
+#' f <- function(x) sin(x)
+#' derivative(f = f, var = c(x=0), order = 3)
 #' 
-#' # derive f twice with respect to x
-#' derivative(f = "sin(x)", var = "x", order = 2)
+#' ### multivariate functions 
+#' ##  - derive once with respect to x
+#' ##  - derive twice with respect to y
+#' ##  - evaluate in x=0 and y=0
+#' f <- function(x, y) y^2*sin(x)
+#' derivative(f = f, var = c(x=0, y=0), order = c(1,2))
 #' 
-#' # derive f once with respect to x, and twice with respect to y
-#' derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(1, 2))
-#' # or equivalently
-#' derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(x = 1, y = 2))
+#' ### vector-valued functions
+#' ##  - derive each element twice with respect to each variable
+#' ##  - evaluate in x=0 and y=0
+#' f <- function(x, y) c(x^2, y^2)
+#' derivative(f, var = c(x=0, y=0), order = 2)
 #' 
-#' # derive f twice with respect to y only
-#' derivative(f = "y^2*sin(x)", var = "y", order = 2)
-#' # or equivalently
-#' derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(0, 2))
-#' # or equivalently
-#' derivative(f = "y^2*sin(x)", var = c("x","y"), order = c(y = 2))
-#' 
-#' # compute the gradient of f with respect to (x,y)
-#' derivative(f = "y*sin(x)", var = c("x","y"))
-#' 
-#' # compute the Jacobian of f with respect to (x,y)
-#' f <- c("y*sin(x)", "x*cos(y)")
-#' derivative(f = f, var = c("x","y"))
-#' 
-#' # compute the Jacobian of a generic function f with respect to (x,y) in (0,0) 
-#' f <- function(x, y) c(y*sin(x), x*cos(y))
-#' derivative(f = f, var = c(x = 0, y = 0))
+#' ### vectorized interface
+#' f <- function(x) c(sum(x), prod(x))
+#' derivative(f, var = c(0,0,0), order = 1)
 #' 
 #' @export
 #' 
-derivative <- function(f, var = 'x', order = 1, accuracy = 2, stepsize = NULL, drop = TRUE, deparse = TRUE, ...){
+derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = TRUE, deparse = TRUE, ...){
   
   is.fun <- is.function(f)
   deparse <- deparse & !is.fun
@@ -143,7 +153,7 @@ derivative <- function(f, var = 'x', order = 1, accuracy = 2, stepsize = NULL, d
   }
   
   if(!is.fun & !is.null(x0))
-    f <- evaluate(f, envir = as.list(x0))
+    f <- evaluate(f, x0)
   
   return(as.array(f))
   
@@ -164,7 +174,7 @@ D.sym <- function(f, var, order = 1) {
 }
 
 # Numerical derivatives
-D.num <- function(f, x0, order, accuracy, stepsize, drop, cross = FALSE, ...){
+D.num <- function(f, x0, order, accuracy, stepsize, drop, zero = NULL, cross = FALSE, ...){
 
   f.dim <- f.dim(f, x0, ...)
 
@@ -181,12 +191,16 @@ D.num <- function(f, x0, order, accuracy, stepsize, drop, cross = FALSE, ...){
   n <- length(w)
   n.o <- length(order)
   n.x <- length(x0)
-  
-  if(is.null(stepsize))
-    stepsize <- .Machine$double.eps^(1/3)
-  h <- stepsize^(1/sum(d))
-  h <- abs(h*x0) + h * (abs(x0) < .Machine$double.eps^(2/3))
 
+  if(is.null(stepsize)){
+    stepsize <- .Machine$double.eps^(1/3)
+    h <- stepsize^(1/sum(d))
+    h <- abs(h*x0) + h * (abs(x0) < .Machine$double.eps^(2/3))
+  }
+  else{
+    h <- rep(stepsize, length.out = n.x)
+  }
+  
   i <- lapply(w, function(i) {i.max <- as.integer((d[i]+p-1)/2); -i.max:i.max})
   i.dim <- sapply(i, length)
   i.grid <- as.matrix(expand.grid(i))
@@ -280,6 +294,9 @@ D.num <- function(f, x0, order, accuracy, stepsize, drop, cross = FALSE, ...){
   x <- s * eval(parse(text = sprintf('einstein(F.i,%s)', paste0("C.", w, collapse = ','))))
   index(x) <- NULL
   
+  if(!is.null(zero))
+    x[which(abs(x)<=zero)] <- 0
+    
   return(x)
     
 }

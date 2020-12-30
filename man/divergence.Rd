@@ -9,7 +9,7 @@ divergence(
   f,
   var,
   coordinates = "cartesian",
-  accuracy = 2,
+  accuracy = 4,
   stepsize = NULL,
   drop = TRUE,
   ...
@@ -18,46 +18,68 @@ divergence(
 f \%divergence\% var
 }
 \arguments{
-\item{f}{function, expression or character array.}
+\item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
-\item{var}{character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.}
+\item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
-\item{accuracy}{accuracy degree for numerical derivatives.}
+\item{accuracy}{degree of accuracy for numerical derivatives.}
 
-\item{stepsize}{finite differences stepsize for numerical derivatives. Auto-optimized by default.}
+\item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
-\item{drop}{drop dimensions when...}
+\item{drop}{if \code{TRUE}, return the divergence as a scalar and not as an \code{array} for vector-valued functions.}
 
-\item{...}{additinal arguments passed to \code{f}, when \code{f} is a \code{function}.}
+\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
-divergence array.
+Scalar for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 }
 \description{
-Computes the divergence of functions, expressions and characters.
+Computes the numerical divergence of \code{functions} or the symbolic divergence of \code{characters}
+in arbitrary orthogonal coordinate systems.
+}
+\details{
+The divergence of a vector-valued function \eqn{F_i} produces a scalar value 
+\eqn{\nabla \cdot F} representing the volume density of the outward flux of the 
+vector field from an infinitesimal volume around a given point. 
+The \code{divergence} is computed in arbitrary orthogonal coordinate systems using the 
+scale factors \eqn{h_i}:
+
+\deqn{\nabla \cdot F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)}
+
+where \eqn{J=\prod_ih_i}. When \eqn{F} is an \code{array} of vector-valued functions 
+\eqn{F_{d_1\dots d_n,i}}, the \code{divergence} is computed for each vector:
+
+\deqn{(\nabla \cdot F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1\dots d_n,i}\Biggl)}
 }
 \section{Functions}{
 \itemize{
-\item \code{divergence}: arbitrary coordinate system
-
-\item \code{\%divergence\%}: cartesian coordinates
+\item \code{\%divergence\%}: binary operator with default parameters.
 }}
 
 \examples{
-# divergence of a vector field
-f <- c('x^2','y^3','z^4')
-divergence(f, var = c('x','y','z'))
-f \%divergence\% c('x','y','z')
+### symbolic divergence of a vector field
+f <- c("x^2","y^3","z^4")
+divergence(f, var = c("x","y","z"))
 
-# numerical divergence of a vector field
+### numerical divergence of a vector field in (x=1, y=1, z=1)
 f <- function(x,y,z) c(x^2, y^3, z^4)
-divergence(f, var = c('x'=1,'y'=1,'z'=1))
-f \%divergence\% c('x'=1,'y'=1,'z'=1)
+divergence(f, var = c(x=1, y=1, z=1))
 
-# divergence in polar coordinates
-f <- c('sqrt(r)/10','sqrt(r)')
-divergence(f, var = c('r','phi'), coordinates = 'polar')
+### vectorized interface
+f <- function(x) c(x[1]^2, x[2]^3, x[3]^4)
+divergence(f, var = c(1,1,1)) 
+
+### symbolic array of vector-valued 3-d functions
+f <- array(c("x^2","x","y^2","y","z^2","z"), dim = c(2,3))
+divergence(f, var = c("x","y","z"))
+
+### numeric array of vector-valued 3-d functions in (x=0, y=0, z=0)
+f <- function(x,y,z) array(c(x^2,x,y^2,y,z^2,z), dim = c(2,3))
+divergence(f, var = c(x=0, y=0, z=0))
+ 
+### binary operator
+c("x^2","y^3","z^4") \%divergence\% c("x","y","z")
 
 }

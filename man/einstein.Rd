@@ -7,47 +7,27 @@
 einstein(..., drop = TRUE)
 }
 \arguments{
-\item{...}{arbitrary number of indexed arrays.}
+\item{...}{arbitrary number of indexed \code{arrays}. See \code{\link{index}}.}
 
-\item{drop}{logical. Drop summation indices? If \code{FALSE}, keep dummy dimensions.}
+\item{drop}{\code{logical}. Drop summation indices? If \code{FALSE}, keep dummy dimensions.}
 }
 \value{
-array.
+\code{array}.
 }
 \description{
 Implements the Einstein notation for summation over repeated indices.
 }
 \examples{
-##################################
-# A{i,j} B{j,k,k} C{k,l} D{j,k}
-#
-
-a <- array(1:10, dim = c(2,5))
-b <- array(1:45, dim = c(5,3,3))
-c <- array(1:12, dim = c(3,4))
-d <- array(1:15, dim = c(5,3))
-
-index(a) <- c('i','j')
-index(b) <- c('j','k','k')
-index(c) <- c('k', 'l')
-index(d) <- c('j', 'k')
-
-einstein(a,b,c,d)
-
-
-##################################
-# A{i,j} B{j,k}
-#
-
-a <- array(letters[1:6], dim = c(2,3))
-b <- array(letters[1:12], dim = c(3,4))
-
-index(a) <- c('i','j')
-index(b) <- c('j','k')
-
+### A{i,j} B{j,k}
+a <- array(letters[1:6], dim = c(i=2, j=3))
+b <- array(letters[1:3], dim = c(j=3, k=1))
 einstein(a,b)
 
-}
-\seealso{
-\code{\link{index}}, \code{\link{trace}}
+### A{i,j} B{j,k,k} C{k,l} D{j,k}
+a <- array(1:10, dim = c(i=2, j=5))
+b <- array(1:45, dim = c(j=5, k=3, k=3))
+c <- array(1:12, dim = c(k=3, l=4))
+d <- array(1:15, dim = c(j=5, k=3))
+einstein(a,b,c,d)
+
 }

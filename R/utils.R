@@ -273,19 +273,22 @@ sf <- function(var, coordinates){
   
 }
 
-# function evaluation
-f.eval <- function(f, var, ...){
-  
-  if(is.null(names(var)))
-    return(f(var, ...))
-  
-  do.call(f, c(as.list(var), list(...)))
-  
-}
-
 # function dimension
-f.dim <- function(f, var, ...){
+f.eval <- function(f, var, params, array = TRUE, dim = FALSE){
   
-  dim(as.array(f.eval(f, var, ...)))
+  if(!is.list(var) && is.null(names(var)))
+    var <- list(var)
+  else 
+    var <- as.list(var)
+  
+  x <- do.call(f, c(var, params))
+  
+  if(array & !is.array(x))
+    x <- as.array(x)
+  
+  if(dim)
+    return(dim(x))
+  
+  return(x)
   
 }

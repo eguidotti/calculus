@@ -329,3 +329,19 @@ test_that("202012272243", {
   y <- c(4*pi*2^2, 8*pi*2^2)
   expect_equal(x$value, y, tolerance = 3*x$error)
 })
+
+test_that("202012310003", {
+  set.seed(123)
+  f <- c(1, "2*a")
+  x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), params = list(a = 1), coordinates = "spherical", relTol = 1e-2, method = "mc", vectorize = TRUE)
+  y <- c(4*pi*2^2, 8*pi*2^2)
+  expect_equal(x$value, y, tolerance = 3*x$error)
+})
+
+test_that("202012310004", {
+  set.seed(123)
+  f <- c(1, "2*a")
+  x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), params = list(a = 1), coordinates = "spherical", relTol = 1e-2, vectorize = TRUE)
+  y <- c(4*pi*2^2, 8*pi*2^2)
+  expect_equal(x$value, y, tolerance = 3*x$error)
+})

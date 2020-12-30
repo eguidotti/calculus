@@ -102,7 +102,15 @@ test_that("202012132005", {
 
 test_that("202012141710", {
   f <- function(x, extra) if(extra) x
-  x <- hessian(f, 1, extra = TRUE)
+  x <- hessian(f, 1, params = list(extra = TRUE))
   y <- matrix(0)
+  expect_equal(x,y)
+})
+
+test_that("202012302350", {
+  f.num <- function(x, y) array(c(x^2*y^2, x, x^2, y), dim = c(2,2))
+  f.sym <- array(c('a*x^2*y^2', 'b*x', 'x^2', 'y'), dim = c(2,2))
+  x <- hessian(f.num, var = c('x' = 2,'y' = 3))
+  y <- hessian(f.sym, var = c('x' = 2,'y' = 3), params = list(a = 1, b = 1))
   expect_equal(x,y)
 })

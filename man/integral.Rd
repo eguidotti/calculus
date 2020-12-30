@@ -7,9 +7,10 @@
 integral(
   f,
   bounds,
+  params = list(),
+  coordinates = "cartesian",
   relTol = 0.001,
   absTol = 1e-12,
-  coordinates = "cartesian",
   method = NULL,
   vectorize = FALSE,
   drop = TRUE,
@@ -22,11 +23,13 @@ integral(
 
 \item{bounds}{\code{list} containing the lower and upper bounds for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed.}
 
-\item{relTol}{relative accuracy requested.}
-
-\item{absTol}{absolute accuracy requested.}
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
 
 \item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+
+\item{relTol}{the maximum relative tolerance.}
+
+\item{absTol}{the absolute tolerance.}
 
 \item{method}{the method to use. One of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Methods other than \code{"mc"} (naive Monte Carlo) require the \pkg{cubature} package to be installed (efficient integration in C). The defaul uses \code{"hcubature"} if \pkg{cubature} is installed or \code{"mc"} otherwise.}
 

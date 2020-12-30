@@ -21,21 +21,21 @@ test_that("202012141845", {
 
 test_that("202012141846", {
   f <- function(x,y,z, extra) if(extra) c(x*y,y*z,x*z)
-  x <- curl(f, var = c('x'=1,'y'=2,'z'=3), extra = TRUE)
+  x <- curl(f, var = c('x'=1,'y'=2,'z'=3), params = list(extra = TRUE))
   y <- c(-2,-3,-1)
   expect_equal(x,y)
 })
 
 test_that("202012141847", {
   f <- function(r, phi, z, k) c(0, r^-2, k)
-  x <- curl(f, var = c(r = 2, phi = -30, z = 40), k = 100, coordinates = "cylindrical")
+  x <- curl(f, var = c(r = 2, phi = -30, z = 40), params = list(k = 100), coordinates = "cylindrical")
   y <- c(0,0,-1/8)
   expect_equal(x,y)
 })
 
 test_that("202012141856", {
   f <- function(x, k) c(0, x[1]^-2, k)
-  x <- curl(f, var = c(2, -30, 40), k = 100, coordinates = "cylindrical")
+  x <- curl(f, var = c(2, -30, 40), params = list(k = 100), coordinates = "cylindrical")
   y <- c(0,0,-1/8)
   expect_equal(x,y)
 })
@@ -112,4 +112,12 @@ test_that("202012142333", {
   x.sym <- curl(f.sym, var = c('r'=2,'theta'=3), coordinates = "spherical")
   x.num <- curl(f.num, var = c(r=2,theta=3), coordinates = "spherical")
   expect_equal(x.sym,x.num)
+})
+
+
+test_that("202012302351", {
+  f <- c('x*y','y*z','x*z*a')
+  x <- curl(f, var = c('x'=1,'y'=2,'z'=3), params = list(a = 1))
+  y <- c(-2,-3,-1)
+  expect_equal(x,y)
 })

@@ -6,9 +6,9 @@
 #' @param var vector giving the initial conditions. See examples.
 #' @param times discretization sequence, the first value represents the initial time.
 #' @param timevar the time variable used by \code{f}, if any. 
-#' @param drop if \code{TRUE}, return only the final solution instead of the whole trajectory.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param method the solver to use. One of \code{"rk4"} (Runge-Kutta) or \code{"euler"} (Euler).
-#' @param ... additional arguments passed to \code{f}.
+#' @param drop if \code{TRUE}, return only the final solution instead of the whole trajectory.
 #' 
 #' @return Vector of final solutions if \code{drop=TRUE}, otherwise a \code{matrix} with as many 
 #' rows as elements in \code{times} and as many columns as elements in \code{var}.
@@ -81,12 +81,11 @@
 #' 
 #' @export
 #' 
-ode <- function(f, var, times, timevar = NULL, drop = FALSE, method = "rk4", ...){
+ode <- function(f, var, times, timevar = NULL, params = list(), method = "rk4", drop = FALSE){
   
   is.named <- !is.null(names(var))
   is.fun <- is.function(f)
   is.t <- !is.null(timevar) 
-  dots <- list(...)
   h <- diff(times)
   n <- length(h)
   
@@ -109,35 +108,46 @@ ode <- function(f, var, times, timevar = NULL, drop = FALSE, method = "rk4", ...
       if(!is.named){
         if(!is.t){
           for(i in 1:n){
-            var <- var + h[i] * f(var, ...)
-            if(!drop) m[i,] <- var
+            var <- var + h[i] * do.call(f, c(list(var), params))
+            if(!drop) m[i+1,] <- var
           }
         } 
         else{
           for(i in 1:n){
-            var <- var + h[i] * do.call(f, c(list(var), as.list(times[i]), dots))
-            if(!drop) m[i,] <- var
+            var <- var + h[i] * do.call(f, c(list(var), as.list(times[i]), params))
+            if(!drop) m[i+1,] <- var
           }
         }
       } 
       else {
         if(!is.t){
           for(i in 1:n){
-            var <- var + h[i] * do.call(f, c(as.list(var), dots))
-            if(!drop) m[i,] <- var
+            var <- var + h[i] * do.call(f, c(as.list(var), params))
+            if(!drop) m[i+1,] <- var
           }
         }
         else{
           for(i in 1:n){
-            var <- var + h[i] * do.call(f, c(as.list(c(var, times[i])), dots)) 
-            if(!drop) m[i,] <- var
+            var <- var + h[i] * do.call(f, c(as.list(c(var, times[i])), params)) 
+            if(!drop) m[i+1,] <- var
           }
         }
       }
     } else {
-      for(i in 1:n){
-        var <- var + h[i] * eval(f, envir = c(as.list(c(times[i], var)), dots))
-        if(!drop) m[i,] <- var
+      env <- list2env(params, hash = TRUE)
+      if(!is.t){
+        for(i in 1:n){
+          list2env(as.list(var), envir = env)
+          var <- var + h[i] * eval(f, envir = env)
+          if(!drop) m[i+1,] <- var
+        }
+      }
+      else{
+        for(i in 1:n){
+          list2env(as.list(c(var, times[i])), envir = env)
+          var <- var + h[i] * eval(f, envir = env)
+          if(!drop) m[i+1,] <- var
+        }
       }
     }
   } 
@@ -146,56 +156,80 @@ ode <- function(f, var, times, timevar = NULL, drop = FALSE, method = "rk4", ...
       if(!is.named){
         if(!is.t){
           for(i in 1:n){
-            k1 <- f(var, ...)
-            k2 <- f(var+h[i]*k1/2, ...)
-            k3 <- f(var+h[i]*k2/2, ...)
-            k4 <- f(var+h[i]*k3, ...)
-            var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6  
-            if(!drop) m[i,] <- var
+            k1 <- do.call(f, c(list(var), params))
+            k2 <- do.call(f, c(list(var+h[i]*k1/2), params))
+            k3 <- do.call(f, c(list(var+h[i]*k2/2), params))
+            k4 <- do.call(f, c(list(var+h[i]*k3), params))
+            var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
+            if(!drop) m[i+1,] <- var
           }
         }
         else{
           for(i in 1:n){
-            k1 <- do.call(f, c(list(var), as.list(times[i]), dots))
-            k2 <- do.call(f, c(list(var+h[i]*k1/2), as.list(times[i]+h[i]/2), dots))
-            k3 <- do.call(f, c(list(var+h[i]*k2/2), as.list(times[i]+h[i]/2), dots))
-            k4 <- do.call(f, c(list(var+h[i]*k3), as.list(times[i]+h[i]), dots))
+            k1 <- do.call(f, c(list(var), as.list(times[i]), params))
+            k2 <- do.call(f, c(list(var+h[i]*k1/2), as.list(times[i]+h[i]/2), params))
+            k3 <- do.call(f, c(list(var+h[i]*k2/2), as.list(times[i]+h[i]/2), params))
+            k4 <- do.call(f, c(list(var+h[i]*k3), as.list(times[i]+h[i]), params))
             var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
-            if(!drop) m[i,] <- var
+            if(!drop) m[i+1,] <- var
           }
         }
       } 
       else {
         if(!is.t){
           for(i in 1:n){
-            k1 <- do.call(f, c(as.list(var), dots))
-            k2 <- do.call(f, c(as.list(var+h[i]*k1/2), dots))
-            k3 <- do.call(f, c(as.list(var+h[i]*k2/2), dots))
-            k4 <- do.call(f, c(as.list(var+h[i]*k3), dots))
+            k1 <- do.call(f, c(as.list(var), params))
+            k2 <- do.call(f, c(as.list(var+h[i]*k1/2), params))
+            k3 <- do.call(f, c(as.list(var+h[i]*k2/2), params))
+            k4 <- do.call(f, c(as.list(var+h[i]*k3), params))
             var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
-            if(!drop) m[i,] <- var
+            if(!drop) m[i+1,] <- var
           }
         }
         else{
           for(i in 1:n){
-            k1 <- do.call(f, c(as.list(c(times[i], var)), dots))
-            k2 <- do.call(f, c(as.list(c(times[i]+h[i]/2, var+h[i]*k1/2)), dots))
-            k3 <- do.call(f, c(as.list(c(times[i]+h[i]/2, var+h[i]*k2/2)), dots))
-            k4 <- do.call(f, c(as.list(c(times[i]+h[i], var+h[i]*k3)), dots))
+            k1 <- do.call(f, c(as.list(c(times[i], var)), params))
+            k2 <- do.call(f, c(as.list(c(times[i]+h[i]/2, var+h[i]*k1/2)), params))
+            k3 <- do.call(f, c(as.list(c(times[i]+h[i]/2, var+h[i]*k2/2)), params))
+            k4 <- do.call(f, c(as.list(c(times[i]+h[i], var+h[i]*k3)), params))
             var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
-            if(!drop) m[i,] <- var
+            if(!drop) m[i+1,] <- var
           }
         }
       }
     } 
     else {
-      for(i in 1:n){
-        k1 <- eval(f, envir = c(as.list(c(times[i], var)), dots))
-        k2 <- eval(f, envir = c(as.list(c(times[i]+h[i]/2, var+h[i]*k1/2)), dots))
-        k3 <- eval(f, envir = c(as.list(c(times[i]+h[i]/2, var+h[i]*k2/2)), dots))
-        k4 <- eval(f, envir = c(as.list(c(times[i]+h[i], var+h[i]*k3)), dots))
-        var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
-        if(!drop) m[i,] <- var
+      env1 <- list2env(params, hash = TRUE)
+      env2 <- list2env(params, hash = TRUE)
+      env3 <- list2env(params, hash = TRUE)
+      env4 <- list2env(params, hash = TRUE)
+      if(!is.t){
+        for(i in 1:n){
+          list2env(as.list(var), envir = env1)
+          k1 <- eval(f, envir = env1)
+          list2env(as.list(var+h[i]*k1/2), envir = env2)
+          k2 <- eval(f, envir = env2)
+          list2env(as.list(var+h[i]*k2/2), envir = env3)
+          k3 <- eval(f, envir = env3)
+          list2env(as.list(var+h[i]*k3), envir = env4)
+          k4 <- eval(f, envir = env4)
+          var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
+          if(!drop) m[i+1,] <- var
+        }
+      }
+      else{
+        for(i in 1:n){
+          list2env(as.list(c(times[i], var)), envir = env1)
+          k1 <- eval(f, envir = env1)
+          list2env(as.list(c(times[i]+h[i]/2, var+h[i]*k1/2)), envir = env2)
+          k2 <- eval(f, envir = env2)
+          list2env(as.list(c(times[i]+h[i]/2, var+h[i]*k2/2)), envir = env3)
+          k3 <- eval(f, envir = env3)
+          list2env(as.list(c(times[i]+h[i], var+h[i]*k3)), envir = env4)
+          k4 <- eval(f, envir = env4)
+          var <- var + (h[i]*(k1+2*k2+2*k3+k4))/6
+          if(!drop) m[i+1,] <- var
+        }
       }
     }
   } else {

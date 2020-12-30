@@ -89,7 +89,7 @@ test_that("202012131920", {
 
 test_that("202012141708", {
   f <- function(x, y, extra) if(extra) array(x^2*y^2, dim = c(1,1,1))
-  x <- gradient(f, var = c('x' = 2,'y' = 3), drop = FALSE, extra = TRUE)
+  x <- gradient(f, var = c('x' = 2,'y' = 3), drop = FALSE, params = list(extra = TRUE))
   y <- array(c(36, 24), dim = c(1,1,1,2))
   expect_equal(x,y)
 })
@@ -97,8 +97,13 @@ test_that("202012141708", {
 test_that("202012141709", {
   f.num <- function(x, extra) if(extra) rep(prod(x), 2)
   f.sym <- rep("r*theta*phi", 2)
-  x <- gradient(f.num, var = c(100, 52, pi/3), coordinates = 'spherical', extra = TRUE)
+  x <- gradient(f.num, var = c(100, 52, pi/3), coordinates = 'spherical', params = list(extra = TRUE))
   y <- gradient(f.sym, var = c(r = 100, theta = 52, phi = pi/3), coordinates = 'spherical')
   expect_equal(x,y)
 })
 
+test_that("202012302347", {
+  x <- gradient(f = "a*sin(x)", var = c("x"=0), params = list(a = 10))
+  y <- 10
+  expect_equal(x,y)
+})

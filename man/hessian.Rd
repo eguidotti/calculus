@@ -5,7 +5,7 @@
 \alias{\%hessian\%}
 \title{Numerical and Symbolic Hessian}
 \usage{
-hessian(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...)
+hessian(f, var, params = list(), accuracy = 4, stepsize = NULL, drop = TRUE)
 
 f \%hessian\% var
 }
@@ -14,13 +14,13 @@ f \%hessian\% var
 
 \item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
+
 \item{accuracy}{degree of accuracy for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
 \item{drop}{if \code{TRUE}, return the Hessian as a matrix and not as an \code{array} for scalar-valued functions.}
-
-\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 Hessian matrix for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.

@@ -8,11 +8,11 @@
 divergence(
   f,
   var,
+  params = list(),
   coordinates = "cartesian",
   accuracy = 4,
   stepsize = NULL,
-  drop = TRUE,
-  ...
+  drop = TRUE
 )
 
 f \%divergence\% var
@@ -22,6 +22,8 @@ f \%divergence\% var
 
 \item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
+
 \item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
 \item{accuracy}{degree of accuracy for numerical derivatives.}
@@ -29,8 +31,6 @@ f \%divergence\% var
 \item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
 \item{drop}{if \code{TRUE}, return the divergence as a scalar and not as an \code{array} for vector-valued functions.}
-
-\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 Scalar for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise.

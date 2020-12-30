@@ -4,12 +4,14 @@
 \alias{evaluate}
 \title{Evaluate Characters and Expressions}
 \usage{
-evaluate(f, var)
+evaluate(f, var, params = list())
 }
 \arguments{
 \item{f}{array of \code{characters} or \code{expressions} to be evaluated.}
 
 \item{var}{named vector or \code{data.frame} in which \code{f} is to be evaluated.}
+
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
 }
 \value{
 Evaluated object. When \code{var} is a named vector, the return is an array 
@@ -30,6 +32,12 @@ evaluate(f, var)
 f <- array(letters[1:4], dim = c(2,2))
 var <- data.frame(a = 1:3, b = 2:4, c = 3:5, d = 4:6)
 evaluate(f, var)
+
+### evaluation with additional parameters
+f <- "a*sum(x)"
+var <- data.frame(a = 1:3)
+params <- list(x = 1:3)
+evaluate(f, var, params)
 
 }
 \seealso{

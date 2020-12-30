@@ -561,11 +561,11 @@ cross <- function(...){
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.
 #' @param drop if \code{TRUE}, return the gradient as a vector and not as an \code{array} for scalar-valued functions.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return Gradient vector for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 #' 
@@ -593,13 +593,13 @@ cross <- function(...){
 #'  
 #' @export
 #' 
-gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
+gradient <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
   
   x <- names(var)
   if(is.null(x))
     x <- var
   
-  f <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+  f <- derivative(f = f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE)
   
   n <- length(var)
   m <- length(f)
@@ -654,10 +654,10 @@ gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return \code{array}.
 #' 
@@ -685,9 +685,9 @@ gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' 
 #' @export
 #' 
-jacobian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, ...){
+jacobian <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL){
   
-  gradient(f = f, var = var, coordinates = coordinates, accuracy = accuracy, stepsize = stepsize, drop = FALSE, ...)
+  gradient(f = f, var = var, params = params, coordinates = coordinates, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
   
 }
   
@@ -727,10 +727,10 @@ jacobian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param drop if \code{TRUE}, return the Hessian as a matrix and not as an \code{array} for scalar-valued functions.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return Hessian matrix for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 #' 
@@ -758,7 +758,7 @@ jacobian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' 
 #' @export
 #' 
-hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
+hessian <- function(f, var, params = list(), accuracy = 4, stepsize = NULL, drop = TRUE){
   
   n <- length(var)
   x <- names(var)
@@ -767,12 +767,12 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
   
   if(is.function(f)){
     
-    f.dim <- f.dim(f, var, ...)
+    f.dim <- f.eval(f, var, params, dim = TRUE)
     m <- prod(f.dim)
     
-    ii <- D.num(f = f, x0 = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, ...)
+    ii <- D.num(f = f, x0 = var, params = params, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     if(n>1)
-      ij <- D.num(f = f, x0 = var, order = 1, accuracy = accuracy, stepsize = stepsize, cross = TRUE, drop = FALSE, ...)
+      ij <- D.num(f = f, x0 = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, cross = TRUE, drop = FALSE)
     
     lwr <- lower.tri(matrix(nrow = n, ncol = n))
     dia <- lower.tri(lwr, diag = TRUE) & !lwr
@@ -819,8 +819,8 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
   } 
   else {
 
-    g <- gradient(f = f, var = x, coordinates = "cartesian", drop = FALSE, ...)
-    H <- gradient(f = g, var = var, coordinates = "cartesian", drop = FALSE, ...)
+    g <- gradient(f = f, var = x, params = params, coordinates = "cartesian", drop = FALSE)
+    H <- gradient(f = g, var = var, params = params, coordinates = "cartesian", drop = FALSE)
         
   }
 
@@ -866,11 +866,11 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.
 #' @param drop if \code{TRUE}, return the divergence as a scalar and not as an \code{array} for vector-valued functions.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return Scalar for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise. 
 #' 
@@ -899,14 +899,14 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
 #' 
 #' @export
 #' 
-divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
+divergence <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
   
   calculus.auto.wrap <- options(calculus.auto.wrap = TRUE)
   on.exit(options(calculus.auto.wrap), add = TRUE)
   
   is.fun <- is.function(f)
   if(is.fun)
-    f.di <- as.array(f.eval(f, var, ...))
+    f.di <- f.eval(f, var, params)
   else
     f.di <- as.array(f)
   
@@ -933,7 +933,7 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
   
   if(is.null(h)){
     
-    df.dij <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    df.dij <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     index(df.dij)[f.n.dim+0:1] <- "i"
     
     D <- einstein(df.dij)
@@ -955,10 +955,10 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
       h.i <- evaluate(h, qvar)
       index(h.i) <- "i"
       
-      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(dh.i) <- c("i","i")
       
-      df.dij <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      df.dij <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(df.dij)[f.n.dim+0:1] <- "i"
       
       D <- (einstein(dh.i,f.di) + einstein(h.i,df.dij)) 
@@ -968,7 +968,7 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
       
       f[] <- cpp_paste(wrap(f), rep(h, each = prod(f.dim)/n), sep = " * ")
 
-      df <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      df <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(df)[f.n.dim+0:1] <- "i"
 
       D <- einstein(df)
@@ -1034,11 +1034,11 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
 #'
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.
 #' @param drop if \code{TRUE}, return the curl as a vector and not as an \code{array} for vector-valued functions.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return Vector for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise. 
 #' 
@@ -1071,14 +1071,14 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
 #' 
 #' @export
 #'
-curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
+curl <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
   
   calculus.auto.wrap <- options(calculus.auto.wrap = TRUE)
   on.exit(options(calculus.auto.wrap), add = TRUE)
   
   is.fun <- is.function(f)
   if(is.fun)
-    f.dj <- as.array(f.eval(f, var, ...))
+    f.dj <- f.eval(f, var, params)
   else
     f.dj <- as.array(f)
   
@@ -1111,7 +1111,7 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
   
   if(is.null(h)){
     
-    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    df.dji <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     index(df.dji)[f.n.dim+0:1] <- c("j","i")
     
     D <- einstein(df.dji, eps)
@@ -1123,12 +1123,12 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
     index(h.i) <- "i"
     index(h.j) <- "j"
     
-    dh.ji <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE)
+    dh.ji <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     index(dh.ji) <- c("j","i")   
     
     index(f.dj)[f.n.dim] <- "j"
     
-    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    df.dji <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     index(df.dji)[f.n.dim+0:1] <- c("j","i")
     
     D <- einstein(f.dj, eps, 1/h.i, 1/h.j, dh.ji) + einstein(df.dji, eps, 1/h.i, 1/h.j, h.j)
@@ -1138,7 +1138,7 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
     
     f[] <- cpp_paste(wrap(f), rep(h, each = prod(f.dim)/n), sep = " * ")
     
-    df.dji <- derivative(f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+    df.dji <- derivative(f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
     index(df.dji)[f.n.dim+0:1] <- c("j","i")
     
     if(is.numeric(df.dji))
@@ -1195,11 +1195,11 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.
 #' @param drop if \code{TRUE}, return the Laplacian as a scalar and not as an \code{array} for scalar-valued functions.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return Scalar for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise.
 #' 
@@ -1227,7 +1227,7 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
 #' 
 #' @export
 #' 
-laplacian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
+laplacian <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
 
   if(is.function(f)){
 
@@ -1241,7 +1241,7 @@ laplacian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize 
     
     if(is.null(h)){
       
-      ddf.di <- derivative(f = f, var = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      ddf.di <- derivative(f = f, var = var, params = params, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       L <- rowSums(ddf.di, dims = length(dim(ddf.di))-1)
       
     }
@@ -1257,13 +1257,13 @@ laplacian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize 
       h.i <- evaluate(h, qvar)
       index(h.i) <- "i"
       
-      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      dh.i <- derivative(h, var = qvar, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(dh.i) <- c("i","i")
       
-      df.di <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      df.di <- derivative(f = f, var = var, params = params, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(df.di)[length(dim(df.di))] <- "i"
       
-      ddf.di <- derivative(f = f, var = var, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = TRUE, ...)
+      ddf.di <- derivative(f = f, var = var, params = params, order = 2, accuracy = accuracy, stepsize = stepsize, drop = FALSE)
       index(ddf.di)[length(dim(ddf.di))] <- "i"
       
       L <- (einstein(df.di, dh.i) + einstein(ddf.di, h.i)) / eval(parse(text = J), as.list(qvar))
@@ -1277,8 +1277,8 @@ laplacian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize 
     if(is.null(x))
       x <- var
     
-    g <- gradient(f = f, var = x, coordinates = coordinates, drop = FALSE)
-    L <- divergence(g, var = var, coordinates = coordinates, drop = drop)
+    g <- gradient(f = f, var = x, params = params, coordinates = coordinates, drop = FALSE)
+    L <- divergence(g, var = var, params = params, coordinates = coordinates, drop = FALSE)
     
   }
   

@@ -4,12 +4,22 @@
 \alias{taylor}
 \title{Taylor Series Expansion}
 \usage{
-taylor(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-07, ...)
+taylor(
+  f,
+  var,
+  params = list(),
+  order = 1,
+  accuracy = 4,
+  stepsize = NULL,
+  zero = 1e-07
+)
 }
 \arguments{
 \item{f}{\code{character}, or \code{function} returning a \code{numeric} scalar value.}
 
 \item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated (the center of the Taylor series). See \code{\link{derivative}}.}
+
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
 
 \item{order}{the order of the Taylor approximation.}
 
@@ -18,8 +28,6 @@ taylor(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-07, ...)
 \item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
 
 \item{zero}{tolerance used for deciding which derivatives are zero. Absolute values less than this number are set to zero.}
-
-\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 \code{list} with components:

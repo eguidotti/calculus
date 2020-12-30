@@ -5,7 +5,14 @@
 \alias{\%jacobian\%}
 \title{Numerical and Symbolic Jacobian}
 \usage{
-jacobian(f, var, coordinates = "cartesian", accuracy = 4, stepsize = NULL, ...)
+jacobian(
+  f,
+  var,
+  params = list(),
+  coordinates = "cartesian",
+  accuracy = 4,
+  stepsize = NULL
+)
 
 f \%jacobian\% var
 }
@@ -14,13 +21,13 @@ f \%jacobian\% var
 
 \item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See \code{\link{derivative}}.}
 
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
+
 \item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a vector of scale factors for each varibale.}
 
 \item{accuracy}{degree of accuracy for numerical derivatives.}
 
 \item{stepsize}{finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.}
-
-\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 \code{array}.

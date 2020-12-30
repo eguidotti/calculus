@@ -48,3 +48,11 @@ test_that("202012142312", {
   x.sym <- laplacian(f.sym, var = c(x=2,y=3,z=4))
   expect_equal(x.num,x.sym)
 })
+
+test_that("202012142312", {
+  f.num <- function(x,y,z,extra) if(extra) array(rep(c(x^2*y*sin(z),z*y,x*z+y^2), 2), dim = c(2,3))
+  f.sym <- array(rep(c('x^2*y*sin(z)','z*y','a*x*z+y^2'), 2), dim = c(2,3))
+  x.num <- laplacian(f.num, var = c(x=2,y=3,z=4), accuracy = 4, params = list(extra = TRUE))
+  x.sym <- laplacian(f.sym, var = c(x=2,y=3,z=4), params = list(a = 1))
+  expect_equal(x.num,x.sym)
+})

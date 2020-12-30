@@ -7,18 +7,20 @@
 derivative(
   f,
   var,
+  params = list(),
   order = 1,
   accuracy = 4,
   stepsize = NULL,
   drop = TRUE,
-  deparse = TRUE,
-  ...
+  deparse = TRUE
 )
 }
 \arguments{
 \item{f}{array of \code{characters} or a \code{function} returning a \code{numeric} array.}
 
 \item{var}{vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See details.}
+
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
 
 \item{order}{integer vector, giving the differentiation order for each variable. See details.}
 
@@ -29,8 +31,6 @@ derivative(
 \item{drop}{if \code{TRUE}, return the array of derivatives without adding a dummy dimension when \code{order} is of length 1.}
 
 \item{deparse}{if \code{TRUE}, return \code{character} instead of \code{expression}.}
-
-\item{...}{additional arguments passed to \code{f}, when \code{f} is a \code{function}.}
 }
 \value{
 \code{array}.

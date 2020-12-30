@@ -4,12 +4,12 @@
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See details.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param order integer vector, giving the differentiation order for each variable. See details.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param deparse if \code{TRUE}, return \code{character} instead of \code{expression}.
 #' @param drop if \code{TRUE}, return the array of derivatives without adding a dummy dimension when \code{order} is of length 1.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @details The function behaves differently depending on the arguents \code{order}, 
 #' the order of differentiation, and \code{var}, the variable names with respect to 
@@ -83,7 +83,7 @@
 #' 
 #' @export
 #' 
-derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = TRUE, deparse = TRUE, ...){
+derivative <- function(f, var, params = list(), order = 1, accuracy = 4, stepsize = NULL, drop = TRUE, deparse = TRUE){
   
   is.fun <- is.function(f)
   deparse <- deparse & !is.fun
@@ -118,7 +118,7 @@ derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = 
     
     if(is.fun){
       
-      f <- D.num(f = f, x0 = x0, order = order, accuracy = accuracy, stepsize = stepsize, drop = drop, ...)
+      f <- D.num(f = f, x0 = x0, order = order, accuracy = accuracy, stepsize = stepsize, params = params, drop = drop)
       
     } else{
       
@@ -134,7 +134,7 @@ derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = 
     
     if(is.fun){
       
-      f <- D.num(f = f, x0 = x0, order = order, accuracy = accuracy, stepsize = stepsize, drop = drop, ...)
+      f <- D.num(f = f, x0 = x0, order = order, accuracy = accuracy, stepsize = stepsize, params = params, drop = drop)
       
     } else {
       
@@ -156,7 +156,7 @@ derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = 
   }
   
   if(!is.fun & !is.null(x0))
-    f <- evaluate(f, x0)
+    f <- evaluate(f, x0, params)
   
   return(as.array(f))
   
@@ -177,9 +177,9 @@ D.sym <- function(f, var, order = 1) {
 }
 
 # Numerical derivatives
-D.num <- function(f, x0, order, accuracy, stepsize, drop, zero = NULL, cross = FALSE, ...){
+D.num <- function(f, x0, order, accuracy, stepsize, params, drop, zero = NULL, cross = FALSE){
 
-  f.dim <- f.dim(f, x0, ...)
+  f.dim <- f.eval(f, x0, params, dim = TRUE)
 
   if(cross)
     order <- rep.int(order, 2)
@@ -222,9 +222,9 @@ D.num <- function(f, x0, order, accuracy, stepsize, drop, zero = NULL, cross = F
         x <- x0
         x[w.ij] <- x[w.ij] + i.grid[idx,] * h[w.ij]
         if(!is.named)
-          F.i[,idx,k] <- f(x, ...)/prod(h[w.ij]^d)
+          F.i[,idx,k] <- do.call(f, c(list(x), params))/prod(h[w.ij]^d) 
         else 
-          F.i[,idx,k] <- do.call(f, c(as.list(x), list(...)))/prod(h[w.ij]^d) 
+          F.i[,idx,k] <- do.call(f, c(as.list(x), params))/prod(h[w.ij]^d) 
       }
     }
     
@@ -240,9 +240,9 @@ D.num <- function(f, x0, order, accuracy, stepsize, drop, zero = NULL, cross = F
       x <- x0
       x[w] <- x[w] + i.grid[idx,] * h[w]
       if(!is.named)
-        F.i[,idx] <- f(x, ...)
+        F.i[,idx] <- do.call(f, c(list(x), params))
       else 
-        F.i[,idx] <- do.call(f, c(as.list(x), list(...)))
+        F.i[,idx] <- do.call(f, c(as.list(x), params))
     }
 
     dim(F.i) <- c(f.dim, i.dim)
@@ -257,9 +257,9 @@ D.num <- function(f, x0, order, accuracy, stepsize, drop, zero = NULL, cross = F
       x <- x0
       x[w.i] <- x[w.i] + i.grid[idx,] * h[w.i]
       if(!is.named)
-        F.i[,idx,w.i] <- f(x, ...)
+        F.i[,idx,w.i] <- do.call(f, c(list(x), params))
       else 
-        F.i[,idx,w.i] <- do.call(f, c(as.list(x), list(...)))
+        F.i[,idx,w.i] <- do.call(f, c(as.list(x), params))
     }
     
     dim(F.i) <- c(f.dim, i.dim, n.x)

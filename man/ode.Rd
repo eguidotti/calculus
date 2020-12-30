@@ -4,7 +4,15 @@
 \alias{ode}
 \title{Ordinary Differential Equations}
 \usage{
-ode(f, var, times, timevar = NULL, drop = FALSE, method = "rk4", ...)
+ode(
+  f,
+  var,
+  times,
+  timevar = NULL,
+  params = list(),
+  method = "rk4",
+  drop = FALSE
+)
 }
 \arguments{
 \item{f}{vector of \code{characters}, or a \code{function} returning a numeric vector, giving the values of the derivatives in the ODE system at time \code{timevar}. See examples.}
@@ -15,11 +23,11 @@ ode(f, var, times, timevar = NULL, drop = FALSE, method = "rk4", ...)
 
 \item{timevar}{the time variable used by \code{f}, if any.}
 
-\item{drop}{if \code{TRUE}, return only the final solution instead of the whole trajectory.}
+\item{params}{\code{list} of additional parameters passed to \code{f}.}
 
 \item{method}{the solver to use. One of \code{"rk4"} (Runge-Kutta) or \code{"euler"} (Euler).}
 
-\item{...}{additional arguments passed to \code{f}.}
+\item{drop}{if \code{TRUE}, return only the final solution instead of the whole trajectory.}
 }
 \value{
 Vector of final solutions if \code{drop=TRUE}, otherwise a \code{matrix} with as many 

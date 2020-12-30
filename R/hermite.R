@@ -95,12 +95,13 @@ hermite <- function(order, sigma = 1, var = 'x', transform = NULL){
   if(!is.null(transform)){
     
     d <- length(var)
+    var.reg <- paste0("\\b",var,"\\b")
     var.tmp <- paste0("#",var,"#")
     var.new <- wrap(transform)
     
     H <- lapply(H, function(h){
       
-      for(i in 1:d) h$f <- gsub(x = h$f, pattern = var[i], replacement = var.tmp[i], fixed = TRUE)
+      for(i in 1:d) h$f <- gsub(x = h$f, pattern = var.reg[i], replacement = var.tmp[i])
       for(i in 1:d) h$f <- gsub(x = h$f, pattern = var.tmp[i], replacement = var.new[i], fixed = TRUE)
       
       taylor(h$f, var = var, order = h$order)

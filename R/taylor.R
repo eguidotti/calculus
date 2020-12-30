@@ -4,11 +4,11 @@
 #' 
 #' @param f \code{character}, or \code{function} returning a \code{numeric} scalar value.
 #' @param var vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated (the center of the Taylor series). See \code{\link{derivative}}.
+#' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param order the order of the Taylor approximation.
 #' @param accuracy degree of accuracy for numerical derivatives.
 #' @param stepsize finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.
 #' @param zero tolerance used for deciding which derivatives are zero. Absolute values less than this number are set to zero.
-#' @param ... additional arguments passed to \code{f}, when \code{f} is a \code{function}.
 #' 
 #' @return \code{list} with components:
 #' \describe{
@@ -41,7 +41,7 @@
 #'  
 #' @export
 #' 
-taylor <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7, ...){
+taylor <- function(f, var, params = list(), order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7){
   
   # init
   cache <- list()
@@ -90,8 +90,8 @@ taylor <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7
         expr <- cache[[prev]]$expr
       }
       
-      c$expr <- derivative(f = expr, var = var, order = v - nu[,prev], deparse = FALSE)
-      c$coef <- eval(c$expr, envir = x0)/prod(factorial(v))
+      c$expr <- derivative(f = expr, var = var, params = params, order = v - nu[,prev], deparse = FALSE)
+      c$coef <- eval(c$expr, envir = c(x0, params))/prod(factorial(v))
     
     }
     else {
@@ -100,7 +100,7 @@ taylor <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7
       if(is.vectorized)
         names(x) <- NULL
       
-      c$coef <- D.num(f = f, x0 = x, order = v, accuracy = accuracy, stepsize = stepsize, zero = zero, drop = TRUE, ...)
+      c$coef <- D.num(f = f, x0 = x, params = params, order = v, accuracy = accuracy, stepsize = stepsize, zero = zero, drop = TRUE)
       c$coef <- c$coef/prod(factorial(v))
       
     }

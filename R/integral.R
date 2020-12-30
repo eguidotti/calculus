@@ -15,8 +15,9 @@
 #' 
 #' @param f array of \code{characters} or a \code{function} returning a \code{numeric} array.
 #' @param bounds \code{list} containing the lower and upper bounds for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed.
-#' @param relTol relative accuracy requested.
-#' @param absTol absolute accuracy requested.
+#' @param params \code{list} of additional parameters passed to \code{f}.
+#' @param relTol the maximum relative tolerance.
+#' @param absTol the absolute tolerance.
 #' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
 #' @param method the method to use. One of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Methods other than \code{"mc"} (naive Monte Carlo) require the \pkg{cubature} package to be installed (efficient integration in C). The defaul uses \code{"hcubature"} if \pkg{cubature} is installed or \code{"mc"} otherwise.
 #' @param vectorize \code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.
@@ -73,7 +74,7 @@
 #'           
 #' @export
 #' 
-integral <- function(f, bounds, relTol = 1e-3, absTol = 1e-12, coordinates = "cartesian", method = NULL, vectorize = FALSE, drop = TRUE, verbose = FALSE, ...){
+integral <- function(f, bounds, params = list(), coordinates = "cartesian", relTol = 1e-3, absTol = 1e-12, method = NULL, vectorize = FALSE, drop = TRUE, verbose = FALSE, ...){
   
   vol <- 1
   is.fun <- is.function(f)
@@ -121,7 +122,7 @@ integral <- function(f, bounds, relTol = 1e-3, absTol = 1e-12, coordinates = "ca
   
   x0 <- lapply(bounds, function(x) x[1])
   if(is.fun)
-    f.dim <- f.dim(f1, x0)
+    f.dim <- f.eval(f1, x0, params, dim = TRUE)
   else
     f.dim <- dim(as.array(f1))
   
@@ -165,17 +166,17 @@ integral <- function(f, bounds, relTol = 1e-3, absTol = 1e-12, coordinates = "ca
       
       if(is.fun) {
         if(vectorize) {
-          y <- do.call(f1, args = c(x, x.fixed))
+          y <- do.call(f1, args = c(x, x.fixed, params))
           dim(y) <- c(n, prod(f.dim))
         }
         else {
           y <- matrix(apply(as.data.frame(x), 1, function(x){
-            do.call(f1, args = c(as.list(x), x.fixed))
+            do.call(f1, args = c(as.list(x), x.fixed, params))
           }), nrow = n, byrow = TRUE)
         }
       }
       else {
-        y <- evaluate(f1, as.data.frame(c(x, x.fixed)))
+        y <- evaluate(f1, as.data.frame(c(x, x.fixed)), params)
       }
       
       s <- vol*colSums(y)
@@ -219,9 +220,9 @@ integral <- function(f, bounds, relTol = 1e-3, absTol = 1e-12, coordinates = "ca
       x <- c(x, x.fixed)
       
       if(is.fun)
-        return(matrix(do.call(f1, args = x), ncol = n, byrow = TRUE))
+        return(matrix(do.call(f1, args = c(x, params)), ncol = n, byrow = TRUE))
       
-      return(t(evaluate(f1, as.data.frame(x))))
+      return(t(evaluate(f1, as.data.frame(x), params)))
       
     }
     

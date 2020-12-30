@@ -70,14 +70,14 @@ test_that("202012141411", {
 
 test_that("202012141412", {
   f <- function(r, phi, z, extra) if(extra) c(r^3,r*z,r*z*sin(phi))
-  x <- divergence(f, var = c('r'=10,'phi'=pi/6,'z'=100), coordinates = 'cylindrical', extra = TRUE)
+  x <- divergence(f, var = c('r'=10,'phi'=pi/6,'z'=100), coordinates = 'cylindrical', params = list(extra = TRUE))
   y <- 405
   expect_equal(x,y)
 })
 
 test_that("202012141625", {
   f <- function(x, extra) if(extra) array(1:6*rep(c(x[1]^3,x[1]*x[3],x[1]*x[3]*sin(x[2])), each = 6), dim = c(1,3,2,3))
-  x <- divergence(f, var = c(10,pi/6,100), coordinates = 'cylindrical', extra = TRUE)
+  x <- divergence(f, var = c(10,pi/6,100), coordinates = 'cylindrical', params = list(extra = TRUE))
   y <- 405*array(1:6, dim = c(1,3,2))
   expect_equal(x,y)
 })
@@ -114,5 +114,12 @@ test_that("202012142259", {
   f <- function(x) x
   x <- divergence(f, 1, coordinates = "spherical")
   y <- 1
+  expect_equal(x,y)
+})
+
+test_that("202012302353", {
+  f <- c('a*x^2', 'y^3', 'z^4')
+  x <- divergence(f, var = c('x' = 1, 'y' = 2, 'z' = 3), params = list(a = 1))
+  y <- 122
   expect_equal(x,y)
 })

@@ -98,7 +98,7 @@ test_that("202012062225", {
   f.num <- function(x, y, extra) if(!extra) return(x^3*exp(y))
   var <- c(x = 1, y = 2)
   x <- derivative(f = f.sym, var = var, order = 1)
-  y <- derivative(f = f.num, var = var, order = 1, extra = FALSE)
+  y <- derivative(f = f.num, var = var, order = 1, params = list(extra = FALSE))
   expect_equal(x,y)
 })
 
@@ -107,7 +107,7 @@ test_that("202012062226", {
   f.num <- function(x, y, extra) if(!extra) return(x^3*exp(y))
   var <- c(x = 1, y = 2)
   x <- derivative(f = f.sym, var = var, order = c(x = 1))
-  y <- derivative(f = f.num, var = var, order = c(x = 1), extra = FALSE)
+  y <- derivative(f = f.num, var = var, order = c(x = 1), params = list(extra = FALSE))
   expect_equal(x,y)
 })
 
@@ -156,5 +156,12 @@ test_that("202012111658", {
   f <- function(x) x
   x <- derivative(f, 1:3, order = 0)
   y <- matrix(1:3, nrow = 3, ncol = 3)
+  expect_equal(x,y)
+})
+
+test_that("202012302318", {
+  f <- "a*x"
+  x <- derivative(f, c(x=0), order = 1, params = list(a=3))
+  y <- array(3)
   expect_equal(x,y)
 })

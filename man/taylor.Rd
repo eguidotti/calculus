@@ -52,3 +52,12 @@ f <- function(x) prod(x)
 taylor(f, var = c(0,0,0), order = 3)
 
 }
+\seealso{
+Other polynomials: 
+\code{\link{hermite}()}
+
+Other derivatives: 
+\code{\link{derivative}()}
+}
+\concept{derivatives}
+\concept{polynomials}

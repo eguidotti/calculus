@@ -32,3 +32,14 @@ y <- array(1:12, dim = c(2,2,3))
 x \%sum\% y
 
 }
+\seealso{
+Other basic arithmetic: 
+\code{\link{\%diff\%}()},
+\code{\link{\%div\%}()},
+\code{\link{\%dot\%}()},
+\code{\link{\%inner\%}()},
+\code{\link{\%kronecker\%}()},
+\code{\link{\%outer\%}()},
+\code{\link{\%prod\%}()}
+}
+\concept{basic arithmetic}

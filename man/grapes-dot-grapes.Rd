@@ -32,3 +32,14 @@ y <- array(letters[1:8], dim = c(2,4))
 x \%dot\% y
 
 }
+\seealso{
+Other basic arithmetic: 
+\code{\link{\%diff\%}()},
+\code{\link{\%div\%}()},
+\code{\link{\%inner\%}()},
+\code{\link{\%kronecker\%}()},
+\code{\link{\%outer\%}()},
+\code{\link{\%prod\%}()},
+\code{\link{\%sum\%}()}
+}
+\concept{basic arithmetic}

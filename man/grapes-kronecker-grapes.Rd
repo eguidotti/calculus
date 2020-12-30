@@ -25,3 +25,14 @@ c(1,2) \%kronecker\% c(2,3)
 array(1:4, dim = c(2,2)) \%kronecker\% c("a","b")
 
 }
+\seealso{
+Other basic arithmetic: 
+\code{\link{\%diff\%}()},
+\code{\link{\%div\%}()},
+\code{\link{\%dot\%}()},
+\code{\link{\%inner\%}()},
+\code{\link{\%outer\%}()},
+\code{\link{\%prod\%}()},
+\code{\link{\%sum\%}()}
+}
+\concept{basic arithmetic}

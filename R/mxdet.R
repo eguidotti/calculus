@@ -15,6 +15,8 @@
 #' x <- matrix(letters[1:4], nrow = 2)
 #' mxdet(x)
 #' 
+#' @family matrix algebra
+#' 
 #' @export
 #' 
 mxdet <- function(x) {

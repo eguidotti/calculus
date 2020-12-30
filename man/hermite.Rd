@@ -58,3 +58,8 @@ hermite(order = 2,
         transform = c('z1+z2','z1-z2'))
         
 }
+\seealso{
+Other polynomials: 
+\code{\link{taylor}()}
+}
+\concept{polynomials}

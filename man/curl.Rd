@@ -37,7 +37,7 @@ Vector for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise
 }
 \description{
 Computes the numerical curl of \code{functions} or the symbolic curl of \code{characters}
-in arbitrary orthogonal coordinate systems.
+in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 }
 \details{
 The curl of a vector-valued function \eqn{F_i} at a point is represented by a 
@@ -96,3 +96,13 @@ curl(f, var = c(x=1, y=1, z=1))
 c("x*y","y*z","x*z") \%curl\% c("x","y","z")
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{derivative}()},
+\code{\link{divergence}()},
+\code{\link{gradient}()},
+\code{\link{hessian}()},
+\code{\link{jacobian}()},
+\code{\link{laplacian}()}
+}
+\concept{differential operators}

@@ -29,3 +29,14 @@ c(1,2) \%outer\% c(2,3)
 c("a","b") \%outer\% c("c","d")
 
 }
+\seealso{
+Other basic arithmetic: 
+\code{\link{\%diff\%}()},
+\code{\link{\%div\%}()},
+\code{\link{\%dot\%}()},
+\code{\link{\%inner\%}()},
+\code{\link{\%kronecker\%}()},
+\code{\link{\%prod\%}()},
+\code{\link{\%sum\%}()}
+}
+\concept{basic arithmetic}

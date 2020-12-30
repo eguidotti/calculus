@@ -31,3 +31,14 @@ x <- array(letters[1:4], dim = c(2,2))
 x \%inner\% x
 
 }
+\seealso{
+Other basic arithmetic: 
+\code{\link{\%diff\%}()},
+\code{\link{\%div\%}()},
+\code{\link{\%dot\%}()},
+\code{\link{\%kronecker\%}()},
+\code{\link{\%outer\%}()},
+\code{\link{\%prod\%}()},
+\code{\link{\%sum\%}()}
+}
+\concept{basic arithmetic}

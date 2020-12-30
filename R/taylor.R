@@ -36,6 +36,9 @@
 #' f <- function(x) prod(x)
 #' taylor(f, var = c(0,0,0), order = 3)
 #' 
+#' @family polynomials
+#' @family derivatives
+#'  
 #' @export
 #' 
 taylor <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7, ...){

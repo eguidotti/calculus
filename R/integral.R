@@ -68,7 +68,9 @@
 #'          bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)), 
 #'          coordinates = "spherical")
 #' i$value
-#'          
+#' 
+#' @family integrals
+#'           
 #' @export
 #' 
 integral <- function(f, bounds, relTol = 1e-3, absTol = 1e-12, coordinates = "cartesian", method = NULL, vectorize = FALSE, drop = TRUE, verbose = FALSE, ...){

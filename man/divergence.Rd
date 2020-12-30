@@ -37,7 +37,7 @@ Scalar for vector-valued functions when \code{drop=TRUE}, \code{array} otherwise
 }
 \description{
 Computes the numerical divergence of \code{functions} or the symbolic divergence of \code{characters}
-in arbitrary orthogonal coordinate systems.
+in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 }
 \details{
 The divergence of a vector-valued function \eqn{F_i} produces a scalar value 
@@ -83,3 +83,13 @@ divergence(f, var = c(x=0, y=0, z=0))
 c("x^2","y^3","z^4") \%divergence\% c("x","y","z")
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{derivative}()},
+\code{\link{gradient}()},
+\code{\link{hessian}()},
+\code{\link{jacobian}()},
+\code{\link{laplacian}()}
+}
+\concept{differential operators}

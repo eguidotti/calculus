@@ -32,6 +32,8 @@
 #' index(x) <- c("i","i","k","k")
 #' contraction(x, drop = FALSE)
 #' 
+#' @family tensor algebra
+#' 
 #' @export
 #' 
 contraction <- function(x, i = NULL, drop = TRUE){

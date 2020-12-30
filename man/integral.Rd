@@ -98,5 +98,10 @@ i <- integral(1,
          bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)), 
          coordinates = "spherical")
 i$value
-         
+
 }
+\seealso{
+Other integrals: 
+\code{\link{ode}()}
+}
+\concept{integrals}

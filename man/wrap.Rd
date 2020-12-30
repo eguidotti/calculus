@@ -30,3 +30,10 @@ wrap("a+b")
 wrap(array(letters[1:9], dim = c(3,3)))
 
 }
+\seealso{
+Other utilities: 
+\code{\link{c2e}()},
+\code{\link{e2c}()},
+\code{\link{evaluate}()}
+}
+\concept{utilities}

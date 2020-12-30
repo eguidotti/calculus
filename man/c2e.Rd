@@ -23,3 +23,10 @@ c2e("a")
 c2e(array("a", dim = c(2,2)))
 
 }
+\seealso{
+Other utilities: 
+\code{\link{e2c}()},
+\code{\link{evaluate}()},
+\code{\link{wrap}()}
+}
+\concept{utilities}

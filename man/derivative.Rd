@@ -105,3 +105,17 @@ f <- function(x) c(sum(x), prod(x))
 derivative(f, var = c(0,0,0), order = 1)
 
 }
+\seealso{
+Other derivatives: 
+\code{\link{taylor}()}
+
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{divergence}()},
+\code{\link{gradient}()},
+\code{\link{hessian}()},
+\code{\link{jacobian}()},
+\code{\link{laplacian}()}
+}
+\concept{derivatives}
+\concept{differential operators}

@@ -21,6 +21,8 @@
 #' var <- data.frame(a = 1:3, b = 2:4, c = 3:5, d = 4:6)
 #' evaluate(f, var)
 #' 
+#' @family utilities
+#' 
 #' @export
 #' 
 evaluate <- function(f, var){

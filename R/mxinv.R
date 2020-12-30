@@ -15,6 +15,8 @@
 #' x <- matrix(letters[1:4], nrow = 2, byrow = TRUE)
 #' mxinv(x)
 #' 
+#' @family matrix algebra
+#' 
 #' @export
 #' 
 mxinv <- function(x) {

@@ -27,7 +27,7 @@ f \%jacobian\% var
 }
 \description{
 Computes the numerical Jacobian of \code{functions} or the symbolic Jacobian of \code{characters}
-in arbitrary orthogonal coordinate systems.
+in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 }
 \details{
 The function is basically a wrapper for \code{\link{gradient}} with \code{drop=FALSE}.
@@ -61,3 +61,13 @@ jacobian(f = f, var = c(0,0,0))
 "x*y^2" \%jacobian\% c(x=1, y=3)
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{derivative}()},
+\code{\link{divergence}()},
+\code{\link{gradient}()},
+\code{\link{hessian}()},
+\code{\link{laplacian}()}
+}
+\concept{differential operators}

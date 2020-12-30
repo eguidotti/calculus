@@ -15,6 +15,8 @@
 #' x <- matrix(letters[1:4], nrow = 2)
 #' mxtr(x)
 #' 
+#' @family matrix algebra
+#' 
 #' @export
 #' 
 mxtr <- function(x){

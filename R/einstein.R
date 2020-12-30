@@ -20,6 +20,8 @@
 #' d <- array(1:15, dim = c(j=5, k=3))
 #' einstein(a,b,c,d)
 #' 
+#' @family tensor algebra
+#' 
 #' @export
 #' 
 einstein <- function(..., drop = TRUE){

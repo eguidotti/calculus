@@ -9,7 +9,7 @@ home:
 navbar: 
   type: inverse
 reference:
-  - title: "Binary Operators"
+  - title: "Basic Arithmetic"
     contents:
     - "%sum%"
     - "%diff%"

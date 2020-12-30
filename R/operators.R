@@ -21,6 +21,8 @@
 #' y <- array(1:12, dim = c(2,2,3))
 #' x %sum% y
 #' 
+#' @family basic arithmetic
+#' 
 #' @export
 #' 
 "%sum%" <- function(x,y) {
@@ -65,6 +67,8 @@
 #' x <- array(letters[1:12], dim = c(2,2,3))
 #' y <- array(1:12, dim = c(2,2,3))
 #' x %diff% y
+#' 
+#' @family basic arithmetic
 #' 
 #' @export
 #' 
@@ -118,6 +122,8 @@
 #' y <- array(1:12, dim = c(2,2,3))
 #' x %prod% y
 #' 
+#' @family basic arithmetic
+#' 
 #' @export
 #' 
 "%prod%" <- function(x,y){
@@ -169,6 +175,8 @@
 #' x <- array(letters[1:12], dim = c(2,2,3))
 #' y <- array(1:12, dim = c(2,2,3))
 #' x %div% y 
+#' 
+#' @family basic arithmetic
 #' 
 #' @export
 #' 
@@ -226,6 +234,8 @@
 #' x <- array(1:12, dim = c(3,4))
 #' y <- letters[1:4]
 #' mx(x, y)
+#' 
+#' @family matrix algebra
 #' 
 #' @export
 #' 
@@ -308,6 +318,8 @@ mx <- function(x, y){
 #' y <- array(letters[1:8], dim = c(2,4))
 #' x %dot% y
 #' 
+#' @family basic arithmetic
+#' 
 #' @export
 #' 
 "%dot%" <- function(x, y) {
@@ -348,6 +360,8 @@ mx <- function(x, y){
 #' ### symbolic inner product 
 #' x <- array(letters[1:4], dim = c(2,2))
 #' x %inner% x
+#' 
+#' @family basic arithmetic
 #' 
 #' @export
 #' 
@@ -397,6 +411,8 @@ mx <- function(x, y){
 #' ### symbolic outer product 
 #' c("a","b") %outer% c("c","d")
 #' 
+#' @family basic arithmetic
+#' 
 #' @export
 #' 
 "%outer%" <- function(x,y){
@@ -434,6 +450,8 @@ mx <- function(x, y){
 #' ### symbolic Kronecker product 
 #' array(1:4, dim = c(2,2)) %kronecker% c("a","b")
 #' 
+#' @family basic arithmetic
+#' 
 #' @export
 #' 
 "%kronecker%" <- function(x,y){
@@ -470,6 +488,8 @@ mx <- function(x, y){
 #' ### canonical basis 3-d
 #' cross(c(1,0,0), c(0,1,0))
 #'
+#' @family vector algebra
+#' 
 #' @export
 #' 
 cross <- function(...){
@@ -523,7 +543,7 @@ cross <- function(...){
 #' Numerical and Symbolic Gradient
 #' 
 #' Computes the numerical gradient of \code{functions} or the symbolic gradient of \code{characters} 
-#' in arbitrary orthogonal coordinate systems.
+#' in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 #' 
 #' @details The gradient of a scalar-valued function \eqn{F} is the vector 
 #' \eqn{(\nabla F)_i} whose components are the partial derivatives of \eqn{F} 
@@ -569,6 +589,8 @@ cross <- function(...){
 #' f <- function(x) c(sum(x), prod(x))
 #' gradient(f = f, var = c(0,0,0))
 #' 
+#' @family differential operators
+#'  
 #' @export
 #' 
 gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
@@ -626,7 +648,7 @@ gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' Numerical and Symbolic Jacobian
 #' 
 #' Computes the numerical Jacobian of \code{functions} or the symbolic Jacobian of \code{characters}
-#' in arbitrary orthogonal coordinate systems.
+#' in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 #' 
 #' @details The function is basically a wrapper for \code{\link{gradient}} with \code{drop=FALSE}.
 #' 
@@ -658,6 +680,8 @@ gradient <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' ### numerical vector-valued functions
 #' f <- function(x) c(sum(x), prod(x))
 #' jacobian(f = f, var = c(0,0,0))
+#' 
+#' @family differential operators
 #' 
 #' @export
 #' 
@@ -729,6 +753,8 @@ jacobian <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize =
 #' ### numerical vector-valued functions
 #' f <- function(x) c(sum(x), prod(x))
 #' hessian(f = f, var = c(0,0,0))
+#' 
+#' @family differential operators
 #' 
 #' @export
 #' 
@@ -822,7 +848,7 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
 #' Numerical and Symbolic Divergence
 #' 
 #' Computes the numerical divergence of \code{functions} or the symbolic divergence of \code{characters}
-#' in arbitrary orthogonal coordinate systems.
+#' in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 #' 
 #' @details
 #' The divergence of a vector-valued function \eqn{F_i} produces a scalar value 
@@ -869,6 +895,8 @@ hessian <- function(f, var, accuracy = 4, stepsize = NULL, drop = TRUE, ...){
 #' f <- function(x,y,z) array(c(x^2,x,y^2,y,z^2,z), dim = c(2,3))
 #' divergence(f, var = c(x=0, y=0, z=0))
 #'  
+#' @family differential operators
+#' 
 #' @export
 #' 
 divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE, ...){
@@ -979,7 +1007,7 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
 #' Numerical and Symbolic Curl
 #' 
 #' Computes the numerical curl of \code{functions} or the symbolic curl of \code{characters}
-#' in arbitrary orthogonal coordinate systems.
+#' in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 #' 
 #' @details
 #' The curl of a vector-valued function \eqn{F_i} at a point is represented by a 
@@ -1038,6 +1066,8 @@ divergence <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize
 #' ### numeric array of vector-valued 3-d functions in (x=1, y=1, z=1)
 #' f <- function(x,y,z) array(c(x*y,x,y*z,y,x*z,z), dim = c(2,3))
 #' curl(f, var = c(x=1, y=1, z=1))
+#' 
+#' @family differential operators
 #' 
 #' @export
 #'
@@ -1148,7 +1178,7 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
 #' Numerical and Symbolic Laplacian
 #' 
 #' Computes the numerical Laplacian of \code{functions} or the symbolic Laplacian of \code{characters} 
-#' in arbitrary orthogonal coordinate systems.
+#' in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 #' 
 #' @details The Laplacian is a differential operator given by the divergence of the 
 #' gradient of a scalar-valued function \eqn{F}, resulting in a scalar value giving 
@@ -1192,6 +1222,8 @@ curl <- function(f, var, coordinates = 'cartesian', accuracy = 4, stepsize = NUL
 #' ### numerical vector-valued functions
 #' f <- function(x, y) array(c(x^2,x*y,x*y,y^2), dim = c(2,2))
 #' laplacian(f = f, var = c(x=0,y=0))
+#' 
+#' @family differential operators
 #' 
 #' @export
 #' 

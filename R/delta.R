@@ -14,6 +14,8 @@
 #' ### generalized Kronecker delta 3x3 of order 2
 #' delta(3, p = 2)  
 #' 
+#' @family tensor algebra
+#' 
 #' @export
 #'
 delta <- function(n, p = 1){

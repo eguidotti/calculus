@@ -25,3 +25,10 @@ expr <- array(parse(text = "a"), dim = c(2,2))
 e2c(expr)
 
 }
+\seealso{
+Other utilities: 
+\code{\link{c2e}()},
+\code{\link{evaluate}()},
+\code{\link{wrap}()}
+}
+\concept{utilities}

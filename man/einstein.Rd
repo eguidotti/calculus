@@ -31,3 +31,12 @@ d <- array(1:15, dim = c(j=5, k=3))
 einstein(a,b,c,d)
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{contraction}()},
+\code{\link{delta}()},
+\code{\link{diagonal}()},
+\code{\link{epsilon}()},
+\code{\link{index}()}
+}
+\concept{tensor algebra}

@@ -37,7 +37,7 @@ Scalar for scalar-valued functions when \code{drop=TRUE}, \code{array} otherwise
 }
 \description{
 Computes the numerical Laplacian of \code{functions} or the symbolic Laplacian of \code{characters} 
-in arbitrary orthogonal coordinate systems.
+in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 }
 \details{
 The Laplacian is a differential operator given by the divergence of the 
@@ -82,3 +82,13 @@ laplacian(f = f, var = c(x=0,y=0))
 "x^3+y^3+z^3" \%laplacian\% c("x","y","z")
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{derivative}()},
+\code{\link{divergence}()},
+\code{\link{gradient}()},
+\code{\link{hessian}()},
+\code{\link{jacobian}()}
+}
+\concept{differential operators}

@@ -78,6 +78,9 @@
 #' f <- function(x) c(sum(x), prod(x))
 #' derivative(f, var = c(0,0,0), order = 1)
 #' 
+#' @family derivatives
+#' @family differential operators
+#' 
 #' @export
 #' 
 derivative <- function(f, var, order = 1, accuracy = 4, stepsize = NULL, drop = TRUE, deparse = TRUE, ...){

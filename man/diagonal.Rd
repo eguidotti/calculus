@@ -46,3 +46,12 @@ diagonal(x) <- 1:2
 x
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{contraction}()},
+\code{\link{delta}()},
+\code{\link{einstein}()},
+\code{\link{epsilon}()},
+\code{\link{index}()}
+}
+\concept{tensor algebra}

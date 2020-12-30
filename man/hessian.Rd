@@ -74,3 +74,13 @@ hessian(f = f, var = c(0,0,0))
 "x*y^2" \%hessian\% c(x=1, y=3)
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{derivative}()},
+\code{\link{divergence}()},
+\code{\link{gradient}()},
+\code{\link{jacobian}()},
+\code{\link{laplacian}()}
+}
+\concept{differential operators}

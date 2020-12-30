@@ -25,3 +25,12 @@ delta(3)
 delta(3, p = 2)  
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{contraction}()},
+\code{\link{diagonal}()},
+\code{\link{einstein}()},
+\code{\link{epsilon}()},
+\code{\link{index}()}
+}
+\concept{tensor algebra}

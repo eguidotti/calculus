@@ -25,3 +25,10 @@ x <- matrix(letters[1:4], nrow = 2)
 mxtr(x)
 
 }
+\seealso{
+Other matrix algebra: 
+\code{\link{mxdet}()},
+\code{\link{mxinv}()},
+\code{\link{mx}()}
+}
+\concept{matrix algebra}

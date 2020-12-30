@@ -41,3 +41,4 @@ c(1,0,0) \%cross\% c(0,1,0)
 c("a","b","c") \%cross\% c(0,0,1)
 
 }
+\concept{vector algebra}

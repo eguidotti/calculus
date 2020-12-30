@@ -23,3 +23,12 @@ epsilon(2)
 epsilon(3)
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{contraction}()},
+\code{\link{delta}()},
+\code{\link{diagonal}()},
+\code{\link{einstein}()},
+\code{\link{index}()}
+}
+\concept{tensor algebra}

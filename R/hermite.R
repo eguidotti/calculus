@@ -45,6 +45,8 @@
 #'         var = c('z1', 'z2'),
 #'         transform = c('z1+z2','z1-z2'))
 #'         
+#' @family polynomials
+#' 
 #' @export
 #' 
 hermite <- function(order, sigma = 1, var = 'x', transform = NULL){

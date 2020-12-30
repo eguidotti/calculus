@@ -37,7 +37,7 @@ Gradient vector for scalar-valued functions when \code{drop=TRUE}, \code{array} 
 }
 \description{
 Computes the numerical gradient of \code{functions} or the symbolic gradient of \code{characters} 
-in arbitrary orthogonal coordinate systems.
+in arbitrary \href{https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table_of_orthogonal_coordinates}{orthogonal coordinate systems}.
 }
 \details{
 The gradient of a scalar-valued function \eqn{F} is the vector 
@@ -83,3 +83,13 @@ gradient(f = f, var = c(0,0,0))
 "x*y^2" \%gradient\% c(x=1, y=3)
 
 }
+\seealso{
+Other differential operators: 
+\code{\link{curl}()},
+\code{\link{derivative}()},
+\code{\link{divergence}()},
+\code{\link{hessian}()},
+\code{\link{jacobian}()},
+\code{\link{laplacian}()}
+}
+\concept{differential operators}

@@ -13,6 +13,8 @@
 #' ### Levi-Civita symbol in 3 dimensions
 #' epsilon(3)
 #' 
+#' @family tensor algebra
+#' 
 #' @export
 #'
 epsilon <- function(n){

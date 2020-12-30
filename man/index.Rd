@@ -40,3 +40,12 @@ index(x) <- c("i", "j", "k")
 index(x)
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{contraction}()},
+\code{\link{delta}()},
+\code{\link{diagonal}()},
+\code{\link{einstein}()},
+\code{\link{epsilon}()}
+}
+\concept{tensor algebra}

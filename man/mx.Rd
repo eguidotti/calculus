@@ -50,3 +50,10 @@ y <- letters[1:4]
 x \%mx\% y
 
 }
+\seealso{
+Other matrix algebra: 
+\code{\link{mxdet}()},
+\code{\link{mxinv}()},
+\code{\link{mxtr}()}
+}
+\concept{matrix algebra}

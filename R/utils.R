@@ -19,6 +19,8 @@
 #' ### wrap array of characters
 #' wrap(array(letters[1:9], dim = c(3,3)))
 #' 
+#' @family utilities
+#' 
 #' @export
 #' 
 wrap <- function(x){
@@ -44,6 +46,8 @@ wrap <- function(x){
 #' ### convert array of expressions
 #' expr <- array(parse(text = "a"), dim = c(2,2))
 #' e2c(expr)
+#' 
+#' @family utilities
 #' 
 #' @export
 #' 
@@ -74,6 +78,8 @@ e2c <- function(x){
 #' 
 #' ### convert array of characters
 #' c2e(array("a", dim = c(2,2)))
+#' 
+#' @family utilities
 #' 
 #' @export
 #' 
@@ -106,6 +112,8 @@ c2e <- function(x){
 #' ### indices on initialization
 #' x <- array(1, dim = c(i=1, j=3, k=2))
 #' index(x)
+#' 
+#' @family tensor algebra
 #' 
 #' @export
 #' 
@@ -158,6 +166,8 @@ index <- function(x){
 #' ### extract diagonals 
 #' x <- diagonal(1:5, dim = c(5,5,5))
 #' diagonal(x)
+#' 
+#' @family tensor algebra
 #' 
 #' @export
 #' 

@@ -44,3 +44,12 @@ index(x) <- c("i","i","k","k")
 contraction(x, drop = FALSE)
 
 }
+\seealso{
+Other tensor algebra: 
+\code{\link{delta}()},
+\code{\link{diagonal}()},
+\code{\link{einstein}()},
+\code{\link{epsilon}()},
+\code{\link{index}()}
+}
+\concept{tensor algebra}

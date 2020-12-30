@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Numerical Evaluation — evaluate • calculus</title>
+<title>Evaluate Characters and Expressions — evaluate • calculus</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Numerical Evaluation — evaluate" />
-<meta property="og:description" content="Evaluate an array of characters, expressions or functions." />
+<meta property="og:title" content="Evaluate Characters and Expressions — evaluate" />
+<meta property="og:description" content="Evaluates an array of characters or expressions." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
 
@@ -129,120 +129,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Numerical Evaluation</h1>
+    <h1>Evaluate Characters and Expressions</h1>
     <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/evaluate.R'><code>R/evaluate.R</code></a></small>
     <div class="hidden name"><code>evaluate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Evaluate an array of characters, expressions or functions.</p>
+    <p>Evaluates an array of <code>characters</code> or <code>expressions</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>evaluate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
-  enclos <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>is.list</a></span><span class='op'>(</span><span class='va'>envir</span><span class='op'>)</span> <span class='op'>||</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>is.pairlist</a></span><span class='op'>(</span><span class='va'>envir</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span> <span class='kw'>else</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>baseenv</a></span><span class='op'>(</span><span class='op'>)</span>,
-  simplify <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an object to be evaluated: array of characters, expressions or functions.</p></td>
+      <th>f</th>
+      <td><p>array of <code>characters</code> or <code>expressions</code> to be evaluated.</p></td>
     </tr>
     <tr>
-      <th>envir</th>
-      <td><p>the <code><a href='https://rdrr.io/r/base/environment.html'>environment</a></code> in which <code>x</code> is to be evaluated. May also be <code>NULL</code>, a list, a data frame, a pairlist or an integer as specified to <code><a href='https://rdrr.io/r/base/sys.parent.html'>sys.call</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>enclos</th>
-      <td><p>relevant when <code>envir</code> is a (pair)list or a data frame. Specifies the enclosure, i.e., where <code>R</code> looks for objects not found in <code>envir</code>. This can be <code>NULL</code> (interpreted as the base package environment, <code><a href='https://rdrr.io/r/base/environment.html'>baseenv</a>()</code>) or an environment.</p></td>
-    </tr>
-    <tr>
-      <th>simplify</th>
-      <td><p>logical. Simplify the output? If <code>FALSE</code>, return a <code>list</code>.</p></td>
+      <th>var</th>
+      <td><p>named vector or <code>data.frame</code> in which <code>f</code> is to be evaluated.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>evaluated object.</p>
+    <p>Evaluated object. When <code>var</code> is a named vector, the return is an array 
+with the same dimensions of <code>f</code>. When <code>var</code> is a <code>data.frame</code>, the
+return is a <code>matrix</code> with columns corresponding to the entries of <code>f</code> and 
+rows corresponding to the rows of <code>var</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##################################</span>
-<span class='co'># Evaluate an array of characters</span>
-<span class='co'>#</span>
-
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span>, b <span class='op'>=</span> <span class='fl'>2</span>, c <span class='op'>=</span> <span class='fl'>3</span>, d <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'>### single evaluation</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span>, b <span class='op'>=</span> <span class='fl'>2</span>, c <span class='op'>=</span> <span class='fl'>3</span>, d <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    3
-#&gt; [2,]    2    4</div><div class='input'><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    1    3
-#&gt; [2,]    2    4
-#&gt; </div><div class='input'>
-<span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, b <span class='op'>=</span> <span class='fl'>2</span>, c <span class='op'>=</span> <span class='fl'>3</span>, d <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span><span class='op'>)</span>
+#&gt; [2,]    2    4</div><div class='input'>
+<span class='co'>### vectorized evaluation</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, b <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, c <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span>, d <span class='op'>=</span> <span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span>
+<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4]
 #&gt; [1,]    1    2    3    4
-#&gt; [2,]    2    2    3    4
-#&gt; [3,]    3    2    3    4</div><div class='input'><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    1    3
-#&gt; [2,]    2    4
-#&gt; 
-#&gt; [[2]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    2    3
-#&gt; [2,]    2    4
-#&gt; 
-#&gt; [[3]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    3    3
-#&gt; [2,]    2    4
-#&gt; </div><div class='input'>
-
-<span class='co'>##################################</span>
-<span class='co'># Evaluate an array of functions</span>
-<span class='co'>#</span>
-
-<span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-<span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-<span class='va'>f3</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='va'>y</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>f1</span>,<span class='va'>f3</span>,<span class='va'>f3</span>,<span class='va'>f2</span><span class='op'>)</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>0</span>, y <span class='op'>=</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    0    0
-#&gt; [2,]    0    1</div><div class='input'><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    0    0
-#&gt; [2,]    0    1
-#&gt; </div><div class='input'>
-<span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1]     [,2]     [,3] [,4]
-#&gt; [1,]    0 0.000000 0.000000    0
-#&gt; [2,]    1 2.467401 2.467401    1</div><div class='input'><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>e</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;      [,1] [,2]
-#&gt; [1,]    0    0
-#&gt; [2,]    0    0
-#&gt; 
-#&gt; [[2]]
-#&gt;          [,1]     [,2]
-#&gt; [1,] 1.000000 2.467401
-#&gt; [2,] 2.467401 1.000000
-#&gt; </div><div class='input'>  
+#&gt; [2,]    2    3    4    5
+#&gt; [3,]    3    4    5    6</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

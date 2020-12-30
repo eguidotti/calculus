@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Numerical and Symbolic Gradient — gradient" />
-<meta property="og:description" content="Computes the gradient or jacobian of functions, expressions and characters." />
+<meta property="og:description" content="Computes the numerical gradient of functions or the symbolic gradient of characters 
+in arbitrary orthogonal coordinate systems." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
 
@@ -135,14 +136,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Computes the gradient or jacobian of functions, expressions and characters.</p>
+    <p>Computes the numerical gradient of <code>functions</code> or the symbolic gradient of <code>characters</code> 
+in arbitrary orthogonal coordinate systems.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gradient</span><span class='op'>(</span>
   <span class='va'>f</span>,
   <span class='va'>var</span>,
   coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>,
-  accuracy <span class='op'>=</span> <span class='fl'>2</span>,
+  accuracy <span class='op'>=</span> <span class='fl'>4</span>,
   stepsize <span class='op'>=</span> <span class='cn'>NULL</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
@@ -155,84 +157,83 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>f</th>
-      <td><p>function, expression or character array.</p></td>
+      <td><p>array of <code>characters</code> or a <code>function</code> returning a <code>numeric</code> array.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>character vector, giving the variable names with respect to which derivatives will be computed. If a named vector is provided, derivatives will be computed at that point.</p></td>
+      <td><p>vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See <code><a href='derivative.html'>derivative</a></code>.</p></td>
     </tr>
     <tr>
       <th>coordinates</th>
-      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each varibale.</p></td>
+      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a vector of scale factors for each varibale.</p></td>
     </tr>
     <tr>
       <th>accuracy</th>
-      <td><p>accuracy degree for numerical derivatives.</p></td>
+      <td><p>degree of accuracy for numerical derivatives.</p></td>
     </tr>
     <tr>
       <th>stepsize</th>
-      <td><p>finite differences stepsize for numerical derivatives. Auto-optimized by default.</p></td>
+      <td><p>finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.</p></td>
     </tr>
     <tr>
       <th>drop</th>
-      <td><p>drop dimensions when...</p></td>
+      <td><p>if <code>TRUE</code>, return the gradient as a vector and not as an <code>array</code> for scalar-valued functions.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additinal arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
+      <td><p>additional arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>gradient or jacobian array.</p>
+    <p>Gradient vector for scalar-valued functions when <code>drop=TRUE</code>, <code>array</code> otherwise.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The gradient of a scalar-valued function \(F\) is the vector 
+\((\nabla F)_i\) whose components are the partial derivatives of \(F\) 
+with respect to each variable \(i\). 
+The <code>gradient</code> is computed in arbitrary orthogonal coordinate systems using the 
+scale factors \(h_i\):</p>
+<p>$$(\nabla F)_i = \frac{1}{h_i}\partial_iF$$</p>
+<p>When the function \(F\) is a tensor-valued function \(F_{d_1,\dots,d_n}\), 
+the <code>gradient</code> is computed for each scalar component. In particular, it becomes
+the Jacobian matrix for vector-valued function.</p>
+<p>$$(\nabla F_{d_1,\dots,d_n})_i = \frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}$$</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>gradient</code>: arbitrary coordinate system</p></li>
-<li><p><code>%gradient%</code>: cartesian coordinates</p></li>
+<li><p><code>%gradient%</code>: binary operator with default parameters.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># gradient with respect to x</span>
-<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"sin(x)"</span>, var <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "cos(x)"</div><div class='input'><span class='st'>"sin(x)"</span> <span class='op'>%gradient%</span> <span class='st'>"x"</span>
-</div><div class='output co'>#&gt; [1] "cos(x)"</div><div class='input'>
-<span class='co'># gradient with respect to x and evaluate in x = 0</span>
-<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span> <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='st'>"sin(x)"</span> <span class='op'>%gradient%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
-<span class='co'># gradient with respect to (x,y)</span>
-<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='st'>"y*sin(x)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "y * cos(x)" "sin(x)"    </div><div class='input'><span class='st'>"y*sin(x)"</span> <span class='op'>%gradient%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "y * cos(x)" "sin(x)"    </div><div class='input'>
-<span class='co'># jacobian with respect to (x,y)</span>
+    <pre class="examples"><div class='input'><span class='co'>### symbolic gradient </span>
+<span class='fu'>gradient</span><span class='op'>(</span><span class='st'>"x*y*z"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "y * z" "x * z" "x * y"</div><div class='input'>
+<span class='co'>### numerical gradient in (x=1, y=2, z=3)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='va'>y</span><span class='op'>*</span><span class='va'>z</span>
+<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span>, y<span class='op'>=</span><span class='fl'>2</span>, z<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6 3 2</div><div class='input'>
+<span class='co'>### vectorized interface</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>*</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>*</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
+<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6 3 2</div><div class='input'>
+<span class='co'>### symbolic vector-valued functions</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y*sin(x)"</span>, <span class='st'>"x*cos(y)"</span><span class='op'>)</span>
 <span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]         [,2]           
 #&gt; [1,] "y * cos(x)" "sin(x)"       
-#&gt; [2,] "cos(y)"     "-(x * sin(y))"</div><div class='input'><span class='va'>f</span> <span class='op'>%gradient%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1]         [,2]           
-#&gt; [1,] "y * cos(x)" "sin(x)"       
 #&gt; [2,] "cos(y)"     "-(x * sin(y))"</div><div class='input'>
-<span class='co'># jacobian with respect to (x,y) and evaluate in (x = 0, y = 0)</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='va'>x</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span>,y<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    0    0
-#&gt; [2,]    1    0</div><div class='input'><span class='va'>f</span> <span class='op'>%gradient%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span>,y<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    0    0
-#&gt; [2,]    1    0</div><div class='input'>
-<span class='co'># gradient in spherical coordinates</span>
-<span class='fu'>gradient</span><span class='op'>(</span><span class='st'>'r*theta*phi'</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'r'</span>,<span class='st'>'theta'</span>,<span class='st'>'phi'</span><span class='op'>)</span>, coordinates <span class='op'>=</span> <span class='st'>'spherical'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1/1 * (theta * phi)"            "1/r * (r * phi)"               
-#&gt; [3] "1/(r*sin(theta)) * (r * theta)"</div><div class='input'>
-<span class='co'># numerical gradient in spherical coordinates</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>r</span>, <span class='va'>theta</span>, <span class='va'>phi</span><span class='op'>)</span> <span class='va'>r</span><span class='op'>*</span><span class='va'>theta</span><span class='op'>*</span><span class='va'>phi</span>
-<span class='fu'>gradient</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'r'</span><span class='op'>=</span><span class='fl'>1</span>, <span class='st'>'theta'</span><span class='op'>=</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>4</span>, <span class='st'>'phi'</span><span class='op'>=</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span>, coordinates <span class='op'>=</span> <span class='st'>'spherical'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.6168503 0.7853982 1.1107207</div><div class='input'>
+<span class='co'>### numerical vector-valued functions</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>gradient</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    1    1    1
+#&gt; [2,]    0    0    0</div><div class='input'>
+<span class='co'>### binary operator</span>
+<span class='st'>"x*y^2"</span> <span class='op'>%gradient%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span>, y<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 9 6</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

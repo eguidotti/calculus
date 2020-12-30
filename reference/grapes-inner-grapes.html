@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Numerical and Symbolic Inner Product — %inner%" />
-<meta property="og:description" content="Computes the inner product of two character or numeric arrays." />
+<meta property="og:description" content="Computes the inner product of two numeric or character arrays." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
 
@@ -135,7 +135,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Computes the inner product of two character or numeric arrays.</p>
+    <p>Computes the inner product of two <code>numeric</code> or <code>character</code> arrays.</p>
     </div>
 
     <pre class="usage"><span class='va'>x</span> <span class='op'>%inner%</span> <span class='va'>y</span></pre>
@@ -145,27 +145,31 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>character or numeric array.</p></td>
+      <td><p><code>numeric</code> or <code>character</code> array.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>character or numeric array.</p></td>
+      <td><p><code>numeric</code> or <code>character</code> array.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character or numeric.</p>
+    <p><code>numeric</code> or <code>character</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The inner product between two arrays <code>A</code> and <code>B</code> is computed as:
+$$C = \sum_{j_1\dots j_n} A_{j_1\dots j_n}B_{j_1\dots j_n}$$</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># numeric inner product </span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'>### numeric inner product </span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%inner%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] 650</div><div class='input'>
-<span class='co'># symbolic inner product </span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 30</div><div class='input'>
+<span class='co'>### symbolic inner product </span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>x</span> <span class='op'>%inner%</span> <span class='va'>x</span>
-</div><div class='output co'>#&gt; [1] "(a) * (a) + (b) * (b) + (c) * (c) + (d) * (d) + (e) * (e) + (f) * (f) + (g) * (g) + (h) * (h) + (i) * (i) + (j) * (j) + (k) * (k) + (l) * (l)"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "(a) * (a) + (b) * (b) + (c) * (c) + (d) * (d)"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

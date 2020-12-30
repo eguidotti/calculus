@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Taylor Series — taylor • calculus</title>
+<title>Taylor Series Expansion — taylor • calculus</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Taylor Series — taylor" />
-<meta property="og:description" content="Computes the Taylor series for functions, expressions or characters." />
+<meta property="og:title" content="Taylor Series Expansion — taylor" />
+<meta property="og:description" content="Computes the Taylor series of functions or characters." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
 
@@ -129,27 +129,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Taylor Series</h1>
+    <h1>Taylor Series Expansion</h1>
     <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/taylor.R'><code>R/taylor.R</code></a></small>
     <div class="hidden name"><code>taylor.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes the Taylor series for functions, expressions or characters.</p>
+    <p>Computes the Taylor series of <code>functions</code> or <code>characters</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='st'>"x"</span>, order <span class='op'>=</span> <span class='fl'>1</span>, accuracy <span class='op'>=</span> <span class='fl'>2</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, order <span class='op'>=</span> <span class='fl'>1</span>, accuracy <span class='op'>=</span> <span class='fl'>4</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span>, zero <span class='op'>=</span> <span class='fl'>1e-07</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>f</th>
-      <td><p>function, expression or character</p></td>
+      <td><p><code>character</code>, or <code>function</code> returning a <code>numeric</code> scalar value.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>character. The variables of <code>f</code>.</p></td>
+      <td><p>vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated (the center of the Taylor series). See <code><a href='derivative.html'>derivative</a></code>.</p></td>
     </tr>
     <tr>
       <th>order</th>
@@ -157,136 +157,146 @@
     </tr>
     <tr>
       <th>accuracy</th>
-      <td><p>accuracy degree for numerical derivatives.</p></td>
+      <td><p>degree of accuracy for numerical derivatives.</p></td>
     </tr>
     <tr>
       <th>stepsize</th>
-      <td><p>finite differences stepsize for numerical derivatives. Auto-optimized by default.</p></td>
+      <td><p>finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.</p></td>
+    </tr>
+    <tr>
+      <th>zero</th>
+      <td><p>tolerance used for deciding which derivatives are zero. Absolute values less than this number are set to zero.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments to <code>f</code>.</p></td>
+      <td><p>additional arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with components</p><dl>
+    <p><code>list</code> with components:</p><dl>
  <dt>f</dt><dd><p>the Taylor series.</p></dd>
  <dt>order</dt><dd><p>the approximation order.</p></dd>
- <dt>terms</dt><dd><p>data.frame containing the variables, coefficients and degrees of each term in the Taylor series.</p></dd>
+ <dt>terms</dt><dd><p><code>data.frame</code> containing the variables, coefficients and degrees of each term in the Taylor series.</p></dd>
 
 </dl>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># univariate taylor series </span>
-<span class='fu'>taylor</span><span class='op'>(</span><span class='st'>'exp(x)'</span>, var <span class='op'>=</span> <span class='st'>'x'</span>, order <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'>### univariate taylor series (in x=0)</span>
+<span class='fu'>taylor</span><span class='op'>(</span><span class='st'>"exp(x)"</span>, var <span class='op'>=</span> <span class='st'>"x"</span>, order <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $f
-#&gt; [1] "(1) * 1 + (1) * x^1 + (0.5) * x^2 + (0.166666666666667) * x^3"
+#&gt; [1] "(1) * 1 + (1) * x^1 + (0.5) * x^2"
+#&gt; 
+#&gt; $order
+#&gt; [1] 2
+#&gt; 
+#&gt; $terms
+#&gt;   var coef degree
+#&gt; 0   1  1.0      0
+#&gt; 1 x^1  1.0      1
+#&gt; 2 x^2  0.5      2
+#&gt; </div><div class='input'>
+<span class='co'>### univariate taylor series of user-defined functions (in x=0)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>taylor</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $f
+#&gt; [1] "(1) * 1 + (0.999999999996052) * x^1 + (0.499999999979692) * x^2"
+#&gt; 
+#&gt; $order
+#&gt; [1] 2
+#&gt; 
+#&gt; $terms
+#&gt;   var coef degree
+#&gt; 0   1  1.0      0
+#&gt; 1 x^1  1.0      1
+#&gt; 2 x^2  0.5      2
+#&gt; </div><div class='input'>
+<span class='co'>### multivariate taylor series (in x=0 and y=1)</span>
+<span class='fu'>taylor</span><span class='op'>(</span><span class='st'>"x*(y-1)"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span>, y<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $f
+#&gt; [1] "(1) * x^1*(y-1)^1"
+#&gt; 
+#&gt; $order
+#&gt; [1] 4
+#&gt; 
+#&gt; $terms
+#&gt;             var coef degree
+#&gt; 0,0           1    0      0
+#&gt; 0,1     (y-1)^1    0      1
+#&gt; 1,0         x^1    0      1
+#&gt; 0,2     (y-1)^2    0      2
+#&gt; 2,0         x^2    0      2
+#&gt; 1,1 x^1*(y-1)^1    1      2
+#&gt; 0,3     (y-1)^3    0      3
+#&gt; 3,0         x^3    0      3
+#&gt; 1,2 x^1*(y-1)^2    0      3
+#&gt; 2,1 x^2*(y-1)^1    0      3
+#&gt; 0,4     (y-1)^4    0      4
+#&gt; 4,0         x^4    0      4
+#&gt; 1,3 x^1*(y-1)^3    0      4
+#&gt; 3,1 x^3*(y-1)^1    0      4
+#&gt; 2,2 x^2*(y-1)^2    0      4
+#&gt; </div><div class='input'>
+<span class='co'>### multivariate taylor series of user-defined functions (in x=0 and y=1)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='op'>(</span><span class='va'>y</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span>, y<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $f
+#&gt; [1] "(0.999999999999994) * x^1*(y-1)^1"
+#&gt; 
+#&gt; $order
+#&gt; [1] 4
+#&gt; 
+#&gt; $terms
+#&gt;             var coef degree
+#&gt; 0,0           1    0      0
+#&gt; 0,1     (y-1)^1    0      1
+#&gt; 1,0         x^1    0      1
+#&gt; 0,2     (y-1)^2    0      2
+#&gt; 2,0         x^2    0      2
+#&gt; 1,1 x^1*(y-1)^1    1      2
+#&gt; 0,3     (y-1)^3    0      3
+#&gt; 3,0         x^3    0      3
+#&gt; 1,2 x^1*(y-1)^2    0      3
+#&gt; 2,1 x^2*(y-1)^1    0      3
+#&gt; 0,4     (y-1)^4    0      4
+#&gt; 4,0         x^4    0      4
+#&gt; 1,3 x^1*(y-1)^3    0      4
+#&gt; 3,1 x^3*(y-1)^1    0      4
+#&gt; 2,2 x^2*(y-1)^2    0      4
+#&gt; </div><div class='input'>
+<span class='co'>### vectorized interface</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>taylor</span><span class='op'>(</span><span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $f
+#&gt; [1] "(1) * x1^1*x2^1*x3^1"
 #&gt; 
 #&gt; $order
 #&gt; [1] 3
 #&gt; 
 #&gt; $terms
-#&gt;   var      coef degree
-#&gt; 0   1 1.0000000      0
-#&gt; 1 x^1 1.0000000      1
-#&gt; 2 x^2 0.5000000      2
-#&gt; 3 x^3 0.1666667      3
-#&gt; </div><div class='input'>
-<span class='co'># univariate taylor series of arbitrary functions</span>
-<span class='fu'>taylor</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='st'>'x'</span>, order <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $f
-#&gt; [1] "(1) * 1 + (1.00000000001439) * x^1 + (0.500000252309588) * x^2 + (0.166680509794145) * x^3"
-#&gt; 
-#&gt; $order
-#&gt; [1] 3
-#&gt; 
-#&gt; $terms
-#&gt;   var      coef degree
-#&gt; 0   1 1.0000000      0
-#&gt; 1 x^1 1.0000000      1
-#&gt; 2 x^2 0.5000003      2
-#&gt; 3 x^3 0.1666805      3
-#&gt; </div><div class='input'>
-<span class='co'># multivariate taylor series </span>
-<span class='fu'>taylor</span><span class='op'>(</span><span class='st'>'sin(x*y)'</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $f
-#&gt; [1] "(1) * x^1*y^1 + (-0.166666666666667) * x^3*y^3"
-#&gt; 
-#&gt; $order
-#&gt; [1] 6
-#&gt; 
-#&gt; $terms
-#&gt;         var       coef degree
-#&gt; 0,0       1  0.0000000      0
-#&gt; 0,1     y^1  0.0000000      1
-#&gt; 1,0     x^1  0.0000000      1
-#&gt; 0,2     y^2  0.0000000      2
-#&gt; 2,0     x^2  0.0000000      2
-#&gt; 1,1 x^1*y^1  1.0000000      2
-#&gt; 0,3     y^3  0.0000000      3
-#&gt; 3,0     x^3  0.0000000      3
-#&gt; 1,2 x^1*y^2  0.0000000      3
-#&gt; 2,1 x^2*y^1  0.0000000      3
-#&gt; 0,4     y^4  0.0000000      4
-#&gt; 4,0     x^4  0.0000000      4
-#&gt; 1,3 x^1*y^3  0.0000000      4
-#&gt; 3,1 x^3*y^1  0.0000000      4
-#&gt; 2,2 x^2*y^2  0.0000000      4
-#&gt; 0,5     y^5  0.0000000      5
-#&gt; 5,0     x^5  0.0000000      5
-#&gt; 1,4 x^1*y^4  0.0000000      5
-#&gt; 4,1 x^4*y^1  0.0000000      5
-#&gt; 2,3 x^2*y^3  0.0000000      5
-#&gt; 3,2 x^3*y^2  0.0000000      5
-#&gt; 0,6     y^6  0.0000000      6
-#&gt; 6,0     x^6  0.0000000      6
-#&gt; 1,5 x^1*y^5  0.0000000      6
-#&gt; 5,1 x^5*y^1  0.0000000      6
-#&gt; 2,4 x^2*y^4  0.0000000      6
-#&gt; 4,2 x^4*y^2  0.0000000      6
-#&gt; 3,3 x^3*y^3 -0.1666667      6
-#&gt; </div><div class='input'>
-<span class='co'># multivariate taylor series of arbitrary functions</span>
-<span class='fu'>taylor</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>*</span><span class='va'>y</span><span class='op'>)</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'x'</span>,<span class='st'>'y'</span><span class='op'>)</span>, order <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $f
-#&gt; [1] "(0.999999999993889) * x^1*y^1 + (-0.00041012992923167) * x^1*y^3 + (-0.00041012992923167) * x^3*y^1 + (2.76822776384238e-06) * x^1*y^5 + (2.76822776384238e-06) * x^5*y^1 + (-0.16659746296504) * x^3*y^3"
-#&gt; 
-#&gt; $order
-#&gt; [1] 6
-#&gt; 
-#&gt; $terms
-#&gt;         var          coef degree
-#&gt; 0,0       1  0.000000e+00      0
-#&gt; 0,1     y^1  0.000000e+00      1
-#&gt; 1,0     x^1  0.000000e+00      1
-#&gt; 0,2     y^2  0.000000e+00      2
-#&gt; 2,0     x^2  0.000000e+00      2
-#&gt; 1,1 x^1*y^1  1.000000e+00      2
-#&gt; 0,3     y^3  0.000000e+00      3
-#&gt; 3,0     x^3  0.000000e+00      3
-#&gt; 1,2 x^1*y^2  0.000000e+00      3
-#&gt; 2,1 x^2*y^1  0.000000e+00      3
-#&gt; 0,4     y^4  0.000000e+00      4
-#&gt; 4,0     x^4  0.000000e+00      4
-#&gt; 1,3 x^1*y^3 -4.101299e-04      4
-#&gt; 3,1 x^3*y^1 -4.101299e-04      4
-#&gt; 2,2 x^2*y^2  0.000000e+00      4
-#&gt; 0,5     y^5  0.000000e+00      5
-#&gt; 5,0     x^5  0.000000e+00      5
-#&gt; 1,4 x^1*y^4  0.000000e+00      5
-#&gt; 4,1 x^4*y^1  0.000000e+00      5
-#&gt; 2,3 x^2*y^3  0.000000e+00      5
-#&gt; 3,2 x^3*y^2  0.000000e+00      5
-#&gt; 0,6     y^6  0.000000e+00      6
-#&gt; 6,0     x^6  0.000000e+00      6
-#&gt; 1,5 x^1*y^5  2.768228e-06      6
-#&gt; 5,1 x^5*y^1  2.768228e-06      6
-#&gt; 2,4 x^2*y^4  0.000000e+00      6
-#&gt; 4,2 x^4*y^2  0.000000e+00      6
-#&gt; 3,3 x^3*y^3 -1.665975e-01      6
+#&gt;                  var coef degree
+#&gt; 0,0,0              1    0      0
+#&gt; 0,0,1           x3^1    0      1
+#&gt; 0,1,0           x2^1    0      1
+#&gt; 1,0,0           x1^1    0      1
+#&gt; 0,0,2           x3^2    0      2
+#&gt; 0,2,0           x2^2    0      2
+#&gt; 2,0,0           x1^2    0      2
+#&gt; 0,1,1      x2^1*x3^1    0      2
+#&gt; 1,0,1      x1^1*x3^1    0      2
+#&gt; 1,1,0      x1^1*x2^1    0      2
+#&gt; 0,0,3           x3^3    0      3
+#&gt; 0,3,0           x2^3    0      3
+#&gt; 3,0,0           x1^3    0      3
+#&gt; 0,1,2      x2^1*x3^2    0      3
+#&gt; 0,2,1      x2^2*x3^1    0      3
+#&gt; 1,0,2      x1^1*x3^2    0      3
+#&gt; 1,2,0      x1^1*x2^2    0      3
+#&gt; 2,0,1      x1^2*x3^1    0      3
+#&gt; 2,1,0      x1^2*x2^1    0      3
+#&gt; 1,1,1 x1^1*x2^1*x3^1    1      3
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

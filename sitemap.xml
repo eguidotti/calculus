@@ -7,19 +7,25 @@
     <loc>https://calculus.guidotti.dev/reference/c2e.html</loc>
   </url>
   <url>
+    <loc>https://calculus.guidotti.dev/reference/calculus-package.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/contraction.html</loc>
+  </url>
+  <url>
     <loc>https://calculus.guidotti.dev/reference/cross.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/curl.html</loc>
   </url>
   <url>
+    <loc>https://calculus.guidotti.dev/reference/delta.html</loc>
+  </url>
+  <url>
     <loc>https://calculus.guidotti.dev/reference/derivative.html</loc>
   </url>
   <url>
-    <loc>https://calculus.guidotti.dev/reference/det.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.guidotti.dev/reference/diag.html</loc>
+    <loc>https://calculus.guidotti.dev/reference/diagonal.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/divergence.html</loc>
@@ -29,6 +35,9 @@
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/einstein.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/epsilon.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/evaluate.html</loc>
@@ -52,9 +61,6 @@
     <loc>https://calculus.guidotti.dev/reference/grapes-kronecker-grapes.html</loc>
   </url>
   <url>
-    <loc>https://calculus.guidotti.dev/reference/grapes-matrix-grapes.html</loc>
-  </url>
-  <url>
     <loc>https://calculus.guidotti.dev/reference/grapes-outer-grapes.html</loc>
   </url>
   <url>
@@ -76,25 +82,31 @@
     <loc>https://calculus.guidotti.dev/reference/integral.html</loc>
   </url>
   <url>
-    <loc>https://calculus.guidotti.dev/reference/inverse.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.guidotti.dev/reference/kronecker.html</loc>
+    <loc>https://calculus.guidotti.dev/reference/jacobian.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/laplacian.html</loc>
   </url>
   <url>
-    <loc>https://calculus.guidotti.dev/reference/levicivita.html</loc>
+    <loc>https://calculus.guidotti.dev/reference/mx.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/mxdet.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/mxinv.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/mxtr.html</loc>
+  </url>
+  <url>
+    <loc>https://calculus.guidotti.dev/reference/ode.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/partitions.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/taylor.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.guidotti.dev/reference/trace.html</loc>
   </url>
   <url>
     <loc>https://calculus.guidotti.dev/reference/wrap.html</loc>

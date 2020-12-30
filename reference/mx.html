@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Numerical and Symbolic Outer Product — %outer% • calculus</title>
+<title>Numerical and Symbolic Matrix Product — mx • calculus</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Numerical and Symbolic Outer Product — %outer%" />
-<meta property="og:description" content="Computes the outer product of two numeric or character arrays." />
+<meta property="og:title" content="Numerical and Symbolic Matrix Product — mx" />
+<meta property="og:description" content="Multiplies two numeric or character matrices, if they are conformable. If one argument is a vector, it will be promoted to either a row or column matrix to make the two arguments conformable. If both are vectors of the same length, it will return the inner product (as a matrix)." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
 
@@ -129,49 +129,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Numerical and Symbolic Outer Product</h1>
+    <h1>Numerical and Symbolic Matrix Product</h1>
     <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/operators.R'><code>R/operators.R</code></a></small>
-    <div class="hidden name"><code>grapes-outer-grapes.Rd</code></div>
+    <div class="hidden name"><code>mx.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes the outer product of two <code>numeric</code> or <code>character</code> arrays.</p>
+    <p>Multiplies two <code>numeric</code> or <code>character</code> matrices, if they are conformable. If one argument is a vector, it will be promoted to either a row or column matrix to make the two arguments conformable. If both are vectors of the same length, it will return the inner product (as a <code>matrix</code>).</p>
     </div>
 
-    <pre class="usage"><span class='va'>x</span> <span class='op'>%outer%</span> <span class='va'>y</span></pre>
+    <pre class="usage"><span class='fu'>mx</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='va'>x</span> <span class='op'>%mx%</span> <span class='va'>y</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>numeric</code> or <code>character</code> array.</p></td>
+      <td><p><code>numeric</code> or <code>character</code> matrix.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code>numeric</code> or <code>character</code> array.</p></td>
+      <td><p><code>numeric</code> or <code>character</code> matrix.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>array</code>.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p><code>matrix</code>.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    <p>The outer product between two arrays <code>A</code> and <code>B</code> is computed as:
-$$C_{i_1\dots i_mj_1\dots j_n} = A_{i_1\dots i_m}B_{j_1\dots j_n}$$</p>
+    
+<ul>
+<li><p><code>%mx%</code>: binary operator.</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### numeric outer product </span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span> <span class='op'>%outer%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    2    3
-#&gt; [2,]    4    6</div><div class='input'>
-<span class='co'>### symbolic outer product </span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span> <span class='op'>%outer%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c"</span>,<span class='st'>"d"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1]        [,2]       
-#&gt; [1,] "(a) * (c)" "(a) * (d)"
-#&gt; [2,] "(b) * (c)" "(b) * (d)"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'>### numeric inner product </span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>
+<span class='fu'>mx</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]
+#&gt; [1,]   30</div><div class='input'>
+<span class='co'>### symbolic inner product </span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='fu'>mx</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]                                           
+#&gt; [1,] "(a) * (a) + (b) * (b) + (c) * (c) + (d) * (d)"</div><div class='input'>
+<span class='co'>### numeric matrix product</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'>mx</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]      [,2]      [,3]      [,4]     
+#&gt; [1,] "(a) * 1" "(b) * 1" "(c) * 1" "(d) * 1"</div><div class='input'>
+<span class='co'>### symbolic matrix product</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='fu'>mx</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]                                    
+#&gt; [1,] "1 * (a) + 4 * (b) + 7 * (c) + 10 * (d)"
+#&gt; [2,] "2 * (a) + 5 * (b) + 8 * (c) + 11 * (d)"
+#&gt; [3,] "3 * (a) + 6 * (b) + 9 * (c) + 12 * (d)"</div><div class='input'>
+<span class='co'>### binary operator</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='va'>x</span> <span class='op'>%mx%</span> <span class='va'>y</span>
+</div><div class='output co'>#&gt;      [,1]                                    
+#&gt; [1,] "1 * (a) + 4 * (b) + 7 * (c) + 10 * (d)"
+#&gt; [2,] "2 * (a) + 5 * (b) + 8 * (c) + 11 * (d)"
+#&gt; [3,] "3 * (a) + 6 * (b) + 9 * (c) + 12 * (d)"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

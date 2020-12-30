@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Numerical and Symbolic Laplacian — laplacian • calculus</title>
+<title>Numerical and Symbolic Jacobian — jacobian • calculus</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Numerical and Symbolic Laplacian — laplacian" />
-<meta property="og:description" content="Computes the numerical Laplacian of functions or the symbolic Laplacian of characters 
+<meta property="og:title" content="Numerical and Symbolic Jacobian — jacobian" />
+<meta property="og:description" content="Computes the numerical Jacobian of functions or the symbolic Jacobian of characters
 in arbitrary orthogonal coordinate systems." />
 <meta property="og:image" content="https://calculus.guidotti.dev/logo.png" />
 
@@ -130,27 +130,19 @@ in arbitrary orthogonal coordinate systems." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Numerical and Symbolic Laplacian</h1>
+    <h1>Numerical and Symbolic Jacobian</h1>
     <small class="dont-index">Source: <a href='https://github.com/eguidotti/calculus/blob/master/R/operators.R'><code>R/operators.R</code></a></small>
-    <div class="hidden name"><code>laplacian.Rd</code></div>
+    <div class="hidden name"><code>jacobian.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes the numerical Laplacian of <code>functions</code> or the symbolic Laplacian of <code>characters</code> 
+    <p>Computes the numerical Jacobian of <code>functions</code> or the symbolic Jacobian of <code>characters</code>
 in arbitrary orthogonal coordinate systems.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>laplacian</span><span class='op'>(</span>
-  <span class='va'>f</span>,
-  <span class='va'>var</span>,
-  coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>,
-  accuracy <span class='op'>=</span> <span class='fl'>4</span>,
-  stepsize <span class='op'>=</span> <span class='cn'>NULL</span>,
-  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+    <pre class="usage"><span class='fu'>jacobian</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>, accuracy <span class='op'>=</span> <span class='fl'>4</span>, stepsize <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='va'>f</span> <span class='op'>%laplacian%</span> <span class='va'>var</span></pre>
+<span class='va'>f</span> <span class='op'>%jacobian%</span> <span class='va'>var</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,10 +168,6 @@ in arbitrary orthogonal coordinate systems.</p>
       <td><p>finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.</p></td>
     </tr>
     <tr>
-      <th>drop</th>
-      <td><p>if <code>TRUE</code>, return the Laplacian as a scalar and not as an <code>array</code> for scalar-valued functions.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>additional arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
@@ -187,52 +175,48 @@ in arbitrary orthogonal coordinate systems.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Scalar for scalar-valued functions when <code>drop=TRUE</code>, <code>array</code> otherwise.</p>
+    <p><code>array</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The Laplacian is a differential operator given by the divergence of the 
-gradient of a scalar-valued function \(F\), resulting in a scalar value giving 
-the flux density of the gradient flow of a function. 
-The <code>laplacian</code> is computed in arbitrary orthogonal coordinate systems using 
-the scale factors \(h_i\):</p>
-<p>$$\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)$$</p>
-<p>where \(J=\prod_ih_i\). When the function \(F\) is a tensor-valued function 
-\(F_{d_1\dots d_n}\), the <code>laplacian</code> is computed for each scalar component:</p>
-<p>$$(\nabla^2F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots d_n}\Biggl)$$</p>
+    <p>The function is basically a wrapper for <code><a href='gradient.html'>gradient</a></code> with <code>drop=FALSE</code>.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>%laplacian%</code>: binary operator with default parameters.</p></li>
+<li><p><code>%jacobian%</code>: binary operator with default parameters.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### symbolic Laplacian </span>
-<span class='fu'>laplacian</span><span class='op'>(</span><span class='st'>"x^3+y^3+z^3"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span>,<span class='st'>"z"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)"</div><div class='input'>
-<span class='co'>### numerical Laplacian in (x=1, y=1, z=1)</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>^</span><span class='fl'>3</span><span class='op'>+</span><span class='va'>y</span><span class='op'>^</span><span class='fl'>3</span><span class='op'>+</span><span class='va'>z</span><span class='op'>^</span><span class='fl'>3</span>
-<span class='fu'>laplacian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span>, y<span class='op'>=</span><span class='fl'>1</span>, z<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 18</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'>### symbolic Jacobian </span>
+<span class='fu'>jacobian</span><span class='op'>(</span><span class='st'>"x*y*z"</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]    [,2]    [,3]   
+#&gt; [1,] "y * z" "x * z" "x * y"</div><div class='input'>
+<span class='co'>### numerical Jacobian in (x=1, y=2, z=3)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>*</span><span class='va'>y</span><span class='op'>*</span><span class='va'>z</span>
+<span class='fu'>jacobian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span>, y<span class='op'>=</span><span class='fl'>2</span>, z<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    6    3    2</div><div class='input'>
 <span class='co'>### vectorized interface</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'>laplacian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 18</div><div class='input'>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>*</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>*</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
+<span class='fu'>jacobian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    6    3    2</div><div class='input'>
 <span class='co'>### symbolic vector-valued functions</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x^2"</span>,<span class='st'>"x*y"</span>,<span class='st'>"x*y"</span>,<span class='st'>"y^2"</span><span class='op'>)</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>laplacian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,] "2"  "0" 
-#&gt; [2,] "0"  "2" </div><div class='input'>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y*sin(x)"</span>, <span class='st'>"x*cos(y)"</span><span class='op'>)</span>
+<span class='fu'>jacobian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]         [,2]           
+#&gt; [1,] "y * cos(x)" "sin(x)"       
+#&gt; [2,] "cos(y)"     "-(x * sin(y))"</div><div class='input'>
 <span class='co'>### numerical vector-valued functions</span>
-<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span>,<span class='va'>x</span><span class='op'>*</span><span class='va'>y</span>,<span class='va'>x</span><span class='op'>*</span><span class='va'>y</span>,<span class='va'>y</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>laplacian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span>,y<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    2    0
-#&gt; [2,]    0    2</div><div class='input'>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>jacobian</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>f</span>, var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    1    1    1
+#&gt; [2,]    0    0    0</div><div class='input'>
 <span class='co'>### binary operator</span>
-<span class='st'>"x^3+y^3+z^3"</span> <span class='op'>%laplacian%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>,<span class='st'>"y"</span>,<span class='st'>"z"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)"</div><div class='input'>
+<span class='st'>"x*y^2"</span> <span class='op'>%jacobian%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span>, y<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    9    6</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

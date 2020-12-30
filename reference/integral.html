@@ -143,9 +143,10 @@ orthogonal coordinate systems." />
     <pre class="usage"><span class='fu'>integral</span><span class='op'>(</span>
   <span class='va'>f</span>,
   <span class='va'>bounds</span>,
+  params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>,
   relTol <span class='op'>=</span> <span class='fl'>0.001</span>,
   absTol <span class='op'>=</span> <span class='fl'>1e-12</span>,
-  coordinates <span class='op'>=</span> <span class='st'>"cartesian"</span>,
   method <span class='op'>=</span> <span class='cn'>NULL</span>,
   vectorize <span class='op'>=</span> <span class='cn'>FALSE</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -165,16 +166,20 @@ orthogonal coordinate systems." />
       <td><p><code>list</code> containing the lower and upper bounds for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed.</p></td>
     </tr>
     <tr>
-      <th>relTol</th>
-      <td><p>relative accuracy requested.</p></td>
-    </tr>
-    <tr>
-      <th>absTol</th>
-      <td><p>absolute accuracy requested.</p></td>
+      <th>params</th>
+      <td><p><code>list</code> of additional parameters passed to <code>f</code>.</p></td>
     </tr>
     <tr>
       <th>coordinates</th>
       <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each varibale.</p></td>
+    </tr>
+    <tr>
+      <th>relTol</th>
+      <td><p>the maximum relative tolerance.</p></td>
+    </tr>
+    <tr>
+      <th>absTol</th>
+      <td><p>the absolute tolerance.</p></td>
     </tr>
     <tr>
       <th>method</th>

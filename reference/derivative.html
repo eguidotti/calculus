@@ -141,12 +141,12 @@
     <pre class="usage"><span class='fu'>derivative</span><span class='op'>(</span>
   <span class='va'>f</span>,
   <span class='va'>var</span>,
+  params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   order <span class='op'>=</span> <span class='fl'>1</span>,
   accuracy <span class='op'>=</span> <span class='fl'>4</span>,
   stepsize <span class='op'>=</span> <span class='cn'>NULL</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  deparse <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
+  deparse <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -159,6 +159,10 @@
     <tr>
       <th>var</th>
       <td><p>vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See details.</p></td>
+    </tr>
+    <tr>
+      <th>params</th>
+      <td><p><code>list</code> of additional parameters passed to <code>f</code>.</p></td>
     </tr>
     <tr>
       <th>order</th>
@@ -179,10 +183,6 @@
     <tr>
       <th>deparse</th>
       <td><p>if <code>TRUE</code>, return <code>character</code> instead of <code>expression</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to <code>f</code>, when <code>f</code> is a <code>function</code>.</p></td>
     </tr>
     </table>
 

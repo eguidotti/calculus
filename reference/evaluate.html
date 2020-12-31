@@ -138,7 +138,7 @@
     <p>Evaluates an array of <code>characters</code> or <code>expressions</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, vectorize <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +154,10 @@
     <tr>
       <th>params</th>
       <td><p><code>list</code> of additional parameters passed to <code>f</code>.</p></td>
+    </tr>
+    <tr>
+      <th>vectorize</th>
+      <td><p><code>logical</code>. Use vectorization? If <code>TRUE</code>, it can significantly boost performance but <code>f</code> needs to handle the vector of inputs appropriately.</p></td>
     </tr>
     </table>
 
@@ -178,7 +182,7 @@ rows corresponding to the rows of <code>var</code>.</p>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    3
 #&gt; [2,]    2    4</div><div class='input'>
-<span class='co'>### vectorized evaluation</span>
+<span class='co'>### multiple evaluation</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, b <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, c <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span>, d <span class='op'>=</span> <span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span>
 <span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span><span class='op'>)</span>
@@ -186,7 +190,7 @@ rows corresponding to the rows of <code>var</code>.</p>
 #&gt; [1,]    1    2    3    4
 #&gt; [2,]    2    3    4    5
 #&gt; [3,]    3    4    5    6</div><div class='input'>
-<span class='co'>### evaluation with additional parameters</span>
+<span class='co'>### multiple evaluation with additional parameters</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='st'>"a*sum(x)"</span>
 <span class='va'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>params</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
@@ -195,6 +199,15 @@ rows corresponding to the rows of <code>var</code>.</p>
 #&gt; [1,]    6
 #&gt; [2,]   12
 #&gt; [3,]   18</div><div class='input'>
+<span class='co'>### multiple evaluation of non-vectorized expressions</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='st'>"a*myf(x)"</span>
+<span class='va'>myf</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span> <span class='fl'>1</span> <span class='kw'>else</span> <span class='op'>-</span><span class='fl'>1</span>
+<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>evaluate</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>var</span>, params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>myf <span class='op'>=</span> <span class='va'>myf</span><span class='op'>)</span>, vectorize <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]
+#&gt; [1,]   -1
+#&gt; [2,]   -2
+#&gt; [3,]    3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -5,6 +5,7 @@
 #' @param f array of \code{characters} or \code{expressions} to be evaluated.
 #' @param var named vector or \code{data.frame} in which \code{f} is to be evaluated.
 #' @param params \code{list} of additional parameters passed to \code{f}.
+#' @param vectorize \code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.
 #' 
 #' @return Evaluated object. When \code{var} is a named vector, the return is an array 
 #' with the same dimensions of \code{f}. When \code{var} is a \code{data.frame}, the
@@ -17,22 +18,28 @@
 #' var <- c(a = 1, b = 2, c = 3, d = 4)
 #' evaluate(f, var)
 #' 
-#' ### vectorized evaluation
+#' ### multiple evaluation
 #' f <- array(letters[1:4], dim = c(2,2))
 #' var <- data.frame(a = 1:3, b = 2:4, c = 3:5, d = 4:6)
 #' evaluate(f, var)
 #' 
-#' ### evaluation with additional parameters
+#' ### multiple evaluation with additional parameters
 #' f <- "a*sum(x)"
 #' var <- data.frame(a = 1:3)
 #' params <- list(x = 1:3)
 #' evaluate(f, var, params)
 #' 
+#' ### multiple evaluation of non-vectorized expressions
+#' f <- "a*myf(x)"
+#' myf <- function(x) if(x>0) 1 else -1
+#' var <- data.frame(a = 1:3, x = -1:1)
+#' evaluate(f, var, params = list(myf = myf), vectorize = FALSE)
+#' 
 #' @family utilities
 #' 
 #' @export
 #' 
-evaluate <- function(f, var, params = list()){
+evaluate <- function(f, var, params = list(), vectorize = TRUE){
   
   is_df <- is.data.frame(var)
   is_num <- is.vector(var, mode = "numeric")
@@ -45,16 +52,20 @@ evaluate <- function(f, var, params = list()){
   
   d <- dim(f)
   n <- length(f)
-  f <- c2e(sprintf("c(%s)", paste(f, collapse = ",")))
   
-  if(is_num){
-    x <- eval(f, envir = c(as.list(var), params), enclos = baseenv())   
-    dim(x) <- d
+  if(vectorize) {
+    f <- c2e(sprintf("unlist(data.frame(%s), use.names = FALSE, recursive = FALSE)", paste(f, collapse = ",")))
+    x <- eval(f, envir = c(as.list(var), params), enclos = baseenv()) 
+    if(is_num)
+      dim(x) <- d
+    else
+      dim(x) <- c(length(x)/n, n)
   }
   else {
     m <- nrow(var)
     x <- matrix(nrow = m, ncol = n)
     e <- list2env(params, hash = TRUE)
+    f <- c2e(sprintf("c(%s)", paste(f, collapse = ",")))
     for(i in 1:m){
       list2env(var[i, , drop = FALSE], envir = e)
       x[i,] <- eval(f, envir = e, enclos = baseenv())  

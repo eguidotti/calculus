@@ -4,7 +4,7 @@
 \alias{evaluate}
 \title{Evaluate Characters and Expressions}
 \usage{
-evaluate(f, var, params = list())
+evaluate(f, var, params = list(), vectorize = TRUE)
 }
 \arguments{
 \item{f}{array of \code{characters} or \code{expressions} to be evaluated.}
@@ -12,6 +12,8 @@ evaluate(f, var, params = list())
 \item{var}{named vector or \code{data.frame} in which \code{f} is to be evaluated.}
 
 \item{params}{\code{list} of additional parameters passed to \code{f}.}
+
+\item{vectorize}{\code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.}
 }
 \value{
 Evaluated object. When \code{var} is a named vector, the return is an array 
@@ -28,16 +30,22 @@ f <- array(letters[1:4], dim = c(2,2))
 var <- c(a = 1, b = 2, c = 3, d = 4)
 evaluate(f, var)
 
-### vectorized evaluation
+### multiple evaluation
 f <- array(letters[1:4], dim = c(2,2))
 var <- data.frame(a = 1:3, b = 2:4, c = 3:5, d = 4:6)
 evaluate(f, var)
 
-### evaluation with additional parameters
+### multiple evaluation with additional parameters
 f <- "a*sum(x)"
 var <- data.frame(a = 1:3)
 params <- list(x = 1:3)
 evaluate(f, var, params)
+
+### multiple evaluation of non-vectorized expressions
+f <- "a*myf(x)"
+myf <- function(x) if(x>0) 1 else -1
+var <- data.frame(a = 1:3, x = -1:1)
+evaluate(f, var, params = list(myf = myf), vectorize = FALSE)
 
 }
 \seealso{

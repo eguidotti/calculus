@@ -18,9 +18,9 @@
 #' @param params \code{list} of additional parameters passed to \code{f}.
 #' @param relTol the maximum relative tolerance.
 #' @param absTol the absolute tolerance.
-#' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.
+#' @param coordinates coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each variable.
 #' @param method the method to use. One of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Methods other than \code{"mc"} (naive Monte Carlo) require the \pkg{cubature} package to be installed (efficient integration in C). The defaul uses \code{"hcubature"} if \pkg{cubature} is installed or \code{"mc"} otherwise.
-#' @param vectorize \code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.
+#' @param vectorize \code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately. The default uses \code{FALSE} if \code{f} is a \code{function}, \code{TRUE} otherwise.
 #' @param drop if \code{TRUE}, return the integral as a vector and not as an \code{array} for vector-valued functions.
 #' @param verbose \code{logical}. Print on progress?
 #' @param ... additional arguments passed to \code{\link[cubature]{cubintegrate}}, when method \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"} is used. 
@@ -74,11 +74,12 @@
 #'           
 #' @export
 #' 
-integral <- function(f, bounds, params = list(), coordinates = "cartesian", relTol = 1e-3, absTol = 1e-12, method = NULL, vectorize = FALSE, drop = TRUE, verbose = FALSE, ...){
+integral <- function(f, bounds, params = list(), coordinates = "cartesian", relTol = 1e-3, absTol = 1e-12, method = NULL, vectorize = NULL, drop = TRUE, verbose = FALSE, ...){
   
   vol <- 1
   is.fun <- is.function(f)
-  vectorize <- vectorize | !is.fun
+  if(is.null(vectorize))
+    vectorize <- !is.fun
   
   for(i in 1:length(bounds)){
     
@@ -176,7 +177,7 @@ integral <- function(f, bounds, params = list(), coordinates = "cartesian", relT
         }
       }
       else {
-        y <- evaluate(f1, as.data.frame(c(x, x.fixed)), params)
+        y <- evaluate(f1, as.data.frame(c(x, x.fixed)), params = params, vectorize = vectorize)
       }
       
       s <- vol*colSums(y)
@@ -222,7 +223,7 @@ integral <- function(f, bounds, params = list(), coordinates = "cartesian", relT
       if(is.fun)
         return(matrix(do.call(f1, args = c(x, params)), ncol = n, byrow = TRUE))
       
-      return(t(evaluate(f1, as.data.frame(x), params)))
+      return(t(evaluate(f1, as.data.frame(x), params = params, vectorize = vectorize)))
       
     }
     

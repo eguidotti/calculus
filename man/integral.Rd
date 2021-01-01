@@ -12,7 +12,7 @@ integral(
   relTol = 0.001,
   absTol = 1e-12,
   method = NULL,
-  vectorize = FALSE,
+  vectorize = NULL,
   drop = TRUE,
   verbose = FALSE,
   ...
@@ -25,7 +25,7 @@ integral(
 
 \item{params}{\code{list} of additional parameters passed to \code{f}.}
 
-\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each varibale.}
+\item{coordinates}{coordinate system to use. One of: \code{cartesian}, \code{polar}, \code{spherical}, \code{cylindrical}, \code{parabolic}, \code{parabolic-cylindrical} or a character vector of scale factors for each variable.}
 
 \item{relTol}{the maximum relative tolerance.}
 
@@ -33,7 +33,7 @@ integral(
 
 \item{method}{the method to use. One of \code{"mc"}, \code{"hcubature"}, \code{"pcubature"}, \code{"cuhre"}, \code{"divonne"}, \code{"suave"} or \code{"vegas"}. Methods other than \code{"mc"} (naive Monte Carlo) require the \pkg{cubature} package to be installed (efficient integration in C). The defaul uses \code{"hcubature"} if \pkg{cubature} is installed or \code{"mc"} otherwise.}
 
-\item{vectorize}{\code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately.}
+\item{vectorize}{\code{logical}. Use vectorization? If \code{TRUE}, it can significantly boost performance but \code{f} needs to handle the vector of inputs appropriately. The default uses \code{FALSE} if \code{f} is a \code{function}, \code{TRUE} otherwise.}
 
 \item{drop}{if \code{TRUE}, return the integral as a vector and not as an \code{array} for vector-valued functions.}
 

@@ -1,0 +1,55 @@
+---
+title: "Einstein summation convention"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Einstein summation convention}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+In mathematics, the Einstein notation or Einstein summation convention is a notational convention that implies summation over a set of repeated indices. When an index variable appears twice, it implies summation over all the values of the index^[https://en.wikipedia.org/wiki/Einstein_notation]. For instance the matrix product can be written in terms of Einstein notation as:
+
+$$C_{ij} = A_{ik}{B_{kj}}\equiv\sum_k A_{ik}{B_{kj}}$$
+
+The function [`einstein`](https://calculus.guidotti.dev/reference/einstein.html) provides a convenient way to compute general Einstein summations among two or more tensors, with or without repeated indices appearing in the same tensor. The function supports both numerical and symbolical calculations implemented via the usage of `C++` templates that operate with generic types and allow the function to work on the different data types without being rewritten for each one. 
+
+## Examples
+
+$$ C_{i,k} = A_{i,j} B_{j,k} $$
+
+```{r}
+a <- array(letters[1:6], dim = c(i=2, j=3))
+b <- array(letters[1:3], dim = c(j=3, k=1))
+einstein(a, b)
+```
+
+The indices can also be set on the fly with the function [`index`](https://calculus.guidotti.dev/reference/index-topic.html)
+
+```{r}
+a <- array(letters[1:6], dim = c(2, 3))
+b <- array(letters[1:3], dim = c(3, 1))
+index(a) <- c("i", "j")
+index(b) <- c("j", "k")
+einstein(a, b)
+```
+
+$$D_{jk}=A_{ij}B_{ki}C_{ii}$$
+
+```{r}
+a <- array(1:6, dim = c(i = 2, j = 3))
+b <- array(1:4, dim = c(k = 2, i = 2))
+c <- array(letters[1:4], dim = c(i = 2, i = 2))
+einstein(a, b, c)
+```
+

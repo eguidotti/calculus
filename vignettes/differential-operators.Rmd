@@ -1,0 +1,241 @@
+---
+title: "Differential operators in arbitrary orthogonal coordinates systems"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Differential operators in arbitrary orthogonal coordinates systems}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+Orthogonal coordinates are a special but extremely common case of curvilinear coordinates where the coordinate surfaces all meet at right angles. The chief advantage of non-Cartesian coordinates is that they can be chosen to match the symmetry of the problem. For example, spherical coordinates are the most common curvilinear coordinate systems and are used in Earth sciences, cartography, quantum mechanics, relativity, and engineering.^[https://en.wikipedia.org/wiki/Curvilinear_coordinates]
+These coordinates may be derived from a set of Cartesian coordinates by using a transformation that is locally invertible (a one-to-one map) at each point. This means that one can convert a point given in a Cartesian coordinate system to its curvilinear coordinates and back. Differential operators such as the gradient, divergence, curl, and Laplacian can be transformed from one coordinate system to another via the usage of scale factors.^[https://en.wikipedia.org/wiki/Orthogonal_coordinates]
+The package implements these operators in Cartesian, polar, spherical, cylindrical, parabolic coordinates, and supports arbitrary orthogonal coordinates systems defined by custom scale factors.
+
+|Curvilinear coordinates $(q_1, q_2, q_3)$ | Transformation from cartesian $(x, y, z)$ | Scale factors |
+|---------------|---------------|---------------|
+|Spherical polar coordinates $(r,\theta ,\phi )$|${\begin{aligned}x&=r\sin \theta \cos \phi \\y&=r\sin \theta \sin \phi \\z&=r\cos \theta \end{aligned}}$|${\begin{aligned}h_{1}&=1\\h_{2}&=r\\h_{3}&=r\sin \theta \end{aligned}}$|
+|Cylindrical polar coordinates $(r,\phi ,z)$|${\begin{aligned}x&=r\cos \phi \\y&=r\sin \phi \\z&=z\end{aligned}}$|${\begin{aligned}h_{1}&=h_{3}=1\\h_{2}&=r\end{aligned}}$|
+|Parabolic coordinates $(u,v,\phi )$|${\begin{aligned}x&=uv\cos \phi \\y&=uv\sin \phi \\z&={\frac  {1}{2}}(u^{2}-v^{2})\end{aligned}}$|${\begin{aligned}h_{1}&=h_{2}={\sqrt  {u^{2}+v^{2}}}\\h_{3}&=uv\end{aligned}}$|
+|Parabolic cylindrical coordinates $(u,v,z)$|${\begin{aligned}x&={\frac  {1}{2}}(u^{2}-v^{2})\\y&=uv\\z&=z\end{aligned}}$|${\begin{aligned}h_{1}&=h_{2}={\sqrt  {u^{2}+v^{2}}}\\h_{3}&=1\end{aligned}}$|
+
+
+## Gradient
+
+The gradient of a scalar-valued function $F$ is the vector $(\nabla F)_i$ whose components are the partial derivatives of $F$ with respect to each variable $i$. In arbitrary orthogonal coordinate systems, the gradient is expressed in terms of the scale factors $h_i$ as follows:
+
+$$(\nabla F)_i = \frac{1}{h_i}\partial_iF$$
+
+The function [`gradient`](https://calculus.guidotti.dev/reference/gradient.html) implements the symbolic and numeric gradient of `functions`, `expressions` and `characters`. In Cartesian coordinates:
+
+```{r}
+gradient("x*y*z", var = c("x", "y", "z"))
+```
+
+and in spherical coordinates:
+
+```{r}
+gradient("x*y*z", var = c("x","y","z"), coordinates = "spherical")
+```
+
+To support arbitrary orthogonal coordinate systems, it is possible to pass custom scale factors to the argument `coordinates`. For instance, the following call is equivalent to the previous example in spherical coordinates where the scale factors are now explicitly specified:
+
+```{r}
+gradient("x*y*z", var = c("x","y","z"), coordinates = c(1,"x","x*sin(y)"))
+```
+
+Numerical methods are applied when working with `functions` with the same sintax introduced for [derivatives](https://calculus.guidotti.dev/reference/derivative.html).
+
+```{r}
+f <- function(x, y, z) x*y*z
+gradient(f, var = c(x = 1, y = pi/2, z = 0), coordinates = "spherical")
+```
+
+or in vectorized form:
+
+```{r}
+f <- function(x) x[1]*x[2]*x[3]
+gradient(f, var = c(1, pi/2, 0), coordinates = "spherical")
+```
+
+When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the gradient is computed for each scalar component.
+
+$$(\nabla F_{d_1,\dots,d_n})_i = \frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}$$
+
+In particular, this reduces to the Jacobian matrix for vector-valued functions $F_{d_1}$:
+
+```{r}
+f <- function(x) c(prod(x), sum(x))
+gradient(f, var = c(3, 2, 1))
+```
+
+that may be expressed in arbitrary orthogonal coordinate systems.
+
+```{r}
+f <- function(x) c(prod(x), sum(x))
+gradient(f, var = c(3, 2, 1), coordinates = "cylindrical")
+```
+
+### Jacobian
+
+The function [`jacobian`](https://calculus.guidotti.dev/reference/jacobian.html) is a wrapper for [`gradient`](https://calculus.guidotti.dev/reference/gradient.html) that always returns the Jacobian as a matrix, even in the case of unidimensional scalar-valued functions.
+
+```{r}
+f <- function(x) x^2
+jacobian(f, var = c(1))
+```
+
+### Hessian
+
+In Cartesian coordinates, the Hessian of a scalar-valued function $F$ is the square matrix of second-order partial derivatives:
+
+$$(H(F))_{ij} = \partial_{ij}F$$
+
+It might be tempting to apply the definition of the Hessian as the Jacobian of the gradient to write it in terms of the scale factors. However, this results in a Hessian matrix that is not symmetric and ignores the distinction between vector and covectors in tensor analysis. The generalization to arbitrary coordinate system is not implemented and only Cartesian coordinates are supported:  
+
+```{r}
+f <- function(x, y, z) x*y*z
+hessian(f, var = c(x = 3, y = 2, z = 1))
+```
+
+When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`hessian`](https://calculus.guidotti.dev/reference/hessian.html) is computed for each scalar component.
+
+$$(H(F_{d_1,\dots,d_n}))_{ij} = \partial_{ij}F_{d_1,\dots,d_n}$$
+
+In this case, the function returns an `array` of Hessian matrices:
+
+```{r}
+f <- function(x, y, z) c(x*y*z, x+y+z)
+h <- hessian(f, var = c(x = 3, y = 2, z = 1))
+```
+
+that can be extracted with the corresponding indices.
+
+```{r}
+h[1,,]
+h[2,,]
+```
+
+## Divergence
+
+The divergence of a vector-valued function $F_i$ produces a scalar value $\nabla \cdot F$ representing the volume density of the outward flux of the vector field from an infinitesimal volume around a given point.^[https://en.wikipedia.org/wiki/Divergence] In terms of scale factors, it is expressed as follows:
+
+$$\nabla \cdot F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)$$
+
+where $J=\prod_ih_i$. When $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$, the [`divergence`](https://calculus.guidotti.dev/reference/divergence.html) is computed for each vector:
+
+$$(\nabla \cdot F)_{d_1,\dots,d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\Biggl)=\frac{1}{J}\sum_i\partial_i(Jh_i^{-1})F_{d_1,\dots,d_n,i}+Jh_i^{-1}\partial_i(F_{d_1,\dots,d_n,i})$$
+
+where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of $F$ is more efficient than the direct computation of $\partial_i\bigl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\bigl)$ via finite differences. In Cartesian coordinates:
+
+```{r}
+f <- c("x^2", "y^2", "z^2")
+divergence(f, var = c("x","y","z"))
+```
+
+In polar coordinates:
+
+```{r}
+f <- c("sqrt(r)/10", "sqrt(r)")
+divergence(f, var = c("r","phi"), coordinates = "polar")
+```
+
+And for tensors of vector-valued functions:
+
+```{r}
+f <- matrix(c("x^2","y^2","z^2","x","y","z"), nrow = 2, byrow = TRUE)
+divergence(f, var = c("x","y","z"))
+```
+
+The same syntax holds for `functions` where numerical methods are automatically applied:
+
+```{r}
+f <- function(x,y,z) matrix(c(x^2,y^2,z^2,x,y,z), nrow = 2, byrow = TRUE)
+divergence(f, var = c(x = 0, y = 0, z = 0))
+```
+
+## Curl
+
+The curl of a vector-valued function $F_i$ at a point is represented by a vector whose length and direction denote the magnitude and axis of the maximum circulation.^[https://en.wikipedia.org/wiki/Curl_(mathematics)] In 2 dimensions, the curl is written in terms of the scale factors $h$ and the [Levi-Civita symbol](https://calculus.guidotti.dev/reference/epsilon.html) $\epsilon$ as follows:
+
+$$\nabla \times F = \frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)= \frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)$$
+
+In 3 dimensions:
+
+$$(\nabla \times F)_k = \frac{h_k}{J}\sum_{ij}\epsilon_{ijk}\partial_i\Bigl(h_jF_j\Bigl)$$
+
+where $J=\prod_i h_i$. This suggests to implement the [`curl`](https://calculus.guidotti.dev/reference/curl.html) in $m+2$ dimensions in such a way that the formula reduces correctly to the previous cases:
+
+$$(\nabla \times F)_{k_1\dots k_m} = \frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_j\Bigl)$$
+
+And in particular, when $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$ the [`curl`](https://calculus.guidotti.dev/reference/curl.html) is computed for each vector:
+
+$$
+\begin{split}
+(\nabla \times F)_{d_1\dots d_n,k_1\dots k_m} & =\\ 
+&=\frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
+&=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
+&=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots k_m}\Bigl(\partial_i(h_j)F_{d_1\dots d_n,j}+h_j\partial_i(F_{d_1\dots d_n,j})\Bigl)
+\end{split}
+$$
+
+where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of $F$ is more efficient than the direct computation of $\partial_i\bigl(h_jF_{d_1\dots d_n,j}\bigl)$ via finite differences. In 2-dimensional Cartesian coordinates:
+
+```{r}
+f <- c("x^3*y^2","x")
+curl(f, var = c("x","y"))
+```
+
+In 3 dimensions, for an irrotational vector field:
+
+```{r}
+f <- c("x","-y","z")
+curl(f, var = c("x","y","z"))
+```
+
+And for tensors of vector-valued functions:
+
+```{r}
+f <- matrix(c("x","-y","z","x^3*y^2","x","0"), nrow = 2, byrow = TRUE)
+curl(f, var = c("x","y","z"))
+```
+
+The same syntax holds for `functions` where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.
+
+## Laplacian
+
+The Laplacian is a differential operator given by the divergence of the gradient of a scalar-valued function $F$, resulting in a scalar value giving the flux density of the gradient flow of a function. The Laplacian occurs in differential equations that describe many physical phenomena, such as electric and gravitational potentials, the diffusion equation for heat and fluid flow, wave propagation, and quantum mechanics.^[https://en.wikipedia.org/wiki/Laplace_operator] In terms of the scale factor, the operator is written as:
+
+$$\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)$$
+
+where $J=\prod_ih_i$. When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`laplacian`](https://calculus.guidotti.dev/reference/laplacian.html) is computed for each scalar component:
+
+$$(\nabla^2F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots d_n}\Biggl)=\frac{1}{J}\sum_i\partial_i\Bigl(Jh_i^{-2}\Bigl)\partial_iF_{d_1\dots d_n}+Jh_i^{-2}\partial^2_iF_{d_1\dots d_n}$$
+
+where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of $F$ is more efficient than the direct computation of $\partial_i\bigl(\frac{J}{h_i^2}\partial_iF\bigl)$ via finite differences. In Cartesian coordinates:
+
+```{r}
+f <- "x^3+y^3+z^3"
+laplacian(f, var = c("x","y","z"))
+```
+
+And for tensors of scalar-valued functions:
+
+```{r}
+f <- array(c("x^3+y^3+z^3", "x^2+y^2+z^2", "y^2", "z*x^2"), dim = c(2,2))
+laplacian(f, var = c("x","y","z"))
+```
+
+The same syntax holds for `functions` where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.
+
+

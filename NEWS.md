@@ -1,3 +1,9 @@
+# calculus 0.3.0
+
+- __breaking changes__: restructuring of package
+- added Ordinary Differential Equations
+- added vignettes
+
 # calculus 0.2.2
 
 - added variables transformation in Hermite polynomials

@@ -1,0 +1,59 @@
+---
+title: "Taylor series of multivariate functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taylor series of multivariate functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+The function [`taylor`](https://calculus.guidotti.dev/reference/taylor.html) provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a `character` string or as a `function`. Symbolic or numerical methods are applied accordingly. For univariate functions, the $n$-th order Taylor approximation centered in $x_0$ is given by:
+
+$$
+f(x) \simeq \sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+$$
+
+where $f^{(k)}(x_0)$ denotes the $k$-th order derivative evaluated in $x_0$. By using multi-index notation, the Taylor series is generalized to multidimensional functions with an arbitrary number of variables:
+
+$$
+f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+$$
+
+where now $x=(x_1,\dots,x_d)$ is the vector of variables, $k=(k_1,\dots,k_d)$ gives the order of differentiation with respect to each variable $f^{(k)}=\frac{\partial^{(|k|)}f}{\partial^{(k_1)}_{x_1}\cdots \partial^{(k_d)}_{x_d}}$, and:
+
+$$|k| = k_1+\cdots+k_d \quad\quad k!=k_1!\cdots k_d! \quad\quad x^k=x_1^{k_1}\cdots x_d^{k_d}$$
+
+The summation runs for $0\leq |k|\leq n$ and identifies the set
+
+$$\{(k_1,\cdots,k_d):k_1+\cdots k_d \leq n\}$$
+
+that corresponds to the partitions of the integer $n$. These partitions can be computed with the function [`partitions`](https://calculus.guidotti.dev/reference/partitions.html) that is included in the package and optimized in `C++` for speed and flexibility. For example, the following call generates the partitions needed for the $2$-nd order Taylor expansion for a function of $3$ variables:
+
+```{r}
+partitions(n = 2, length = 3, fill = TRUE, perm = TRUE, equal = FALSE)
+```
+
+Based on these partitions, the function [`taylor`](https://calculus.guidotti.dev/reference/taylor.html) computes the corresponding derivatives and builds the Taylor series. The output is a `list` containing the Taylor series, the order of the expansion, and a `data.frame` containing the variables, coefficients and degrees of each term in the Taylor series.
+
+```{r}
+taylor("exp(x)", var = "x", order = 2)
+```
+
+By default, the series is centered in $x_0=0$ but the function also supports $x_0\neq 0$, the multivariable case, and the approximation of user defined R `functions`.
+
+```{r}
+f <- function(x, y) log(y)*sin(x)
+taylor(f, var = c(x = 0, y = 1), order = 2)
+```
+

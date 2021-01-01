@@ -1,0 +1,106 @@
+---
+title: "High order derivatives of multivariate functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{High order derivatives of multivariate functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+The function [`derivative`](https://calculus.guidotti.dev/reference/derivative.html) performs high-order symbolic and numerical differentiation for generic tensors with respect to an arbitrary number of variables.
+The function behaves differently depending on the arguments `order`, the order of differentiation, and `var`, the variable names with respect to which the derivatives are computed.
+
+When multiple variables are provided and `order` is a single integer $n$, then the $n$-th order derivative is computed for each element of the tensor with respect to each variable:
+
+$$D = \partial^{(n)} \otimes F$$
+
+that is:
+
+$$D_{i,\dots,j,k} = \partial^{(n)}_{k} F_{i,\dots,j}$$
+
+where $F$ is the tensor of functions and $\partial_k^{(n)}$ denotes the $n$-th order partial derivative with respect to the $k$-th variable.
+
+When `order` matches the length of `var`, it is assumed that the differentiation order is provided for each variable. In this case, each element is derived $n_k$ times with respect to the $k$-th variable, for each of the $m$ variables.
+
+$$D_{i,\dots,j} = \partial^{(n_1)}_1\cdots\partial^{(n_m)}_m F_{i,\dots,j}$$
+
+The same applies when `order` is a named vector giving the differentiation order for each variable. For example, `order = c(x=1, y=2)` differentiates once with respect to $x$ and twice with respect to $y$. A call with `order = c(x=1, y=0)` is equivalent to `order = c(x=1)`. 
+
+To compute numerical derivatives or to evaluate symbolic derivatives at a point, the function accepts a named vector for the argument `var`; e.g. `var = c(x=1, y=2)` evaluates the derivatives in $x=1$ and $y=2$. 
+For `functions` where the first argument is used as a parameter vector, `var` should be a `numeric` vector indicating the point at which the derivatives are to be calculated.
+
+## Examples
+
+Symbolic derivatives of univariate functions: $\partial_x sin(x)$.
+```{r}
+derivative(f = "sin(x)", var = "x")
+```
+
+Evaluation of symbolic and numerical derivatives: $\partial_x sin(x)|_{x=0}$.
+```{r}
+sym <- derivative(f = "sin(x)", var = c(x = 0))
+num <- derivative(f = function(x) sin(x), var = c(x = 0))
+```
+```{r, echo=FALSE}
+print(c("Symbolic" = sym, "Numeric" = num))
+```
+  
+High order symbolic and numerical derivatives: $\partial^{(4)}_x sin(x)|_{x=0}$.
+```{r}
+sym <- derivative(f = "sin(x)", var = c(x = 0), order = 4)
+num <- derivative(f = function(x) sin(x), var = c(x = 0), order = 4)
+```
+```{r, echo=FALSE}
+print(c("Symbolic" = sym, "Numeric" = num))
+```
+
+Symbolic derivatives of multivariate functions: $\partial_x^{(1)}\partial_y^{(2)} y^2sin(x)$.
+```{r}
+derivative(f = "y^2*sin(x)", var = c("x", "y"), order = c(1, 2))
+```
+  
+Numerical derivatives of multivariate functions: $\partial_x^{(1)}\partial_y^{(2)} y^2sin(x)|_{x=0,y=0}$ with degree of accuracy $O(h^6)$.
+```{r}
+f <- function(x, y) y^2*sin(x)
+derivative(f, var = c(x=0, y=0), order = c(1, 2), accuracy = 6)
+```
+
+Symbolic gradient of multivariate functions: $\partial_{x,y}x^2y^2$.
+```{r}
+derivative("x^2*y^2", var = c("x", "y"))
+```
+
+High order derivatives of multivariate functions: $\partial^{(6)}_{x,y}x^6y^6$.
+```{r}
+derivative("x^6*y^6", var = c("x", "y"), order = 6)
+```
+
+Numerical gradient of multivariate functions: $\partial_{x,y}x^2y^2|_{x = 1, y = 2}$.
+```{r}
+f <- function(x, y) x^2*y^2
+derivative(f, var = c(x=1, y=2))
+```
+
+Numerical Jacobian of vector valued functions: $\partial_{x,y}[xy,x^2y^2]|_{x = 1, y = 2}$.
+```{r}
+f <- function(x, y) c(x*y, x^2*y^2)
+derivative(f, var = c(x=1, y=2))
+```
+
+Numerical Jacobian of vector valued \code{functions} where the first argument is used as a parameter vector: $\partial_{X}[\sum_ix_i, \prod_ix_i]|_{X = 0}$.
+```{r}
+f <- function(x) c(sum(x), prod(x))
+derivative(f, var = c(0, 0, 0))
+```
+

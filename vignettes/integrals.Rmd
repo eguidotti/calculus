@@ -1,0 +1,104 @@
+---
+title: "Multiple integrals in arbitrary orthogonal coordinates systems"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multiple integrals in arbitrary orthogonal coordinates systems}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+The package integrates seamlessly with [cubature](https://cran.r-project.org/package=cubature) for efficient numerical integration in `C`. The function [`integral`](https://calculus.guidotti.dev/reference/integral.html) provides the interface for multidimensional integrals of `functions`, `expressions`, and `characters` in arbitrary [orthogonal coordinate systems](https://calculus.guidotti.dev/articles/differential-operators.html). If the package [cubature](https://cran.r-project.org/package=cubature) is not installed, the package implements a naive Monte Carlo integration by default. The function returns a `list` containing the `value` of the integral as well as other information on the estimation uncertainty. The integration bounds are specified via the argument `bounds`: a list containing the lower and upper bound for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed. For arbitrary orthogonal coordinates $q_1\dots q_n$ the integral is computed as:
+
+$$
+\int J\cdot f(q_1\dots q_n) dq_1\dots dq_n
+$$
+
+where $J=\prod_i h_i$ is the Jacobian determinant of the transformation and is equal to the product of the scale factors $h_1\dots h_n$.
+
+## Examples
+
+Univariate integral $\int_0^1xdx$:
+
+```{r}
+i <- integral(f = "x", bounds = list(x = c(0,1)))
+i$value
+```
+
+that is equivalent to:
+
+```{r}
+i <- integral(f = function(x) x, bounds = list(x = c(0,1)))
+i$value
+```
+
+Univariate integral $\int_0^1yxdx|_{y=2}$:
+
+```{r}
+i <- integral(f = "y*x", bounds = list(x = c(0,1), y = 2))
+i$value
+```
+
+Multivariate integral $\int_0^1\int_o^1yxdxdy$:
+
+```{r}
+i <- integral(f = "y*x", bounds = list(x = c(0,1), y = c(0,1)))
+i$value
+```
+
+Area of a circle $\int_0^{2\pi}\int_0^1dA(r,\theta)$
+
+```{r}
+i <- integral(f = 1, 
+              bounds = list(r = c(0,1), theta = c(0,2*pi)), 
+              coordinates = "polar")
+i$value
+```
+
+Volume of a sphere $\int_0^\pi\int_0^{2\pi}\int_0^1dV(r,\theta,\phi)$
+
+```{r}
+i <- integral(f = 1, 
+              bounds = list(r = c(0,1), theta = c(0,pi), phi = c(0,2*pi)), 
+              coordinates = "spherical")
+i$value
+```
+
+As a final example consider the electric potential in spherical coordinates $V=\frac{1}{4\pi r}$ arising from a unitary point charge:
+
+```{r}
+V <- "1/(4*pi*r)"
+```
+
+The electric field is determined by the gradient of the potential^[https://en.wikipedia.org/wiki/Electric_potential] $E = -\nabla V$: 
+
+```{r}
+E <- -1 %prod% gradient(V, c("r","theta","phi"), coordinates = "spherical")
+```
+
+Then, by Gauss's law^[https://en.wikipedia.org/wiki/Gauss%27s_law], the total charge enclosed within a given volume is equal to the surface integral of the electric field $q=\int E\cdot dA$ where $\cdot$ denotes the scalar product between the two vectors. In spherical coordinates, this reduces to the surface integral of the radial component of the electric field $\int E_rdA$. The following code computes this surface integral on a sphere with fixed radius $r=1$:
+
+```{r}
+i <- integral(E[1], 
+              bounds = list(r = 1, theta = c(0,pi), phi = c(0,2*pi)), 
+              coordinates = "spherical")
+i$value
+```
+
+As expected $q=\int E\cdot dA=\int E_rdA=1$, the unitary charge generating the electric potential.
+
+
+
+
+
+

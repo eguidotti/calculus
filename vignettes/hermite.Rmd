@@ -1,0 +1,58 @@
+---
+title: "Hermite polynomials"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Hermite polynomials}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(calculus)
+```
+
+Hermite polynomials are obtained by differentiation of the Gaussian kernel:
+
+$$H_{\nu}(x,\Sigma) = exp \Bigl( \frac{1}{2} x_i \Sigma_{ij} x_j \Bigl) (- \partial_x )^\nu exp \Bigl( -\frac{1}{2} x_i \Sigma_{ij} x_j \Bigl)$$
+
+where $\Sigma$ is a $d$-dimensional square matrix and $\nu=(\nu_1 \dots \nu_d)$ is the vector representing the order of differentiation for each variable $x = (x_1\dots x_d)$. In the case where $\Sigma=1$ and $x=x_1$ the formula reduces to the standard univariate Hermite polynomials:
+
+$$
+H_{\nu}(x) = e^{\frac{x^2}{2}}(-1)^\nu \frac{d^\nu}{dx^\nu}e^{-\frac{x^2}{2}}
+$$
+
+The function [`hermite`](https://calculus.guidotti.dev/reference/hermite.html) generates recursively all the Hermite polynomials of degree $\nu'$ where $|\nu'| \leq|\nu|$. The output is a `list` of Hermite polynomials of degree $\nu'$, where each polynomial is described as a `list` containing the `character` representing the polynomial, the order of the polynomial, and a `data.frame` containing the variables, coefficients and degrees of each term in the polynomial.
+
+In the univariate case, for $\nu=2$:
+
+```{r}
+hermite(order = 2)
+```
+
+In the multivariate case, where for simplicity $\Sigma_{ij}=\delta_{ij}$, $x=(x_1,x_2)$, and $|\nu|=2$:
+
+```{r}
+hermite(order = 2, sigma = diag(2), var = c("x1", "x2"))
+```
+
+If `transform` is not `NULL`, the variables `var` $x$ are replaced with `transform` $f(x)$ to compute the polynomials $H_{ν}(f(x),\Sigma)$. For example:
+
+$$
+f(x_1,x_2)=
+\begin{bmatrix}
+x_1+x_2,x_1-x_2
+\end{bmatrix}
+$$
+
+```{r}
+hermite(order = 2, sigma = diag(2), var = c("x1", "x2"), transform = c('x1+x2','x1-x2'))
+```
+
+        

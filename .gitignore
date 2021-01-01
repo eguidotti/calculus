@@ -6,3 +6,4 @@
 src/*.o
 src/*.dll
 docs/
+inst/doc

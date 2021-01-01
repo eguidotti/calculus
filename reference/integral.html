@@ -148,7 +148,7 @@ orthogonal coordinate systems." />
   relTol <span class='op'>=</span> <span class='fl'>0.001</span>,
   absTol <span class='op'>=</span> <span class='fl'>1e-12</span>,
   method <span class='op'>=</span> <span class='cn'>NULL</span>,
-  vectorize <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  vectorize <span class='op'>=</span> <span class='cn'>NULL</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
@@ -171,7 +171,7 @@ orthogonal coordinate systems." />
     </tr>
     <tr>
       <th>coordinates</th>
-      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each varibale.</p></td>
+      <td><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a character vector of scale factors for each variable.</p></td>
     </tr>
     <tr>
       <th>relTol</th>
@@ -187,7 +187,7 @@ orthogonal coordinate systems." />
     </tr>
     <tr>
       <th>vectorize</th>
-      <td><p><code>logical</code>. Use vectorization? If <code>TRUE</code>, it can significantly boost performance but <code>f</code> needs to handle the vector of inputs appropriately.</p></td>
+      <td><p><code>logical</code>. Use vectorization? If <code>TRUE</code>, it can significantly boost performance but <code>f</code> needs to handle the vector of inputs appropriately. The default uses <code>FALSE</code> if <code>f</code> is a <code>function</code>, <code>TRUE</code> otherwise.</p></td>
     </tr>
     <tr>
       <th>drop</th>

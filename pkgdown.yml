@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2020-12-31T14:29Z
+last_built: 2021-01-01T12:39Z
 urls:
   reference: https://calculus.guidotti.dev/reference
   article: https://calculus.guidotti.dev/articles

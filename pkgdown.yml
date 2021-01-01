@@ -1,8 +1,15 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2021-01-01T12:39Z
+articles:
+  derivatives: derivatives.html
+  differential-operators: differential-operators.html
+  einstein: einstein.html
+  hermite: hermite.html
+  integrals: integrals.html
+  ode: ode.html
+  taylor: taylor.html
+last_built: 2021-01-01T16:30Z
 urls:
   reference: https://calculus.guidotti.dev/reference
   article: https://calculus.guidotti.dev/articles

@@ -238,4 +238,21 @@ laplacian(f, var = c("x","y","z"))
 
 The same syntax holds for `functions` where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.
 
+## Cite as
+
+*Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086*
+
+A BibTeX entry for LaTeX users is
+
+```latex
+@Misc{,
+    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},
+    author = {Emanuele Guidotti},
+    year = {2020},
+    eprint = {2101.00086},
+    archiveprefix = {arXiv},
+    primaryclass = {cs.MS},
+    url = {https://arxiv.org/abs/2101.00086}
+}
+```
 

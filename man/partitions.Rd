@@ -51,3 +51,6 @@ partitions(3, equal = FALSE)
 partitions(3, equal = FALSE, length = 2, fill = TRUE, perm = TRUE) 
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}

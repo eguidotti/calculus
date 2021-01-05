@@ -83,6 +83,9 @@ divergence(f, var = c(x=0, y=0, z=0))
 c("x^2","y^3","z^4") \%divergence\% c("x","y","z")
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other differential operators: 
 \code{\link{curl}()},

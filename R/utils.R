@@ -21,6 +21,9 @@
 #' 
 #' @family utilities
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 wrap <- function(x){
@@ -48,6 +51,9 @@ wrap <- function(x){
 #' e2c(expr)
 #' 
 #' @family utilities
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -80,6 +86,9 @@ e2c <- function(x){
 #' c2e(array("a", dim = c(2,2)))
 #' 
 #' @family utilities
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -114,6 +123,9 @@ c2e <- function(x){
 #' index(x)
 #' 
 #' @family tensor algebra
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -168,6 +180,9 @@ index <- function(x){
 #' diagonal(x)
 #' 
 #' @family tensor algebra
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 

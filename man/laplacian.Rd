@@ -82,6 +82,9 @@ laplacian(f = f, var = c(x=0,y=0))
 "x^3+y^3+z^3" \%laplacian\% c("x","y","z")
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other differential operators: 
 \code{\link{curl}()},

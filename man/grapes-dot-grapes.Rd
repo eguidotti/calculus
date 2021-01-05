@@ -32,6 +32,9 @@ y <- array(letters[1:8], dim = c(2,4))
 x \%dot\% y
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other basic arithmetic: 
 \code{\link{\%diff\%}()},

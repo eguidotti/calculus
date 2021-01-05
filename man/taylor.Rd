@@ -60,6 +60,9 @@ f <- function(x) prod(x)
 taylor(f, var = c(0,0,0), order = 3)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other polynomials: 
 \code{\link{hermite}()}

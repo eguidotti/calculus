@@ -48,6 +48,9 @@ var <- data.frame(a = 1:3, x = -1:1)
 evaluate(f, var, params = list(myf = myf), vectorize = FALSE)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other utilities: 
 \code{\link{c2e}()},

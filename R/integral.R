@@ -71,7 +71,10 @@
 #' i$value
 #' 
 #' @family integrals
-#'           
+#'  
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#'      
 #' @export
 #' 
 integral <- function(f, bounds, params = list(), coordinates = "cartesian", relTol = 1e-3, absTol = 1e-12, method = NULL, vectorize = NULL, drop = TRUE, verbose = FALSE, ...){

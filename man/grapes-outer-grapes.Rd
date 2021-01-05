@@ -29,6 +29,9 @@ c(1,2) \%outer\% c(2,3)
 c("a","b") \%outer\% c("c","d")
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other basic arithmetic: 
 \code{\link{\%diff\%}()},

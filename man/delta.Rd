@@ -25,6 +25,9 @@ delta(3)
 delta(3, p = 2)  
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other tensor algebra: 
 \code{\link{contraction}()},

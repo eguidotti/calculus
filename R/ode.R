@@ -79,6 +79,9 @@
 #' 
 #' @family integrals
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 ode <- function(f, var, times, timevar = NULL, params = list(), method = "rk4", drop = FALSE){

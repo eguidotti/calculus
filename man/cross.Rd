@@ -41,4 +41,7 @@ c(1,0,0) \%cross\% c(0,1,0)
 c("a","b","c") \%cross\% c(0,0,1)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \concept{vector algebra}

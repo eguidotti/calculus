@@ -25,6 +25,9 @@ x <- matrix(letters[1:4], nrow = 2, byrow = TRUE)
 mxinv(x)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other matrix algebra: 
 \code{\link{mxdet}()},

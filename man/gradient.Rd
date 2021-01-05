@@ -83,6 +83,9 @@ gradient(f = f, var = c(0,0,0))
 "x*y^2" \%gradient\% c(x=1, y=3)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other differential operators: 
 \code{\link{curl}()},

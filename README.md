@@ -35,11 +35,27 @@ The package integrates seamlessly with [cubature](https://cran.r-project.org/pac
 
 ## Testing
 
-Several unit tests are implemented via the standard framework offered by [testthat](https://cran.r-project.org/package=testthat) and run via continuous integration.
+Several [unit tests](https://github.com/eguidotti/calculus/tree/master/tests/testthat) are implemented via the standard framework offered by [testthat](https://cran.r-project.org/package=testthat) and run via continuous integration.
 
 ## Contribute
 
 [Report a bug](https://github.com/eguidotti/calculus/issues) and star the [repository](https://github.com/eguidotti/calculus/).
 
+## Cite as
 
+*Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086*
+
+A BibTeX entry for LaTeX users is
+
+```latex
+@Misc{,
+    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},
+    author = {Emanuele Guidotti},
+    year = {2020},
+    eprint = {2101.00086},
+    archiveprefix = {arXiv},
+    primaryclass = {cs.MS},
+    url = {https://arxiv.org/abs/2101.00086}
+}
+```
 

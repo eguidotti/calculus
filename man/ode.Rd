@@ -101,6 +101,9 @@ x <- ode(f, var, times, timevar = "t")
 matplot(times, x, type = "l", lty = 1, col = 1:3)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other integrals: 
 \code{\link{integral}()}

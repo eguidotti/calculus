@@ -31,6 +31,9 @@ x <- array(letters[1:4], dim = c(2,2))
 x \%inner\% x
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other basic arithmetic: 
 \code{\link{\%diff\%}()},

@@ -96,6 +96,9 @@ curl(f, var = c(x=1, y=1, z=1))
 c("x*y","y*z","x*z") \%curl\% c("x","y","z")
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other differential operators: 
 \code{\link{derivative}()},

@@ -25,6 +25,9 @@ expr <- array(parse(text = "a"), dim = c(2,2))
 e2c(expr)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other utilities: 
 \code{\link{c2e}()},

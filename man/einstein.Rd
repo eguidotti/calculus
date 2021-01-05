@@ -31,6 +31,9 @@ d <- array(1:15, dim = c(j=5, k=3))
 einstein(a,b,c,d)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other tensor algebra: 
 \code{\link{contraction}()},

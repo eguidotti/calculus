@@ -1,0 +1,12 @@
+bibentry(
+	bibtype = "Misc",
+	header = "Cite as:",
+	title = "calculus: High Dimensional Numerical and Symbolic Calculus in R",
+	author = "Emanuele Guidotti",
+	year = "2020",
+	eprint = "2101.00086",
+	archivePrefix = "arXiv",
+	primaryClass = "cs.MS",
+	url = "https://arxiv.org/abs/2101.00086",
+	textVersion = 'Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086'
+)

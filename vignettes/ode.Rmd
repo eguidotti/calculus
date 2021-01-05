@@ -149,3 +149,23 @@ times <- seq(0, 2*pi, by=0.001)
 x <- ode(f = f, var = var, times = times, timevar = "t")
 matplot(times, x, type = "l", lty = 1, col = 1:3)
 ```
+
+## Cite as
+
+*Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086*
+
+A BibTeX entry for LaTeX users is
+
+```latex
+@Misc{,
+    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},
+    author = {Emanuele Guidotti},
+    year = {2020},
+    eprint = {2101.00086},
+    archiveprefix = {arXiv},
+    primaryclass = {cs.MS},
+    url = {https://arxiv.org/abs/2101.00086}
+}
+```
+
+

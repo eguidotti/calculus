@@ -58,6 +58,9 @@ hermite(order = 2,
         transform = c('z1+z2','z1-z2'))
         
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other polynomials: 
 \code{\link{taylor}()}

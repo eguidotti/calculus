@@ -36,6 +36,9 @@
 #' ### partitions of all integers less or equal to 3, fill to 2 elements and permute
 #' partitions(3, equal = FALSE, length = 2, fill = TRUE, perm = TRUE) 
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 partitions <- function(n, max = 0, length = 0, perm = FALSE, fill = FALSE, equal = T){

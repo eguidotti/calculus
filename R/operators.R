@@ -23,6 +23,9 @@
 #' 
 #' @family basic arithmetic
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 "%sum%" <- function(x,y) {
@@ -69,6 +72,9 @@
 #' x %diff% y
 #' 
 #' @family basic arithmetic
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -124,6 +130,9 @@
 #' 
 #' @family basic arithmetic
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 "%prod%" <- function(x,y){
@@ -177,6 +186,9 @@
 #' x %div% y 
 #' 
 #' @family basic arithmetic
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -236,6 +248,9 @@
 #' mx(x, y)
 #' 
 #' @family matrix algebra
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -320,6 +335,9 @@ mx <- function(x, y){
 #' 
 #' @family basic arithmetic
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 "%dot%" <- function(x, y) {
@@ -362,6 +380,9 @@ mx <- function(x, y){
 #' x %inner% x
 #' 
 #' @family basic arithmetic
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -413,6 +434,9 @@ mx <- function(x, y){
 #' 
 #' @family basic arithmetic
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 "%outer%" <- function(x,y){
@@ -452,6 +476,9 @@ mx <- function(x, y){
 #' 
 #' @family basic arithmetic
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 "%kronecker%" <- function(x,y){
@@ -489,6 +516,9 @@ mx <- function(x, y){
 #' cross(c(1,0,0), c(0,1,0))
 #'
 #' @family vector algebra
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -590,7 +620,10 @@ cross <- function(...){
 #' gradient(f = f, var = c(0,0,0))
 #' 
 #' @family differential operators
-#'  
+#'
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#'      
 #' @export
 #' 
 gradient <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
@@ -683,6 +716,9 @@ gradient <- function(f, var, params = list(), coordinates = 'cartesian', accurac
 #' 
 #' @family differential operators
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 jacobian <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL){
@@ -755,6 +791,9 @@ jacobian <- function(f, var, params = list(), coordinates = 'cartesian', accurac
 #' hessian(f = f, var = c(0,0,0))
 #' 
 #' @family differential operators
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -896,6 +935,9 @@ hessian <- function(f, var, params = list(), accuracy = 4, stepsize = NULL, drop
 #' divergence(f, var = c(x=0, y=0, z=0))
 #'  
 #' @family differential operators
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 
@@ -1069,6 +1111,9 @@ divergence <- function(f, var, params = list(), coordinates = 'cartesian', accur
 #' 
 #' @family differential operators
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #'
 curl <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 4, stepsize = NULL, drop = TRUE){
@@ -1224,6 +1269,9 @@ curl <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 
 #' laplacian(f = f, var = c(x=0,y=0))
 #' 
 #' @family differential operators
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
 #' 
 #' @export
 #' 

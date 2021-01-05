@@ -38,7 +38,10 @@
 #' 
 #' @family polynomials
 #' @family derivatives
-#'  
+#' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#'    
 #' @export
 #' 
 taylor <- function(f, var, params = list(), order = 1, accuracy = 4, stepsize = NULL, zero = 1e-7){

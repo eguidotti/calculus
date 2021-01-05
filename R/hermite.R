@@ -47,6 +47,9 @@
 #'         
 #' @family polynomials
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #' 
 hermite <- function(order, sigma = 1, var = 'x', transform = NULL){

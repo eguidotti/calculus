@@ -53,3 +53,21 @@ c <- array(letters[1:4], dim = c(i = 2, i = 2))
 einstein(a, b, c)
 ```
 
+## Cite as
+
+*Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086*
+
+A BibTeX entry for LaTeX users is
+
+```latex
+@Misc{,
+    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},
+    author = {Emanuele Guidotti},
+    year = {2020},
+    eprint = {2101.00086},
+    archiveprefix = {arXiv},
+    primaryclass = {cs.MS},
+    url = {https://arxiv.org/abs/2101.00086}
+}
+```
+

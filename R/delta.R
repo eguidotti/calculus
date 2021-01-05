@@ -16,6 +16,9 @@
 #' 
 #' @family tensor algebra
 #' 
+#' @references 
+#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' 
 #' @export
 #'
 delta <- function(n, p = 1){

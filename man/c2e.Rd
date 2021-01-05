@@ -23,6 +23,9 @@ c2e("a")
 c2e(array("a", dim = c(2,2)))
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other utilities: 
 \code{\link{e2c}()},

@@ -32,6 +32,9 @@ y <- array(1:12, dim = c(2,2,3))
 x \%div\% y 
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other basic arithmetic: 
 \code{\link{\%diff\%}()},

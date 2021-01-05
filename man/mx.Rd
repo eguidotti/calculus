@@ -50,6 +50,9 @@ y <- letters[1:4]
 x \%mx\% y
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other matrix algebra: 
 \code{\link{mxdet}()},

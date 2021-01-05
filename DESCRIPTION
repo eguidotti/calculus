@@ -3,7 +3,7 @@ Type: Package
 Title: High Dimensional Numerical and Symbolic Calculus
 Version: 0.3.0
 Authors@R: person(given = "Emanuele", family = "Guidotti", email = "emanuele.guidotti@unine.ch", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-8961-6623"))
-Description: Efficient C++ optimized functions for numerical and symbolic calculus. It includes basic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, high-order derivatives, ordinary differential equations, differential operators (Gradient, Jacobian, Hessian, Divergence, Curl, Laplacian) and numerical integration in arbitrary orthogonal coordinate systems: cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors. 
+Description: Efficient C++ optimized functions for numerical and symbolic calculus as described in Guidotti (2020) <https://arxiv.org/abs/2101.00086>. It includes basic arithmetic, tensor calculus, Einstein summing convention, fast computation of the Levi-Civita symbol and generalized Kronecker delta, Taylor series expansion, multivariate Hermite polynomials, high-order derivatives, ordinary differential equations, differential operators (Gradient, Jacobian, Hessian, Divergence, Curl, Laplacian) and numerical integration in arbitrary orthogonal coordinate systems: cartesian, polar, spherical, cylindrical, parabolic or user defined by custom scale factors. 
 License: GPL-3
 URL: https://calculus.guidotti.dev
 BugReports: https://github.com/eguidotti/calculus/issues

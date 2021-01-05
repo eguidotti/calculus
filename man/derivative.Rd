@@ -105,6 +105,9 @@ f <- function(x) c(sum(x), prod(x))
 derivative(f, var = c(0,0,0), order = 1)
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other derivatives: 
 \code{\link{taylor}()}

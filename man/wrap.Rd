@@ -30,6 +30,9 @@ wrap("a+b")
 wrap(array(letters[1:9], dim = c(3,3)))
 
 }
+\references{
+Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+}
 \seealso{
 Other utilities: 
 \code{\link{c2e}()},

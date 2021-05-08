@@ -9,7 +9,7 @@
 
 The R package **calculus** implements C++ optimized functions for numerical and symbolic calculus, such as the [Einstein summing convention](https://calculus.guidotti.dev/articles/einstein.html), fast computation of the [Levi-Civita](https://calculus.guidotti.dev/reference/epsilon.html) symbol and generalized [Kronecker delta](https://calculus.guidotti.dev/reference/delta.html), [Taylor series expansion](https://calculus.guidotti.dev/articles/taylor.html), multivariate [Hermite polynomials](https://calculus.guidotti.dev/articles/hermite.html), high-order [derivatives](https://calculus.guidotti.dev/articles/derivatives.html), [ordinary differential equations](https://calculus.guidotti.dev/articles/ode.html), [differential operators](https://calculus.guidotti.dev/articles/differential-operators.html) and [numerical integration](https://calculus.guidotti.dev/articles/integrals.html) in arbitrary orthogonal coordinate systems. The library applies numerical methods when working with `functions` or symbolic programming when working with `characters` or `expressions`. The package handles multivariate numerical calculus in arbitrary dimensions and coordinates and implements the symbolic counterpart of the numerical methods whenever possible, without depending on external computer algebra systems. Except for [Rcpp](https://cran.r-project.org/package=Rcpp), the package has no strict dependencies in order to provide a stable self-contained toolbox that invites re-use. 
 
-## Quickstart
+## Quickstart 
 
 Install the package.
 

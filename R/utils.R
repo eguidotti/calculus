@@ -161,8 +161,8 @@ index <- function(x){
 #' 
 #' Functions to extract or replace the diagonals of an \code{array}, or construct a diagonal \code{array}.
 #' 
-#' @param x an \code{array}, or vector giving the values of the diagonal entries.
-#' @param dim the dimensions of the (square) \code{array}. 
+#' @param x an \code{array} from which to extract the diagonals, or a vector giving the diagonal values to construct the \code{array}.
+#' @param dim the dimensions of the (square) \code{array} to construct when \code{x} is a vector.
 #' 
 #' @return Vector of the diagonal entries of \code{x} if \code{x} is an \code{array}. 
 #' If \code{x} is a vector, returns the diagonal \code{array} with the 
@@ -190,8 +190,12 @@ diagonal <- function(x = 1, dim = rep(2,2)){
   
   d <- dim(x)
   n <- length(d)
-  if(n>0)
-    return(x[1 + 0:(d[1]-1) * sum(d[1]^(n-1:n))])
+  if(n>0){
+    if(length(unique(d)) > 1)
+      stop("Unable to extract diagonals: not a square array")
+    else
+      return(x[1 + 0:(d[1]-1) * sum(d[1]^(n-1:n))])
+  }
   
   a <- array(0, dim = dim)
   diagonal(a) <- x

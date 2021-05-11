@@ -25,7 +25,7 @@
 mxinv <- function(x) {
 
   if(is.numeric(x))
-    return(base::solve(x))
+    return(solve(x))
   
   x.dim   <- dim(x)
   x.n.dim <- length(x.dim)

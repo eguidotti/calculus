@@ -826,33 +826,6 @@ hessian <- function(f, var, params = list(), accuracy = 4, stepsize = NULL, drop
     }
     f.dij[dia] <- ii
   
-    # q <- paste0("q",1:n)
-    # h <- sf(var = q, coordinates = coordinates)
-    # if(is.null(h)){
-    #   
-    #   H <- f.dij
-    #   
-    # }
-    # else {
-    # 
-    #   qvar <- var
-    #   names(qvar) <- q
-    #   
-    #   h.ij <- derivative(sprintf("1/(%s)", h), var = qvar, order = 1, drop = FALSE, ...)
-    #   h.i <- h.j <- 1/evaluate(h, as.list(qvar))
-    #   
-    #   h.ij <- rep(h.ij, each = m)
-    #   h.i <- rep(h.i, each = m)
-    #   h.j <- rep(h.j, each = m*n)
-    #   
-    #   f.di <- derivative(f = f, var = var, order = 1, accuracy = accuracy, stepsize = stepsize, drop = FALSE, deparse = FALSE, ...)
-    #   
-    #   H <- h.j*(c(h.ij)*c(f.di)+h.i*c(f.dij))
-    #   
-    # }
-    # 
-    # H <- array(H, dim = c(f.dim, n, n))
-    
     H <- array(f.dij, dim = c(f.dim, n, n))
     
   } 

@@ -10,9 +10,9 @@ diagonal(x = 1, dim = rep(2, 2))
 diagonal(x) <- value
 }
 \arguments{
-\item{x}{an \code{array}, or vector giving the values of the diagonal entries.}
+\item{x}{an \code{array} from which to extract the diagonals, or a vector giving the diagonal values to construct the \code{array}.}
 
-\item{dim}{the dimensions of the (square) \code{array}.}
+\item{dim}{the dimensions of the (square) \code{array} to construct when \code{x} is a vector.}
 
 \item{value}{vector giving the values of the diagonal entries.}
 }

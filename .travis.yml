@@ -4,12 +4,8 @@ cache: packages
 r:
   - release
 
-jobs:
-  include:
-    - os: linux
-    - os: osx
-      osx_image: beta-xcode6.1
-      disable_homebrew: true
+os:
+  - linux
   
 env:
   - _R_CHECK_TESTS_NLINES_=0

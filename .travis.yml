@@ -4,9 +4,11 @@ cache: packages
 r:
   - release
 
-os:
-  - linux
-  - osx
+jobs:
+  include:
+    - os: linux
+    - os: osx
+      osx_image: xcode12.5
   
 env:
   - _R_CHECK_TESTS_NLINES_=0

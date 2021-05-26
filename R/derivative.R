@@ -279,7 +279,7 @@ D.num <- function(f, x0, order, accuracy, stepsize, params, drop, zero = NULL, c
     n.i <- length(i)
     k <- rep.int(0, n.i)
     k[d+1] <- 1
-    m <- t(i^(matrix(data = rep(0:n.i, each = n.i), nrow = n.i, ncol = n.i)))
+    m <- t(i^(matrix(data = rep(0:(n.i-1), each = n.i), nrow = n.i, ncol = n.i)))
     return(solve(m, k))
   }
   

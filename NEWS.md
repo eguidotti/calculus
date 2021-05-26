@@ -1,3 +1,8 @@
+# calculus 0.3.1
+
+- fix CRAN check
+- fix JSS pre-review comments
+
 # calculus 0.3.0
 
 - __breaking changes__: restructuring of package

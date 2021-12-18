@@ -88,11 +88,7 @@ hermite <- function(order, sigma = 1, var = 'x', transform = NULL){
     h <- paste0((-1)^sum(v - nu[,prev]), " * ", wrap(e2c(h)))
     h <- gsub(x = h, pattern = kernel, replacement = '1', fixed = T)  
     
-    if(is.null(transform))
-      H[[paste(v, collapse = ',')]] <- taylor(h, var = var, order = sum(v))  
-    else
-      H[[paste(v, collapse = ',')]] <- list(f = h, order = sum(v))
-    
+    H[[paste(v, collapse = ',')]] <- taylor(h, var = var, order = sum(v))  
   }
   
   if(!is.null(transform)){

@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -95,7 +91,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/eguidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +112,7 @@
       <h1 data-toc-skip>Taylor series of multivariate functions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/master/vignettes/taylor.Rmd"><code>vignettes/taylor.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/HEAD/vignettes/taylor.Rmd" class="external-link"><code>vignettes/taylor.Rmd</code></a></small>
       <div class="hidden name"><code>taylor.Rmd</code></div>
 
     </div>
@@ -124,7 +120,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
 <p>The function <a href="https://calculus.guidotti.dev/reference/taylor.html"><code>taylor</code></a> provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a <code>character</code> string or as a <code>function</code>. Symbolic or numerical methods are applied accordingly. For univariate functions, the <span class="math inline">\(n\)</span>-th order Taylor approximation centered in <span class="math inline">\(x_0\)</span> is given by:</p>
 <p><span class="math display">\[
 f(x) \simeq \sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
@@ -160,8 +156,8 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 <span class="co">#&gt; 2 x^2  0.5      2</span></code></pre></div>
 <p>By default, the series is centered in <span class="math inline">\(x_0=0\)</span> but the function also supports <span class="math inline">\(x_0\neq 0\)</span>, the multivariable case, and the approximation of user defined R <code>functions</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $f</span>
 <span class="co">#&gt; [1] "(0.999999999969436) * x^1*(y-1)^1"</span>
 <span class="co">#&gt; </span>
@@ -176,10 +172,10 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 <span class="co">#&gt; 0,2     (y-1)^2    0      2</span>
 <span class="co">#&gt; 2,0         x^2    0      2</span>
 <span class="co">#&gt; 1,1 x^1*(y-1)^1    1      2</span></code></pre></div>
-<div id="cite-as" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cite-as" class="anchor"></a>Cite as</h2>
-<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="uri">https://arxiv.org/abs/2101.00086</a></em></p>
+<div class="section level2">
+<h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
+</h2>
+<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="external-link uri">https://arxiv.org/abs/2101.00086</a></em></p>
 <p>A BibTeX entry for LaTeX users is</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb5-1"><a href="#cb5-1"></a>@Misc{,</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},</span>
@@ -204,11 +200,13 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://guidotti.dev">Emanuele Guidotti</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -216,6 +214,8 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 
   
 
+
+  
 
   </body>
 </html>

@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   derivatives: derivatives.html
@@ -9,7 +9,7 @@ articles:
   integrals: integrals.html
   ode: ode.html
   taylor: taylor.html
-last_built: 2021-05-26T09:51Z
+last_built: 2021-12-18T02:01Z
 urls:
   reference: https://calculus.guidotti.dev/reference
   article: https://calculus.guidotti.dev/articles

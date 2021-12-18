@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -95,7 +91,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/eguidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +112,7 @@
       <h1 data-toc-skip>Differential operators in arbitrary orthogonal coordinates systems</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/master/vignettes/differential-operators.Rmd"><code>vignettes/differential-operators.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/HEAD/vignettes/differential-operators.Rmd" class="external-link"><code>vignettes/differential-operators.Rmd</code></a></small>
       <div class="hidden name"><code>differential-operators.Rmd</code></div>
 
     </div>
@@ -124,7 +120,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
 <p>Orthogonal coordinates are a special but extremely common case of curvilinear coordinates where the coordinate surfaces all meet at right angles. The chief advantage of non-Cartesian coordinates is that they can be chosen to match the symmetry of the problem. For example, spherical coordinates are the most common curvilinear coordinate systems and are used in Earth sciences, cartography, quantum mechanics, relativity, and engineering.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> These coordinates may be derived from a set of Cartesian coordinates by using a transformation that is locally invertible (a one-to-one map) at each point. This means that one can convert a point given in a Cartesian coordinate system to its curvilinear coordinates and back. Differential operators such as the gradient, divergence, curl, and Laplacian can be transformed from one coordinate system to another via the usage of scale factors.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The package implements these operators in Cartesian, polar, spherical, cylindrical, parabolic coordinates, and supports arbitrary orthogonal coordinates systems defined by custom scale factors.</p>
 <table class="table">
 <colgroup>
@@ -166,68 +162,68 @@
 </tr>
 </tbody>
 </table>
-<div id="gradient" class="section level2">
-<h2 class="hasAnchor">
-<a href="#gradient" class="anchor"></a>Gradient</h2>
+<div class="section level2">
+<h2 id="gradient">Gradient<a class="anchor" aria-label="anchor" href="#gradient"></a>
+</h2>
 <p>The gradient of a scalar-valued function <span class="math inline">\(F\)</span> is the vector <span class="math inline">\((\nabla F)_i\)</span> whose components are the partial derivatives of <span class="math inline">\(F\)</span> with respect to each variable <span class="math inline">\(i\)</span>. In arbitrary orthogonal coordinate systems, the gradient is expressed in terms of the scale factors <span class="math inline">\(h_i\)</span> as follows:</p>
 <p><span class="math display">\[(\nabla F)_i = \frac{1}{h_i}\partial_iF\]</span></p>
 <p>The function <a href="https://calculus.guidotti.dev/reference/gradient.html"><code>gradient</code></a> implements the symbolic and numeric gradient of <code>functions</code>, <code>expressions</code> and <code>characters</code>. In Cartesian coordinates:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "y * z" "x * z" "x * y"</span></code></pre></div>
 <p>and in spherical coordinates:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "1/1 * (y * z)"          "1/x * (x * z)"          "1/(x*sin(y)) * (x * y)"</span></code></pre></div>
 <p>To support arbitrary orthogonal coordinate systems, it is possible to pass custom scale factors to the argument <code>coordinates</code>. For instance, the following call is equivalent to the previous example in spherical coordinates where the scale factors are now explicitly specified:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="st">"x"</span>,<span class="st">"x*sin(y)"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="st">"x"</span>,<span class="st">"x*sin(y)"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "1/(1) * (y * z)"        "1/(x) * (x * z)"        "1/(x*sin(y)) * (x * y)"</span></code></pre></div>
 <p>Numerical methods are applied when working with <code>functions</code> with the same sintax introduced for <a href="https://calculus.guidotti.dev/reference/derivative.html">derivatives</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span>
-<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.000000 0.000000 1.570796</span></code></pre></div>
 <p>or in vectorized form:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
-<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.000000 0.000000 1.570796</span></code></pre></div>
 <p>When the function <span class="math inline">\(F\)</span> is a tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the gradient is computed for each scalar component.</p>
 <p><span class="math display">\[(\nabla F_{d_1,\dots,d_n})_i = \frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}\]</span></p>
 <p>In particular, this reduces to the Jacobian matrix for vector-valued functions <span class="math inline">\(F_{d_1}\)</span>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
 <span class="co">#&gt; [1,]    2    3    6</span>
 <span class="co">#&gt; [2,]    1    1    1</span></code></pre></div>
 <p>that may be expressed in arbitrary orthogonal coordinate systems.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"cylindrical"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"cylindrical"</span><span class="op">)</span>
 <span class="co">#&gt;      [,1]      [,2] [,3]</span>
 <span class="co">#&gt; [1,]    2 1.0000000    6</span>
 <span class="co">#&gt; [2,]    1 0.3333333    1</span></code></pre></div>
-<div id="jacobian" class="section level3">
-<h3 class="hasAnchor">
-<a href="#jacobian" class="anchor"></a>Jacobian</h3>
+<div class="section level3">
+<h3 id="jacobian">Jacobian<a class="anchor" aria-label="anchor" href="#jacobian"></a>
+</h3>
 <p>The function <a href="https://calculus.guidotti.dev/reference/jacobian.html"><code>jacobian</code></a> is a wrapper for <a href="https://calculus.guidotti.dev/reference/gradient.html"><code>gradient</code></a> that always returns the Jacobian as a matrix, even in the case of unidimensional scalar-valued functions.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
-<span class="fu"><a href="../reference/jacobian.html">jacobian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/jacobian.html">jacobian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      [,1]</span>
 <span class="co">#&gt; [1,]    2</span></code></pre></div>
 </div>
-<div id="hessian" class="section level3">
-<h3 class="hasAnchor">
-<a href="#hessian" class="anchor"></a>Hessian</h3>
+<div class="section level3">
+<h3 id="hessian">Hessian<a class="anchor" aria-label="anchor" href="#hessian"></a>
+</h3>
 <p>In Cartesian coordinates, the Hessian of a scalar-valued function <span class="math inline">\(F\)</span> is the square matrix of second-order partial derivatives:</p>
 <p><span class="math display">\[(H(F))_{ij} = \partial_{ij}F\]</span></p>
 <p>It might be tempting to apply the definition of the Hessian as the Jacobian of the gradient to write it in terms of the scale factors. However, this results in a Hessian matrix that is not symmetric and ignores the distinction between vector and covectors in tensor analysis. The generalization to arbitrary coordinate system is not implemented and only Cartesian coordinates are supported:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span>
-<span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;              [,1]        [,2]         [,3]</span>
 <span class="co">#&gt; [1,] 1.222284e-11 1.00000e+00 2.000000e+00</span>
 <span class="co">#&gt; [2,] 1.000000e+00 2.75014e-11 3.000000e+00</span>
@@ -236,8 +232,8 @@
 <p><span class="math display">\[(H(F_{d_1,\dots,d_n}))_{ij} = \partial_{ij}F_{d_1,\dots,d_n}\]</span></p>
 <p>In this case, the function returns an <code>array</code> of Hessian matrices:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span>, <span class="va">x</span><span class="op">+</span><span class="va">y</span><span class="op">+</span><span class="va">z</span><span class="op">)</span>
-<span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span>, <span class="va">x</span><span class="op">+</span><span class="va">y</span><span class="op">+</span><span class="va">z</span><span class="op">)</span>
+<span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>that can be extracted with the corresponding indices.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">h</span><span class="op">[</span><span class="fl">1</span>,,<span class="op">]</span>
@@ -252,37 +248,37 @@
 <span class="co">#&gt; [3,] -3.627321e-12  1.090683e-11  9.167132e-11</span></code></pre></div>
 </div>
 </div>
-<div id="divergence" class="section level2">
-<h2 class="hasAnchor">
-<a href="#divergence" class="anchor"></a>Divergence</h2>
+<div class="section level2">
+<h2 id="divergence">Divergence<a class="anchor" aria-label="anchor" href="#divergence"></a>
+</h2>
 <p>The divergence of a vector-valued function <span class="math inline">\(F_i\)</span> produces a scalar value <span class="math inline">\(\nabla \cdot F\)</span> representing the volume density of the outward flux of the vector field from an infinitesimal volume around a given point.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In terms of scale factors, it is expressed as follows:</p>
 <p><span class="math display">\[\nabla \cdot F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)\]</span></p>
 <p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When <span class="math inline">\(F\)</span> is an <code>array</code> of vector-valued functions <span class="math inline">\(F_{d_1,\dots,d_n,i}\)</span>, the <a href="https://calculus.guidotti.dev/reference/divergence.html"><code>divergence</code></a> is computed for each vector:</p>
 <p><span class="math display">\[(\nabla \cdot F)_{d_1,\dots,d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\Biggl)=\frac{1}{J}\sum_i\partial_i(Jh_i^{-1})F_{d_1,\dots,d_n,i}+Jh_i^{-1}\partial_i(F_{d_1,\dots,d_n,i})\]</span></p>
 <p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\bigl)\)</span> via finite differences. In Cartesian coordinates:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x^2"</span>, <span class="st">"y^2"</span>, <span class="st">"z^2"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>, <span class="st">"y^2"</span>, <span class="st">"z^2"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2 * x + 2 * y + 2 * z"</span></code></pre></div>
 <p>In polar coordinates:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sqrt(r)/10"</span>, <span class="st">"sqrt(r)"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"r"</span>,<span class="st">"phi"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"polar"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sqrt(r)/10"</span>, <span class="st">"sqrt(r)"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>,<span class="st">"phi"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"polar"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "(0.5 * r^-0.5/10 * r + (sqrt(r)/10)) / (1*r)"</span></code></pre></div>
 <p>And for tensors of vector-valued functions:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x^2"</span>,<span class="st">"y^2"</span>,<span class="st">"z^2"</span>,<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>,<span class="st">"y^2"</span>,<span class="st">"z^2"</span>,<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2 * x + 2 * y + 2 * z" "1 + 1 + 1"</span></code></pre></div>
 <p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,<span class="va">y</span><span class="op">^</span><span class="fl">2</span>,<span class="va">z</span><span class="op">^</span><span class="fl">2</span>,<span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,<span class="va">y</span><span class="op">^</span><span class="fl">2</span>,<span class="va">z</span><span class="op">^</span><span class="fl">2</span>,<span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0 3</span></code></pre></div>
 </div>
-<div id="curl" class="section level2">
-<h2 class="hasAnchor">
-<a href="#curl" class="anchor"></a>Curl</h2>
+<div class="section level2">
+<h2 id="curl">Curl<a class="anchor" aria-label="anchor" href="#curl"></a>
+</h2>
 <p>The curl of a vector-valued function <span class="math inline">\(F_i\)</span> at a point is represented by a vector whose length and direction denote the magnitude and axis of the maximum circulation.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> In 2 dimensions, the curl is written in terms of the scale factors <span class="math inline">\(h\)</span> and the <a href="https://calculus.guidotti.dev/reference/epsilon.html">Levi-Civita symbol</a> <span class="math inline">\(\epsilon\)</span> as follows:</p>
 <p><span class="math display">\[\nabla \times F = \frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)= \frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)\]</span></p>
 <p>In 3 dimensions:</p>
@@ -300,26 +296,26 @@
 \]</span></p>
 <p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(h_jF_{d_1\dots d_n,j}\bigl)\)</span> via finite differences. In 2-dimensional Cartesian coordinates:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x^3*y^2"</span>,<span class="st">"x"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^3*y^2"</span>,<span class="st">"x"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "(1) * 1 + (x^3 * (2 * y)) * -1"</span></code></pre></div>
 <p>In 3 dimensions, for an irrotational vector field:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"-y"</span>,<span class="st">"z"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"-y"</span>,<span class="st">"z"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "0" "0" "0"</span></code></pre></div>
 <p>And for tensors of vector-valued functions:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"-y"</span>,<span class="st">"z"</span>,<span class="st">"x^3*y^2"</span>,<span class="st">"x"</span>,<span class="st">"0"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"-y"</span>,<span class="st">"z"</span>,<span class="st">"x^3*y^2"</span>,<span class="st">"x"</span>,<span class="st">"0"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      [,1] [,2] [,3]                            </span>
 <span class="co">#&gt; [1,] "0"  "0"  "0"                             </span>
 <span class="co">#&gt; [2,] "0"  "0"  "(1) * 1 + (x^3 * (2 * y)) * -1"</span></code></pre></div>
 <p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.</p>
 </div>
-<div id="laplacian" class="section level2">
-<h2 class="hasAnchor">
-<a href="#laplacian" class="anchor"></a>Laplacian</h2>
+<div class="section level2">
+<h2 id="laplacian">Laplacian<a class="anchor" aria-label="anchor" href="#laplacian"></a>
+</h2>
 <p>The Laplacian is a differential operator given by the divergence of the gradient of a scalar-valued function <span class="math inline">\(F\)</span>, resulting in a scalar value giving the flux density of the gradient flow of a function. The Laplacian occurs in differential equations that describe many physical phenomena, such as electric and gravitational potentials, the diffusion equation for heat and fluid flow, wave propagation, and quantum mechanics.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> In terms of the scale factor, the operator is written as:</p>
 <p><span class="math display">\[\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)\]</span></p>
 <p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When the function <span class="math inline">\(F\)</span> is a tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the <a href="https://calculus.guidotti.dev/reference/laplacian.html"><code>laplacian</code></a> is computed for each scalar component:</p>
@@ -327,21 +323,21 @@
 <p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i^2}\partial_iF\bigl)\)</span> via finite differences. In Cartesian coordinates:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"x^3+y^3+z^3"</span>
-<span class="fu"><a href="../reference/laplacian.html">laplacian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/laplacian.html">laplacian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)"</span></code></pre></div>
 <p>And for tensors of scalar-valued functions:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x^3+y^3+z^3"</span>, <span class="st">"x^2+y^2+z^2"</span>, <span class="st">"y^2"</span>, <span class="st">"z*x^2"</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/laplacian.html">laplacian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^3+y^3+z^3"</span>, <span class="st">"x^2+y^2+z^2"</span>, <span class="st">"y^2"</span>, <span class="st">"z*x^2"</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/laplacian.html">laplacian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      [,1]                                      [,2]   </span>
 <span class="co">#&gt; [1,] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)" "2"    </span>
 <span class="co">#&gt; [2,] "2 + 2 + 2"                               "z * 2"</span></code></pre></div>
 <p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.</p>
 </div>
-<div id="cite-as" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cite-as" class="anchor"></a>Cite as</h2>
-<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="uri">https://arxiv.org/abs/2101.00086</a></em></p>
+<div class="section level2">
+<h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
+</h2>
+<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="external-link uri">https://arxiv.org/abs/2101.00086</a></em></p>
 <p>A BibTeX entry for LaTeX users is</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb22-1"><a href="#cb22-1"></a>@Misc{,</span>
 <span id="cb22-2"><a href="#cb22-2"></a>    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},</span>
@@ -356,11 +352,11 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Curvilinear_coordinates" class="uri">https://en.wikipedia.org/wiki/Curvilinear_coordinates</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates" class="uri">https://en.wikipedia.org/wiki/Orthogonal_coordinates</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://en.wikipedia.org/wiki/Divergence" class="uri">https://en.wikipedia.org/wiki/Divergence</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Curl_(mathematics)" class="uri">https://en.wikipedia.org/wiki/Curl_(mathematics)</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p><a href="https://en.wikipedia.org/wiki/Laplace_operator" class="uri">https://en.wikipedia.org/wiki/Laplace_operator</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Curvilinear_coordinates" class="external-link uri">https://en.wikipedia.org/wiki/Curvilinear_coordinates</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates" class="external-link uri">https://en.wikipedia.org/wiki/Orthogonal_coordinates</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://en.wikipedia.org/wiki/Divergence" class="external-link uri">https://en.wikipedia.org/wiki/Divergence</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Curl_(mathematics)" class="external-link uri">https://en.wikipedia.org/wiki/Curl_(mathematics)</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://en.wikipedia.org/wiki/Laplace_operator" class="external-link uri">https://en.wikipedia.org/wiki/Laplace_operator</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -376,11 +372,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://guidotti.dev">Emanuele Guidotti</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -388,6 +386,8 @@
 
   
 
+
+  
 
   </body>
 </html>

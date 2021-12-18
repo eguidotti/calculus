@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -95,7 +91,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/eguidotti/calculus/">
+  <a href="https://github.com/eguidotti/calculus/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +112,7 @@
       <h1 data-toc-skip>Multiple integrals in arbitrary orthogonal coordinates systems</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/master/vignettes/integrals.Rmd"><code>vignettes/integrals.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/HEAD/vignettes/integrals.Rmd" class="external-link"><code>vignettes/integrals.Rmd</code></a></small>
       <div class="hidden name"><code>integrals.Rmd</code></div>
 
     </div>
@@ -124,46 +120,46 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
-<p>The package integrates seamlessly with <a href="https://cran.r-project.org/package=cubature">cubature</a> for efficient numerical integration in <code>C</code>. The function <a href="https://calculus.guidotti.dev/reference/integral.html"><code>integral</code></a> provides the interface for multidimensional integrals of <code>functions</code>, <code>expressions</code>, and <code>characters</code> in arbitrary <a href="https://calculus.guidotti.dev/articles/differential-operators.html">orthogonal coordinate systems</a>. If the package <a href="https://cran.r-project.org/package=cubature">cubature</a> is not installed, the package implements a naive Monte Carlo integration by default. The function returns a <code>list</code> containing the <code>value</code> of the integral as well as other information on the estimation uncertainty. The integration bounds are specified via the argument <code>bounds</code>: a list containing the lower and upper bound for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed. For arbitrary orthogonal coordinates <span class="math inline">\(q_1\dots q_n\)</span> the integral is computed as:</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<p>The package integrates seamlessly with <a href="https://cran.r-project.org/package=cubature" class="external-link">cubature</a> for efficient numerical integration in <code>C</code>. The function <a href="https://calculus.guidotti.dev/reference/integral.html"><code>integral</code></a> provides the interface for multidimensional integrals of <code>functions</code>, <code>expressions</code>, and <code>characters</code> in arbitrary <a href="https://calculus.guidotti.dev/articles/differential-operators.html">orthogonal coordinate systems</a>. If the package <a href="https://cran.r-project.org/package=cubature" class="external-link">cubature</a> is not installed, the package implements a naive Monte Carlo integration by default. The function returns a <code>list</code> containing the <code>value</code> of the integral as well as other information on the estimation uncertainty. The integration bounds are specified via the argument <code>bounds</code>: a list containing the lower and upper bound for each variable. If the two bounds coincide, or if a single number is specified, the corresponding variable is not integrated and its value is fixed. For arbitrary orthogonal coordinates <span class="math inline">\(q_1\dots q_n\)</span> the integral is computed as:</p>
 <p><span class="math display">\[
 \int J\cdot f(q_1\dots q_n) dq_1\dots dq_n
 \]</span></p>
 <p>where <span class="math inline">\(J=\prod_i h_i\)</span> is the Jacobian determinant of the transformation and is equal to the product of the scale factors <span class="math inline">\(h_1\dots h_n\)</span>.</p>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>Univariate integral <span class="math inline">\(\int_0^1xdx\)</span>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 0.5</span></code></pre></div>
 <p>that is equivalent to:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 0.5</span></code></pre></div>
 <p>Univariate integral <span class="math inline">\(\int_0^1yxdx|_{y=2}\)</span>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"y*x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"y*x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 1</span></code></pre></div>
 <p>Multivariate integral <span class="math inline">\(\int_0^1\int_o^1yxdxdy\)</span>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"y*x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"y*x"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 0.25</span></code></pre></div>
 <p>Area of a circle <span class="math inline">\(\int_0^{2\pi}\int_0^1dA(r,\theta)\)</span></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fl">1</span>, 
-              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
+              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
               coordinates <span class="op">=</span> <span class="st">"polar"</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 3.141593</span></code></pre></div>
 <p>Volume of a sphere <span class="math inline">\(\int_0^\pi\int_0^{2\pi}\int_0^1dV(r,\theta,\phi)\)</span></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fl">1</span>, 
-              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">pi</span><span class="op">)</span>, phi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
+              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">pi</span><span class="op">)</span>, phi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
               coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 4.188794</span></code></pre></div>
@@ -172,20 +168,20 @@
 <code class="sourceCode R"><span class="va">V</span> <span class="op">&lt;-</span> <span class="st">"1/(4*pi*r)"</span></code></pre></div>
 <p>The electric field is determined by the gradient of the potential<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <span class="math inline">\(E = -\nabla V\)</span>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">E</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span> <span class="op">%prod%</span> <span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">V</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"r"</span>,<span class="st">"theta"</span>,<span class="st">"phi"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">E</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-prod-grapes.html">%prod%</a></span> <span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">V</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>,<span class="st">"theta"</span>,<span class="st">"phi"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span></code></pre></div>
 <p>Then, by Gauss’s law<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, the total charge enclosed within a given volume is equal to the surface integral of the electric field <span class="math inline">\(q=\int E\cdot dA\)</span> where <span class="math inline">\(\cdot\)</span> denotes the scalar product between the two vectors. In spherical coordinates, this reduces to the surface integral of the radial component of the electric field <span class="math inline">\(\int E_rdA\)</span>. The following code computes this surface integral on a sphere with fixed radius <span class="math inline">\(r=1\)</span>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integral.html">integral</a></span><span class="op">(</span><span class="va">E</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
-              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">1</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">pi</span><span class="op">)</span>, phi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
+              bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">1</span>, theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">pi</span><span class="op">)</span>, phi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span>, 
               coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span>
 <span class="va">i</span><span class="op">$</span><span class="va">value</span>
 <span class="co">#&gt; [1] 1.000002</span></code></pre></div>
 <p>As expected <span class="math inline">\(q=\int E\cdot dA=\int E_rdA=1\)</span>, the unitary charge generating the electric potential.</p>
 </div>
-<div id="cite-as" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cite-as" class="anchor"></a>Cite as</h2>
-<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="uri">https://arxiv.org/abs/2101.00086</a></em></p>
+<div class="section level2">
+<h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
+</h2>
+<p><em>Guidotti, E. (2020). “calculus: High dimensional numerical and symbolic calculus in R”. <a href="https://arxiv.org/abs/2101.00086" class="external-link uri">https://arxiv.org/abs/2101.00086</a></em></p>
 <p>A BibTeX entry for LaTeX users is</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb11-1"><a href="#cb11-1"></a>@Misc{,</span>
 <span id="cb11-2"><a href="#cb11-2"></a>    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},</span>
@@ -200,8 +196,8 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Electric_potential" class="uri">https://en.wikipedia.org/wiki/Electric_potential</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Gauss%27s_law" class="uri">https://en.wikipedia.org/wiki/Gauss%27s_law</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Electric_potential" class="external-link uri">https://en.wikipedia.org/wiki/Electric_potential</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://en.wikipedia.org/wiki/Gauss%27s_law" class="external-link uri">https://en.wikipedia.org/wiki/Gauss%27s_law</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -217,11 +213,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://guidotti.dev">Emanuele Guidotti</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -229,6 +227,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -1,7 +1,7 @@
 [![](https://www.r-pkg.org/badges/version/calculus)](https://cran.r-project.org/package=calculus) 
 [![](https://www.r-pkg.org/badges/last-release/calculus)](https://cran.r-project.org/package=calculus) 
 [![](https://cranlogs.r-pkg.org/badges/grand-total/calculus)](https://cran.r-project.org/package=calculus)
-[![](https://travis-ci.com/eguidotti/calculus.svg?branch=master)](https://travis-ci.com/eguidotti/calculus)
+[![](https://app.travis-ci.com/eguidotti/calculus.svg?branch=master)](https://app.travis-ci.com/eguidotti/calculus)
 
 # High Dimensional Numerical and Symbolic Calculus in R <img src="man/figures/logo.png" width="128" align="right" style="background-color:white" />
 

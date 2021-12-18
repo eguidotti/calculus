@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // cpp_partitions
 std::list< std::vector<int> > cpp_partitions(int n, int max, int length, bool perm, bool fill, bool equal);
 RcppExport SEXP _calculus_cpp_partitions(SEXP nSEXP, SEXP maxSEXP, SEXP lengthSEXP, SEXP permSEXP, SEXP fillSEXP, SEXP equalSEXP) {

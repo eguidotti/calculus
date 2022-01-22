@@ -8,11 +8,11 @@ jobs:
   pkgdown:
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Credentials
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
       - name: Query dependencies

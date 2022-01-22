@@ -108,49 +108,49 @@ test_that("202012272216", {
   f <- 1
   x <- integral(f, bounds = list(x = c(0,2), theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical")
   y <- 4/3*pi*2^3
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272217", {
   f <- 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical")
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272218", {
   f <- function(x, theta, phi) 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical")
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272218", {
   f <- function(x, theta, phi) 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", vectorize = TRUE)
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272219", {
   f <- function(x, theta, phi) c(1, 2)
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical")
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272220", {
   f <- function(x, theta, phi) rep(c(1, 2), each = length(theta))
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272221", {
   f <- c(1, 2)
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = x$error)
+  expect_equal(x$value, y, tolerance = abs(max(x$error/x$value)))
 })
 
 test_that("202012272222", {
@@ -158,7 +158,7 @@ test_that("202012272222", {
   f <- "x"
   x <- integral(f, bounds = list(x = c(0,1)), relTol = 1e-2, method = "mc")
   y <- 0.5
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272223", {
@@ -166,7 +166,7 @@ test_that("202012272223", {
   f <- "x"
   x <- integral(f, bounds = list(x = c(1,0)), relTol = 1e-2, method = "mc")
   y <- -0.5
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272224", {
@@ -174,7 +174,7 @@ test_that("202012272224", {
   f <- function(x) x
   x <- integral(f, bounds = list(x = c(1,0)), relTol = 1e-2, method = "mc")
   y <- -0.5
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272225", {
@@ -182,7 +182,7 @@ test_that("202012272225", {
   f <- function(x) x
   x <- integral(f, bounds = list(x = c(1,0)), relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- -0.5
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272226", {
@@ -190,7 +190,7 @@ test_that("202012272226", {
   f <- function(x) c(x, x^2)
   x <- integral(f, bounds = list(x = c(0,1)), relTol = 1e-2, method = "mc")
   y <- c(0.5, 1/3)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272227", {
@@ -198,7 +198,7 @@ test_that("202012272227", {
   f <- function(x) c(x, x^2)
   x <- integral(f, bounds = list(x = c(0,1)), relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- c(0.5, 1/3)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272228", {
@@ -206,7 +206,7 @@ test_that("202012272228", {
   f <- function(x) array(c(x, x^2))
   x <- integral(f, bounds = list(x = c(0,1)), drop = FALSE, relTol = 1e-2, method = "mc")
   y <- array(c(0.5, 1/3))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272229", {
@@ -214,7 +214,7 @@ test_that("202012272229", {
   f <- array(c('x', 'x^2'))
   x <- integral(f, bounds = list(x = c(0,1)), drop = FALSE, relTol = 1e-2, method = "mc")
   y <- array(c(0.5, 1/3))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272230", {
@@ -222,7 +222,7 @@ test_that("202012272230", {
   f <- function(x) array(c(x, x, x^2, x/2), dim = c(2,2))
   x <- integral(f, bounds = list(x = c(0,1)), relTol = 1e-2, method = "mc")
   y <- array(c(0.5, 0.5, 1/3, 0.25), dim = c(2,2))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272231", {
@@ -230,7 +230,7 @@ test_that("202012272231", {
   f <- array(c('x', 'x', 'x^2', 'x/2'), dim = c(2,2))
   x <- integral(f, bounds = list(x = c(0,1)), relTol = 1e-2, method = "mc")
   y <- array(c(0.5, 0.5, 1/3, 0.25), dim = c(2,2))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272232", {
@@ -238,7 +238,7 @@ test_that("202012272232", {
   f <- function(x, extra) if(extra) array(c(x, x, x^2, x/2), dim = c(2,2))
   x <- integral(f, bounds = list(x = c(0,1), extra = TRUE), relTol = 1e-2, method = "mc")
   y <- array(c(0.5, 0.5, 1/3, 0.25), dim = c(2,2))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272233", {
@@ -246,7 +246,7 @@ test_that("202012272233", {
   f <- array(c('x*y', 'x', 'x^2', 'x/2'), dim = c(2,2))
   x <- integral(f, bounds = list(x = c(0,1), y = c(0,1)), relTol = 1e-2, method = "mc")
   y <- array(c(0.25, 0.5, 1/3, 0.25), dim = c(2,2))
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272234", {
@@ -254,7 +254,7 @@ test_that("202012272234", {
   f <- 1
   x <- integral(f, bounds = list(x = c(0,2), theta = c(0,2*pi)), coordinates = "polar", relTol = 1e-2, method = "mc")
   y <- pi*2^2
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272235", {
@@ -262,7 +262,7 @@ test_that("202012272235", {
   f <- function(x, theta) 1
   x <- integral(f, bounds = list(x = c(0,2), theta = c(0,2*pi)), coordinates = "polar", relTol = 1e-2, method = "mc")
   y <- pi*2^2
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272236", {
@@ -271,7 +271,7 @@ test_that("202012272236", {
   f.sym <- 'x*theta'
   x.num <- integral(f.num, bounds = list(x = c(0,2), theta = c(0,2*pi)), coordinates = "polar", relTol = 1e-2, method = "mc")
   x.sym <- integral(f.sym, bounds = list(x = c(0,2), theta = c(0,2*pi)), coordinates = "polar", relTol = 1e-2, method = "mc")
-  expect_equal(x.num$value, x.sym$value, tolerance = 3*(x.num$error+x.sym$error))
+  expect_equal(x.num$value, x.sym$value, tolerance = 3*abs(max(x.num$error/x.num$value)))
 })
 
 test_that("202012272237", {
@@ -279,7 +279,7 @@ test_that("202012272237", {
   f <- 1
   x <- integral(f, bounds = list(x = c(0,2), theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc")
   y <- 4/3*pi*2^3
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272238", {
@@ -287,7 +287,7 @@ test_that("202012272238", {
   f <- 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc")
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272239", {
@@ -295,7 +295,7 @@ test_that("202012272239", {
   f <- function(x, theta, phi) 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc")
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272240", {
@@ -303,7 +303,7 @@ test_that("202012272240", {
   f <- function(x, theta, phi) 1
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- 4*pi*2^2
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272241", {
@@ -311,7 +311,7 @@ test_that("202012272241", {
   f <- function(x, theta, phi) c(1, 2)
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc")
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272242", {
@@ -319,7 +319,7 @@ test_that("202012272242", {
   f <- function(x, theta, phi) rep(c(1, 2), each = length(theta))
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012272243", {
@@ -327,7 +327,7 @@ test_that("202012272243", {
   f <- c(1, 2)
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), coordinates = "spherical", relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012310003", {
@@ -335,7 +335,7 @@ test_that("202012310003", {
   f <- c(1, "2*a")
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), params = list(a = 1), coordinates = "spherical", relTol = 1e-2, method = "mc", vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })
 
 test_that("202012310004", {
@@ -343,5 +343,5 @@ test_that("202012310004", {
   f <- c(1, "2*a")
   x <- integral(f, bounds = list(x = 2, theta = c(0,pi), phi = c(0,2*pi)), params = list(a = 1), coordinates = "spherical", relTol = 1e-2, vectorize = TRUE)
   y <- c(4*pi*2^2, 8*pi*2^2)
-  expect_equal(x$value, y, tolerance = 3*x$error)
+  expect_equal(x$value, y, tolerance = 3*abs(max(x$error/x$value)))
 })

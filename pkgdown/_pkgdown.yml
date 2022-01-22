@@ -19,11 +19,11 @@ home:
 navbar: 
   type: inverse
   structure:
-    left:  [paper, reference, articles, news]
+    left:  [reference, articles, news, paper]
     right: [github]
   components:
     paper:
-      text: "Paper"
+      text: "Academic paper"
       href: "https://arxiv.org/pdf/2101.00086.pdf"
 
 reference:

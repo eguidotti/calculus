@@ -23,8 +23,8 @@ navbar:
     right: [github]
   components:
     paper:
-      - text: "Paper"
-        href: "https://arxiv.org/pdf/2101.00086.pdf"
+      text: "Paper"
+      href: "https://arxiv.org/pdf/2101.00086.pdf"
 
 reference:
   - title: "Basic Arithmetic"

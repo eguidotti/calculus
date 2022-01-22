@@ -8,6 +8,14 @@ home:
   title: "High Dimensional Numerical and Symbolic Calculus in R"
 navbar: 
   type: inverse
+  components:
+   articles:
+    text: Vignettes
+   reference:
+    text: Functions
+   paper:
+    text: Paper
+    href: https://arxiv.org/pdf/2101.00086.pdf
 reference:
   - title: "Basic Arithmetic"
     contents:

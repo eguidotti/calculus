@@ -55,9 +55,9 @@ where \eqn{J=\prod_ih_i}. When the function \eqn{F} is a tensor-valued function
 }
 \section{Functions}{
 \itemize{
-\item \code{\%laplacian\%}: binary operator with default parameters.
-}}
+\item \code{f \%laplacian\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic Laplacian 
 laplacian("x^3+y^3+z^3", var = c("x","y","z"))

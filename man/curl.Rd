@@ -64,9 +64,9 @@ is computed for each vector:
 }
 \section{Functions}{
 \itemize{
-\item \code{\%curl\%}: binary operator with default parameters.
-}}
+\item \code{f \%curl\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic curl of a 2-d vector field
 f <- c("x^3*y^2","x")

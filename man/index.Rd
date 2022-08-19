@@ -22,9 +22,9 @@ Functions to get or set the names of the dimensions of an \code{array}.
 }
 \section{Functions}{
 \itemize{
-\item \code{index<-}: set indices.
-}}
+\item \code{index(x) <- value}: set indices.
 
+}}
 \examples{
 ### array with no indices
 x <- array(1, dim = c(1, 3, 2))

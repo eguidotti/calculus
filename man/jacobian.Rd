@@ -41,9 +41,9 @@ The function is basically a wrapper for \code{\link{gradient}} with \code{drop=F
 }
 \section{Functions}{
 \itemize{
-\item \code{\%jacobian\%}: binary operator with default parameters.
-}}
+\item \code{f \%jacobian\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic Jacobian 
 jacobian("x*y*z", var = c("x", "y", "z"))

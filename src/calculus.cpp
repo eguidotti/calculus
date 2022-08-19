@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 // Check if string is zero
 bool is_zero (std::string const &x){
-  return((x=="0") | (x=="(0)") | (x=="((0))") | (x=="{0}") | (x=="0+0i") | (x=="(0+0i)") | (x==""));
+  return((x=="0") || (x=="(0)") || (x=="((0))") || (x=="{0}") || (x=="0+0i") || (x=="(0+0i)") || (x==""));
 }
 
 // Check if double is zero

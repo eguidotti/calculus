@@ -22,9 +22,9 @@ Multiplies two \code{numeric} or \code{character} matrices, if they are conforma
 }
 \section{Functions}{
 \itemize{
-\item \code{\%mx\%}: binary operator.
-}}
+\item \code{x \%mx\% y}: binary operator.
 
+}}
 \examples{
 ### numeric inner product 
 x <- 1:4

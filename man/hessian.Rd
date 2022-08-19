@@ -47,9 +47,9 @@ is not currently supported.
 }
 \section{Functions}{
 \itemize{
-\item \code{\%hessian\%}: binary operator with default parameters.
-}}
+\item \code{f \%hessian\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic Hessian 
 hessian("x*y*z", var = c("x", "y", "z"))

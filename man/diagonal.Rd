@@ -26,9 +26,9 @@ Functions to extract or replace the diagonals of an \code{array}, or construct a
 }
 \section{Functions}{
 \itemize{
-\item \code{diagonal<-}: set diagonals.
-}}
+\item \code{diagonal(x) <- value}: set diagonals.
 
+}}
 \examples{
 ### 3x3 matrix
 diagonal(x = 1, dim = c(3,3))

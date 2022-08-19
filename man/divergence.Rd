@@ -55,9 +55,9 @@ where \eqn{J=\prod_ih_i}. When \eqn{F} is an \code{array} of vector-valued funct
 }
 \section{Functions}{
 \itemize{
-\item \code{\%divergence\%}: binary operator with default parameters.
-}}
+\item \code{f \%divergence\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic divergence of a vector field
 f <- c("x^2","y^3","z^4")

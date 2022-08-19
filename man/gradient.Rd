@@ -56,9 +56,9 @@ the Jacobian matrix for vector-valued function.
 }
 \section{Functions}{
 \itemize{
-\item \code{\%gradient\%}: binary operator with default parameters.
-}}
+\item \code{f \%gradient\% var}: binary operator with default parameters.
 
+}}
 \examples{
 ### symbolic gradient 
 gradient("x*y*z", var = c("x", "y", "z"))

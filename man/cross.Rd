@@ -24,9 +24,9 @@ Computes the cross product of \eqn{n-1} vectors of length \eqn{n}.
 }
 \section{Functions}{
 \itemize{
-\item \code{\%cross\%}: binary operator for 3-dimensional cross products.
-}}
+\item \code{x \%cross\% y}: binary operator for 3-dimensional cross products.
 
+}}
 \examples{
 ### canonical basis 4-d
 cross(c(1,0,0,0), c(0,1,0,0), c(0,0,0,1))

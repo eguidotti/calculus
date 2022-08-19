@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -123,7 +123,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
 <p>The function <a href="https://calculus.guidotti.dev/reference/taylor.html"><code>taylor</code></a> provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a <code>character</code> string or as a <code>function</code>. Symbolic or numerical methods are applied accordingly. For univariate functions, the <span class="math inline">\(n\)</span>-th order Taylor approximation centered in <span class="math inline">\(x_0\)</span> is given by:</p>
 <p><span class="math display">\[
 f(x) \simeq \sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
@@ -138,43 +138,43 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 <p><span class="math display">\[\{(k_1,\cdots,k_d):k_1+\cdots k_d \leq n\}\]</span></p>
 <p>that corresponds to the partitions of the integer <span class="math inline">\(n\)</span>. These partitions can be computed with the function <a href="https://calculus.guidotti.dev/reference/partitions.html"><code>partitions</code></a> that is included in the package and optimized in <code>C++</code> for speed and flexibility. For example, the following call generates the partitions needed for the <span class="math inline">\(2\)</span>-nd order Taylor expansion for a function of <span class="math inline">\(3\)</span> variables:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/partitions.html">partitions</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, length <span class="op">=</span> <span class="fl">3</span>, fill <span class="op">=</span> <span class="cn">TRUE</span>, perm <span class="op">=</span> <span class="cn">TRUE</span>, equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
-<span class="co">#&gt; [1,]    0    0    0    1    0    0    2    0    1     1</span>
-<span class="co">#&gt; [2,]    0    0    1    0    0    2    0    1    0     1</span>
-<span class="co">#&gt; [3,]    0    1    0    0    2    0    0    1    1     0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/partitions.html">partitions</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, length <span class="op">=</span> <span class="fl">3</span>, fill <span class="op">=</span> <span class="cn">TRUE</span>, perm <span class="op">=</span> <span class="cn">TRUE</span>, equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span></span>
+<span><span class="co">#&gt; [1,]    0    0    0    1    0    0    2    0    1     1</span></span>
+<span><span class="co">#&gt; [2,]    0    0    1    0    0    2    0    1    0     1</span></span>
+<span><span class="co">#&gt; [3,]    0    1    0    0    2    0    0    1    1     0</span></span></code></pre></div>
 <p>Based on these partitions, the function <a href="https://calculus.guidotti.dev/reference/taylor.html"><code>taylor</code></a> computes the corresponding derivatives and builds the Taylor series. The output is a <code>list</code> containing the Taylor series, the order of the expansion, and a <code>data.frame</code> containing the variables, coefficients and degrees of each term in the Taylor series.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="st">"exp(x)"</span>, var <span class="op">=</span> <span class="st">"x"</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; $f</span>
-<span class="co">#&gt; [1] "(1) * 1 + (1) * x^1 + (0.5) * x^2"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $terms</span>
-<span class="co">#&gt;   var coef degree</span>
-<span class="co">#&gt; 0   1  1.0      0</span>
-<span class="co">#&gt; 1 x^1  1.0      1</span>
-<span class="co">#&gt; 2 x^2  0.5      2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="st">"exp(x)"</span>, var <span class="op">=</span> <span class="st">"x"</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $f</span></span>
+<span><span class="co">#&gt; [1] "(1) * 1 + (1) * x^1 + (0.5) * x^2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $terms</span></span>
+<span><span class="co">#&gt;   var coef degree</span></span>
+<span><span class="co">#&gt; 0   1  1.0      0</span></span>
+<span><span class="co">#&gt; 1 x^1  1.0      1</span></span>
+<span><span class="co">#&gt; 2 x^2  0.5      2</span></span></code></pre></div>
 <p>By default, the series is centered in <span class="math inline">\(x_0=0\)</span> but the function also supports <span class="math inline">\(x_0\neq 0\)</span>, the multivariable case, and the approximation of user defined R <code>functions</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; $f</span>
-<span class="co">#&gt; [1] "(0.999999999969436) * x^1*(y-1)^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $terms</span>
-<span class="co">#&gt;             var coef degree</span>
-<span class="co">#&gt; 0,0           1    0      0</span>
-<span class="co">#&gt; 0,1     (y-1)^1    0      1</span>
-<span class="co">#&gt; 1,0         x^1    0      1</span>
-<span class="co">#&gt; 0,2     (y-1)^2    0      2</span>
-<span class="co">#&gt; 2,0         x^2    0      2</span>
-<span class="co">#&gt; 1,1 x^1*(y-1)^1    1      2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $f</span></span>
+<span><span class="co">#&gt; [1] "(0.999999999969436) * x^1*(y-1)^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $terms</span></span>
+<span><span class="co">#&gt;             var coef degree</span></span>
+<span><span class="co">#&gt; 0,0           1    0      0</span></span>
+<span><span class="co">#&gt; 0,1     (y-1)^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0         x^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2     (y-1)^2    0      2</span></span>
+<span><span class="co">#&gt; 2,0         x^2    0      2</span></span>
+<span><span class="co">#&gt; 1,1 x^1*(y-1)^1    1      2</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
 </h2>
@@ -209,7 +209,7 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -90,37 +90,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ode</span><span class="op">(</span>
-  <span class="va">f</span>,
-  <span class="va">var</span>,
-  <span class="va">times</span>,
-  timevar <span class="op">=</span> <span class="cn">NULL</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="st">"rk4"</span>,
-  drop <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ode</span><span class="op">(</span></span>
+<span>  <span class="va">f</span>,</span>
+<span>  <span class="va">var</span>,</span>
+<span>  <span class="va">times</span>,</span>
+<span>  timevar <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"rk4"</span>,</span>
+<span>  drop <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
 <dd><p>vector of <code>characters</code>, or a <code>function</code> returning a numeric vector, giving the values of the derivatives in the ODE system at time <code>timevar</code>. See examples.</p></dd>
+
+
 <dt>var</dt>
 <dd><p>vector giving the initial conditions. See examples.</p></dd>
+
+
 <dt>times</dt>
 <dd><p>discretization sequence, the first value represents the initial time.</p></dd>
+
+
 <dt>timevar</dt>
 <dd><p>the time variable used by <code>f</code>, if any.</p></dd>
+
+
 <dt>params</dt>
 <dd><p><code>list</code> of additional parameters passed to <code>f</code>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>the solver to use. One of <code>"rk4"</code> (Runge-Kutta) or <code>"euler"</code> (Euler).</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>if <code>TRUE</code>, return only the final solution instead of the whole trajectory.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Vector of final solutions if <code>drop=TRUE</code>, otherwise a <code>matrix</code> with as many 
+    
+
+<p>Vector of final solutions if <code>drop=TRUE</code>, otherwise a <code>matrix</code> with as many 
 rows as elements in <code>times</code> and as many columns as elements in <code>var</code>.</p>
     </div>
     <div id="references">
@@ -135,74 +150,74 @@ rows as elements in <code>times</code> and as many columns as elements in <code>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="co">## Example: symbolic system </span></span>
-<span class="r-in"><span class="co">## System:  dx = x dt</span></span>
-<span class="r-in"><span class="co">## Initial: x0 = 1</span></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"x"</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Example: symbolic system </span></span></span>
+<span class="r-in"><span><span class="co">## System:  dx = x dt</span></span></span>
+<span class="r-in"><span><span class="co">## Initial: x0 = 1</span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"x"</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ode-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="co">## Example: time dependent system</span></span>
-<span class="r-in"><span class="co">## System:  dx = cos(t) dt</span></span>
-<span class="r-in"><span class="co">## Initial: x0 = 0</span></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"cos(t)"</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Example: time dependent system</span></span></span>
+<span class="r-in"><span><span class="co">## System:  dx = cos(t) dt</span></span></span>
+<span class="r-in"><span><span class="co">## Initial: x0 = 0</span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"cos(t)"</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ode-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="co">## Example: multivariate time dependent system</span></span>
-<span class="r-in"><span class="co">## System:  dx = x dt </span></span>
-<span class="r-in"><span class="co">##          dy = x*(1+cos(10*t)) dt</span></span>
-<span class="r-in"><span class="co">## Initial: x0 = 1</span></span>
-<span class="r-in"><span class="co">##          y0 = 1</span></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x*(1+cos(10*t))"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Example: multivariate time dependent system</span></span></span>
+<span class="r-in"><span><span class="co">## System:  dx = x dt </span></span></span>
+<span class="r-in"><span><span class="co">##          dy = x*(1+cos(10*t)) dt</span></span></span>
+<span class="r-in"><span><span class="co">## Initial: x0 = 1</span></span></span>
+<span class="r-in"><span><span class="co">##          y0 = 1</span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x*(1+cos(10*t))"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ode-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="co">## Example: numerical system</span></span>
-<span class="r-in"><span class="co">## System:  dx = x dt </span></span>
-<span class="r-in"><span class="co">##          dy = y dt </span></span>
-<span class="r-in"><span class="co">## Initial: x0 = 1</span></span>
-<span class="r-in"><span class="co">##          y0 = 2</span></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Example: numerical system</span></span></span>
+<span class="r-in"><span><span class="co">## System:  dx = x dt </span></span></span>
+<span class="r-in"><span><span class="co">##          dy = y dt </span></span></span>
+<span class="r-in"><span><span class="co">## Initial: x0 = 1</span></span></span>
+<span class="r-in"><span><span class="co">##          y0 = 2</span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ode-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="co">## Example: vectorized interface</span></span>
-<span class="r-in"><span class="co">## System:  dx = x dt </span></span>
-<span class="r-in"><span class="co">##          dy = y dt </span></span>
-<span class="r-in"><span class="co">##          dz = y*(1+cos(10*t)) dt  </span></span>
-<span class="r-in"><span class="co">## Initial: x0 = 1</span></span>
-<span class="r-in"><span class="co">##          y0 = 2</span></span>
-<span class="r-in"><span class="co">##          z0 = 2</span></span>
-<span class="r-in"><span class="co">## ==================================================</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Example: vectorized interface</span></span></span>
+<span class="r-in"><span><span class="co">## System:  dx = x dt </span></span></span>
+<span class="r-in"><span><span class="co">##          dy = y dt </span></span></span>
+<span class="r-in"><span><span class="co">##          dz = y*(1+cos(10*t)) dt  </span></span></span>
+<span class="r-in"><span><span class="co">## Initial: x0 = 1</span></span></span>
+<span class="r-in"><span><span class="co">##          y0 = 2</span></span></span>
+<span class="r-in"><span><span class="co">##          z0 = 2</span></span></span>
+<span class="r-in"><span><span class="co">## ==================================================</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">t</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span>, by<span class="op">=</span><span class="fl">0.001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ode</span><span class="op">(</span><span class="va">f</span>, <span class="va">var</span>, <span class="va">times</span>, timevar <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">times</span>, <span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ode-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -217,7 +232,7 @@ rows as elements in <code>times</code> and as many columns as elements in <code>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

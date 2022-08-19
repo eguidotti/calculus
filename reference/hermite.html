@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -90,23 +90,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">hermite</span><span class="op">(</span><span class="va">order</span>, sigma <span class="op">=</span> <span class="fl">1</span>, var <span class="op">=</span> <span class="st">"x"</span>, transform <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">hermite</span><span class="op">(</span><span class="va">order</span>, sigma <span class="op">=</span> <span class="fl">1</span>, var <span class="op">=</span> <span class="st">"x"</span>, transform <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>order</dt>
 <dd><p>the order of the Hermite polynomial.</p></dd>
+
+
 <dt>sigma</dt>
 <dd><p>the covariance <code>matrix</code> of the Gaussian kernel.</p></dd>
+
+
 <dt>var</dt>
 <dd><p><code>character</code> vector giving the variables of the polynomial.</p></dd>
+
+
 <dt>transform</dt>
 <dd><p><code>character</code> vector representing a change of variables. See details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>list</code> of Hermite polynomials with components:</p><dl><dt>f</dt>
+    
+
+<p><code>list</code> of Hermite polynomials with components:</p><dl><dt>f</dt>
 <dd><p>the Hermite polynomial.</p></dd>
 
  <dt>order</dt>
@@ -142,8 +151,8 @@ standard univariate Hermite polynomials:</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">### univariate Hermite polynomials up to order 3</span></span>
-<span class="r-in"><span class="fu">hermite</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### univariate Hermite polynomials up to order 3</span></span></span>
+<span class="r-in"><span><span class="fu">hermite</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0`$f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "(1) * 1"</span>
@@ -198,11 +207,11 @@ standard univariate Hermite polynomials:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 x^3    1      3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### multivariate Hermite polynomials up to order 2</span></span>
-<span class="r-in"><span class="fu">hermite</span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, </span>
-<span class="r-in">        sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, </span>
-<span class="r-in">        var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>, <span class="st">'z2'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### multivariate Hermite polynomials up to order 2</span></span></span>
+<span class="r-in"><span><span class="fu">hermite</span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, </span></span>
+<span class="r-in"><span>        sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>        var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>, <span class="st">'z2'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0,0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0,0`$f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "(1) * 1"</span>
@@ -294,12 +303,12 @@ standard univariate Hermite polynomials:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1,1 z1^1*z2^1    1      2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">        </span>
-<span class="r-in"><span class="co">### multivariate Hermite polynomials with transformation of variables</span></span>
-<span class="r-in"><span class="fu">hermite</span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, </span>
-<span class="r-in">        sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, </span>
-<span class="r-in">        var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>, <span class="st">'z2'</span><span class="op">)</span>,</span>
-<span class="r-in">        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1+z2'</span>,<span class="st">'z1-z2'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span>        </span></span>
+<span class="r-in"><span><span class="co">### multivariate Hermite polynomials with transformation of variables</span></span></span>
+<span class="r-in"><span><span class="fu">hermite</span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, </span></span>
+<span class="r-in"><span>        sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>        var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>, <span class="st">'z2'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1+z2'</span>,<span class="st">'z1-z2'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0,0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0,0`$f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "(1) * 1"</span>
@@ -391,7 +400,7 @@ standard univariate Hermite polynomials:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1,1 z1^1*z2^1    0      2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">        </span>
+<span class="r-in"><span>        </span></span>
 </code></pre></div>
     </div>
   </div>
@@ -406,7 +415,7 @@ standard univariate Hermite polynomials:</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -24,7 +24,7 @@ in arbitrary orthogonal coordinate systems."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -33,7 +33,7 @@ in arbitrary orthogonal coordinate systems."><meta property="og:image" content="
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -92,39 +92,54 @@ in arbitrary <a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">laplacian</span><span class="op">(</span>
-  <span class="va">f</span>,
-  <span class="va">var</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  coordinates <span class="op">=</span> <span class="st">"cartesian"</span>,
-  accuracy <span class="op">=</span> <span class="fl">4</span>,
-  stepsize <span class="op">=</span> <span class="cn">NULL</span>,
-  drop <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">f</span> <span class="op">%laplacian%</span> <span class="va">var</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">laplacian</span><span class="op">(</span></span>
+<span>  <span class="va">f</span>,</span>
+<span>  <span class="va">var</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  coordinates <span class="op">=</span> <span class="st">"cartesian"</span>,</span>
+<span>  accuracy <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  stepsize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  drop <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">f</span> <span class="op">%laplacian%</span> <span class="va">var</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
 <dd><p>array of <code>characters</code> or a <code>function</code> returning a <code>numeric</code> array.</p></dd>
+
+
 <dt>var</dt>
 <dd><p>vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See <code><a href="derivative.html">derivative</a></code>.</p></dd>
+
+
 <dt>params</dt>
 <dd><p><code>list</code> of additional parameters passed to <code>f</code>.</p></dd>
+
+
 <dt>coordinates</dt>
 <dd><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a vector of scale factors for each varibale.</p></dd>
+
+
 <dt>accuracy</dt>
 <dd><p>degree of accuracy for numerical derivatives.</p></dd>
+
+
 <dt>stepsize</dt>
 <dd><p>finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>if <code>TRUE</code>, return the Laplacian as a scalar and not as an <code>array</code> for scalar-valued functions.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Scalar for scalar-valued functions when <code>drop=TRUE</code>, <code>array</code> otherwise.</p>
+    
+
+<p>Scalar for scalar-valued functions when <code>drop=TRUE</code>, <code>array</code> otherwise.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -141,7 +156,7 @@ the scale factors \(h_i\):</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>%laplacian%</code>: binary operator with default parameters.</p></li>
+<ul><li><p><code>f %laplacian% var</code>: binary operator with default parameters.</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -160,38 +175,38 @@ the scale factors \(h_i\):</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">### symbolic Laplacian </span></span>
-<span class="r-in"><span class="fu">laplacian</span><span class="op">(</span><span class="st">"x^3+y^3+z^3"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### symbolic Laplacian </span></span></span>
+<span class="r-in"><span><span class="fu">laplacian</span><span class="op">(</span><span class="st">"x^3+y^3+z^3"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### numerical Laplacian in (x=1, y=1, z=1)</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">+</span><span class="va">y</span><span class="op">^</span><span class="fl">3</span><span class="op">+</span><span class="va">z</span><span class="op">^</span><span class="fl">3</span></span>
-<span class="r-in"><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">1</span>, z<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### numerical Laplacian in (x=1, y=1, z=1)</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">+</span><span class="va">y</span><span class="op">^</span><span class="fl">3</span><span class="op">+</span><span class="va">z</span><span class="op">^</span><span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">1</span>, z<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 18</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### vectorized interface</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### vectorized interface</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 18</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### symbolic vector-valued functions</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>,<span class="st">"x*y"</span>,<span class="st">"x*y"</span>,<span class="st">"y^2"</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### symbolic vector-valued functions</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>,<span class="st">"x*y"</span>,<span class="st">"x*y"</span>,<span class="st">"y^2"</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "2"  "0" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "0"  "2" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### numerical vector-valued functions</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,<span class="va">x</span><span class="op">*</span><span class="va">y</span>,<span class="va">x</span><span class="op">*</span><span class="va">y</span>,<span class="va">y</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">0</span>,y<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### numerical vector-valued functions</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,<span class="va">x</span><span class="op">*</span><span class="va">y</span>,<span class="va">x</span><span class="op">*</span><span class="va">y</span>,<span class="va">y</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">laplacian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">0</span>,y<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    2    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### binary operator</span></span>
-<span class="r-in"><span class="st">"x^3+y^3+z^3"</span> <span class="op">%laplacian%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### binary operator</span></span></span>
+<span class="r-in"><span><span class="st">"x^3+y^3+z^3"</span> <span class="op">%laplacian%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -206,7 +221,7 @@ the scale factors \(h_i\):</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

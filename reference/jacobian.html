@@ -24,7 +24,7 @@ in arbitrary orthogonal coordinate systems."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -33,7 +33,7 @@ in arbitrary orthogonal coordinate systems."><meta property="og:image" content="
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -92,36 +92,49 @@ in arbitrary <a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">jacobian</span><span class="op">(</span>
-  <span class="va">f</span>,
-  <span class="va">var</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  coordinates <span class="op">=</span> <span class="st">"cartesian"</span>,
-  accuracy <span class="op">=</span> <span class="fl">4</span>,
-  stepsize <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="va">f</span> <span class="op">%jacobian%</span> <span class="va">var</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">jacobian</span><span class="op">(</span></span>
+<span>  <span class="va">f</span>,</span>
+<span>  <span class="va">var</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  coordinates <span class="op">=</span> <span class="st">"cartesian"</span>,</span>
+<span>  accuracy <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  stepsize <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">f</span> <span class="op">%jacobian%</span> <span class="va">var</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
 <dd><p>array of <code>characters</code> or a <code>function</code> returning a <code>numeric</code> array.</p></dd>
+
+
 <dt>var</dt>
 <dd><p>vector giving the variable names with respect to which the derivatives are to be computed and/or the point where the derivatives are to be evaluated. See <code><a href="derivative.html">derivative</a></code>.</p></dd>
+
+
 <dt>params</dt>
 <dd><p><code>list</code> of additional parameters passed to <code>f</code>.</p></dd>
+
+
 <dt>coordinates</dt>
 <dd><p>coordinate system to use. One of: <code>cartesian</code>, <code>polar</code>, <code>spherical</code>, <code>cylindrical</code>, <code>parabolic</code>, <code>parabolic-cylindrical</code> or a vector of scale factors for each varibale.</p></dd>
+
+
 <dt>accuracy</dt>
 <dd><p>degree of accuracy for numerical derivatives.</p></dd>
+
+
 <dt>stepsize</dt>
 <dd><p>finite differences stepsize for numerical derivatives. It is based on the precision of the machine by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>array</code>.</p>
+    
+
+<p><code>array</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -130,7 +143,7 @@ in arbitrary <a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>%jacobian%</code>: binary operator with default parameters.</p></li>
+<ul><li><p><code>f %jacobian% var</code>: binary operator with default parameters.</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -149,42 +162,42 @@ in arbitrary <a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">### symbolic Jacobian </span></span>
-<span class="r-in"><span class="fu">jacobian</span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### symbolic Jacobian </span></span></span>
+<span class="r-in"><span><span class="fu">jacobian</span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]    [,2]    [,3]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "y * z" "x * z" "x * y"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### numerical Jacobian in (x=1, y=2, z=3)</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span></span>
-<span class="r-in"><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span>, z<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### numerical Jacobian in (x=1, y=2, z=3)</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span></span></span>
+<span class="r-in"><span><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span>, z<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    6    3    2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### vectorized interface</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### vectorized interface</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    6    3    2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### symbolic vector-valued functions</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y*sin(x)"</span>, <span class="st">"x*cos(y)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### symbolic vector-valued functions</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y*sin(x)"</span>, <span class="st">"x*cos(y)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]         [,2]           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "y * cos(x)" "sin(x)"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "cos(y)"     "-(x * sin(y))"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### numerical vector-valued functions</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### numerical vector-valued functions</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">jacobian</span><span class="op">(</span>f <span class="op">=</span> <span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    0    0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### binary operator</span></span>
-<span class="r-in"><span class="st">"x*y^2"</span> <span class="op">%jacobian%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### binary operator</span></span></span>
+<span class="r-in"><span><span class="st">"x*y^2"</span> <span class="op">%jacobian%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    9    6</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -199,7 +212,7 @@ in arbitrary <a href="https://en.wikipedia.org/wiki/Orthogonal_coordinates#Table
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

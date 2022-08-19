@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -123,7 +123,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
 <p>Hermite polynomials are obtained by differentiation of the Gaussian kernel:</p>
 <p><span class="math display">\[H_{\nu}(x,\Sigma) = exp \Bigl( \frac{1}{2} x_i \Sigma_{ij} x_j \Bigl) (- \partial_x )^\nu exp \Bigl( -\frac{1}{2} x_i \Sigma_{ij} x_j \Bigl)\]</span></p>
 <p>where <span class="math inline">\(\Sigma\)</span> is a <span class="math inline">\(d\)</span>-dimensional square matrix and <span class="math inline">\(\nu=(\nu_1 \dots \nu_d)\)</span> is the vector representing the order of differentiation for each variable <span class="math inline">\(x = (x_1\dots x_d)\)</span>. In the case where <span class="math inline">\(\Sigma=1\)</span> and <span class="math inline">\(x=x_1\)</span> the formula reduces to the standard univariate Hermite polynomials:</p>
@@ -133,136 +133,136 @@ H_{\nu}(x) = e^{\frac{x^2}{2}}(-1)^\nu \frac{d^\nu}{dx^\nu}e^{-\frac{x^2}{2}}
 <p>The function <a href="https://calculus.guidotti.dev/reference/hermite.html"><code>hermite</code></a> generates recursively all the Hermite polynomials of degree <span class="math inline">\(\nu'\)</span> where <span class="math inline">\(|\nu'| \leq|\nu|\)</span>. The output is a <code>list</code> of Hermite polynomials of degree <span class="math inline">\(\nu'\)</span>, where each polynomial is described as a <code>list</code> containing the <code>character</code> representing the polynomial, the order of the polynomial, and a <code>data.frame</code> containing the variables, coefficients and degrees of each term in the polynomial.</p>
 <p>In the univariate case, for <span class="math inline">\(\nu=2\)</span>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; $`0`</span>
-<span class="co">#&gt; $`0`$f</span>
-<span class="co">#&gt; [1] "(1) * 1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0`$order</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0`$terms</span>
-<span class="co">#&gt;   var coef degree</span>
-<span class="co">#&gt; 0   1    1      0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1`</span>
-<span class="co">#&gt; $`1`$f</span>
-<span class="co">#&gt; [1] "(1) * x^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1`$order</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1`$terms</span>
-<span class="co">#&gt;   var coef degree</span>
-<span class="co">#&gt; 0   1    0      0</span>
-<span class="co">#&gt; 1 x^1    1      1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2`</span>
-<span class="co">#&gt; $`2`$f</span>
-<span class="co">#&gt; [1] "(-1) * 1 + (1) * x^2"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2`$terms</span>
-<span class="co">#&gt;   var coef degree</span>
-<span class="co">#&gt; 0   1   -1      0</span>
-<span class="co">#&gt; 1 x^1    0      1</span>
-<span class="co">#&gt; 2 x^2    1      2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`0`</span></span>
+<span><span class="co">#&gt; $`0`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * 1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0`$order</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0`$terms</span></span>
+<span><span class="co">#&gt;   var coef degree</span></span>
+<span><span class="co">#&gt; 0   1    1      0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1`</span></span>
+<span><span class="co">#&gt; $`1`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * x^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1`$order</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1`$terms</span></span>
+<span><span class="co">#&gt;   var coef degree</span></span>
+<span><span class="co">#&gt; 0   1    0      0</span></span>
+<span><span class="co">#&gt; 1 x^1    1      1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2`</span></span>
+<span><span class="co">#&gt; $`2`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * 1 + (1) * x^2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2`$terms</span></span>
+<span><span class="co">#&gt;   var coef degree</span></span>
+<span><span class="co">#&gt; 0   1   -1      0</span></span>
+<span><span class="co">#&gt; 1 x^1    0      1</span></span>
+<span><span class="co">#&gt; 2 x^2    1      2</span></span></code></pre></div>
 <p>In the multivariate case, where for simplicity <span class="math inline">\(\Sigma_{ij}=\delta_{ij}\)</span>, <span class="math inline">\(x=(x_1,x_2)\)</span>, and <span class="math inline">\(|\nu|=2\)</span>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; $`0,0`</span>
-<span class="co">#&gt; $`0,0`$f</span>
-<span class="co">#&gt; [1] "(1) * 1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,0`$order</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,0`$terms</span>
-<span class="co">#&gt;     var coef degree</span>
-<span class="co">#&gt; 0,0   1    1      0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`</span>
-<span class="co">#&gt; $`0,1`$f</span>
-<span class="co">#&gt; [1] "(1) * x2^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`$order</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`$terms</span>
-<span class="co">#&gt;      var coef degree</span>
-<span class="co">#&gt; 0,0    1    0      0</span>
-<span class="co">#&gt; 0,1 x2^1    1      1</span>
-<span class="co">#&gt; 1,0 x1^1    0      1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`</span>
-<span class="co">#&gt; $`1,0`$f</span>
-<span class="co">#&gt; [1] "(1) * x1^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`$order</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`$terms</span>
-<span class="co">#&gt;      var coef degree</span>
-<span class="co">#&gt; 0,0    1    0      0</span>
-<span class="co">#&gt; 0,1 x2^1    0      1</span>
-<span class="co">#&gt; 1,0 x1^1    1      1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`</span>
-<span class="co">#&gt; $`0,2`$f</span>
-<span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1   -1      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2    1      2</span>
-<span class="co">#&gt; 2,0      x1^2    0      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`</span>
-<span class="co">#&gt; $`2,0`$f</span>
-<span class="co">#&gt; [1] "(-1) * 1 + (1) * x1^2"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1   -1      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2    0      2</span>
-<span class="co">#&gt; 2,0      x1^2    1      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`</span>
-<span class="co">#&gt; $`1,1`$f</span>
-<span class="co">#&gt; [1] "(1) * x1^1*x2^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1    0      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2    0      2</span>
-<span class="co">#&gt; 2,0      x1^2    0      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1    1      2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`0,0`</span></span>
+<span><span class="co">#&gt; $`0,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * 1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,0`$order</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,0`$terms</span></span>
+<span><span class="co">#&gt;     var coef degree</span></span>
+<span><span class="co">#&gt; 0,0   1    1      0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`</span></span>
+<span><span class="co">#&gt; $`0,1`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * x2^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`$order</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`$terms</span></span>
+<span><span class="co">#&gt;      var coef degree</span></span>
+<span><span class="co">#&gt; 0,0    1    0      0</span></span>
+<span><span class="co">#&gt; 0,1 x2^1    1      1</span></span>
+<span><span class="co">#&gt; 1,0 x1^1    0      1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`</span></span>
+<span><span class="co">#&gt; $`1,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * x1^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`$order</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`$terms</span></span>
+<span><span class="co">#&gt;      var coef degree</span></span>
+<span><span class="co">#&gt; 0,0    1    0      0</span></span>
+<span><span class="co">#&gt; 0,1 x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0 x1^1    1      1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`</span></span>
+<span><span class="co">#&gt; $`0,2`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1   -1      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2    1      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    0      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`</span></span>
+<span><span class="co">#&gt; $`2,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * 1 + (1) * x1^2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1   -1      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2    0      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    1      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`</span></span>
+<span><span class="co">#&gt; $`1,1`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * x1^1*x2^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1    0      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2    0      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    0      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1    1      2</span></span></code></pre></div>
 <p>If <code>transform</code> is not <code>NULL</code>, the variables <code>var</code> <span class="math inline">\(x\)</span> are replaced with <code>transform</code> <span class="math inline">\(f(x)\)</span> to compute the polynomials <span class="math inline">\(H_{ν}(f(x),\Sigma)\)</span>. For example:</p>
 <p><span class="math display">\[
 f(x_1,x_2)=
@@ -271,96 +271,96 @@ x_1+x_2,x_1-x_2
 \end{bmatrix}
 \]</span></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>, transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'x1+x2'</span>,<span class="st">'x1-x2'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; $`0,0`</span>
-<span class="co">#&gt; $`0,0`$f</span>
-<span class="co">#&gt; [1] "(1) * 1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,0`$order</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,0`$terms</span>
-<span class="co">#&gt;     var coef degree</span>
-<span class="co">#&gt; 0,0   1    1      0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`</span>
-<span class="co">#&gt; $`0,1`$f</span>
-<span class="co">#&gt; [1] "(-1) * x2^1 + (1) * x1^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`$order</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,1`$terms</span>
-<span class="co">#&gt;      var coef degree</span>
-<span class="co">#&gt; 0,0    1    0      0</span>
-<span class="co">#&gt; 0,1 x2^1   -1      1</span>
-<span class="co">#&gt; 1,0 x1^1    1      1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`</span>
-<span class="co">#&gt; $`1,0`$f</span>
-<span class="co">#&gt; [1] "(1) * x2^1 + (1) * x1^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`$order</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,0`$terms</span>
-<span class="co">#&gt;      var coef degree</span>
-<span class="co">#&gt; 0,0    1    0      0</span>
-<span class="co">#&gt; 0,1 x2^1    1      1</span>
-<span class="co">#&gt; 1,0 x1^1    1      1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`</span>
-<span class="co">#&gt; $`0,2`$f</span>
-<span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2 + (1) * x1^2 + (-2) * x1^1*x2^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`0,2`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1   -1      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2    1      2</span>
-<span class="co">#&gt; 2,0      x1^2    1      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1   -2      2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`</span>
-<span class="co">#&gt; $`2,0`$f</span>
-<span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2 + (1) * x1^2 + (2) * x1^1*x2^1"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`2,0`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1   -1      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2    1      2</span>
-<span class="co">#&gt; 2,0      x1^2    1      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1    2      2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`</span>
-<span class="co">#&gt; $`1,1`$f</span>
-<span class="co">#&gt; [1] "(-1) * x2^2 + (1) * x1^2"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`$order</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`1,1`$terms</span>
-<span class="co">#&gt;           var coef degree</span>
-<span class="co">#&gt; 0,0         1    0      0</span>
-<span class="co">#&gt; 0,1      x2^1    0      1</span>
-<span class="co">#&gt; 1,0      x1^1    0      1</span>
-<span class="co">#&gt; 0,2      x2^2   -1      2</span>
-<span class="co">#&gt; 2,0      x1^2    1      2</span>
-<span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/hermite.html">hermite</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">2</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>, transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'x1+x2'</span>,<span class="st">'x1-x2'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`0,0`</span></span>
+<span><span class="co">#&gt; $`0,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * 1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,0`$order</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,0`$terms</span></span>
+<span><span class="co">#&gt;     var coef degree</span></span>
+<span><span class="co">#&gt; 0,0   1    1      0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`</span></span>
+<span><span class="co">#&gt; $`0,1`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * x2^1 + (1) * x1^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`$order</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,1`$terms</span></span>
+<span><span class="co">#&gt;      var coef degree</span></span>
+<span><span class="co">#&gt; 0,0    1    0      0</span></span>
+<span><span class="co">#&gt; 0,1 x2^1   -1      1</span></span>
+<span><span class="co">#&gt; 1,0 x1^1    1      1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`</span></span>
+<span><span class="co">#&gt; $`1,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(1) * x2^1 + (1) * x1^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`$order</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,0`$terms</span></span>
+<span><span class="co">#&gt;      var coef degree</span></span>
+<span><span class="co">#&gt; 0,0    1    0      0</span></span>
+<span><span class="co">#&gt; 0,1 x2^1    1      1</span></span>
+<span><span class="co">#&gt; 1,0 x1^1    1      1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`</span></span>
+<span><span class="co">#&gt; $`0,2`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2 + (1) * x1^2 + (-2) * x1^1*x2^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`0,2`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1   -1      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2    1      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    1      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1   -2      2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`</span></span>
+<span><span class="co">#&gt; $`2,0`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * 1 + (1) * x2^2 + (1) * x1^2 + (2) * x1^1*x2^1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`2,0`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1   -1      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2    1      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    1      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1    2      2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`</span></span>
+<span><span class="co">#&gt; $`1,1`$f</span></span>
+<span><span class="co">#&gt; [1] "(-1) * x2^2 + (1) * x1^2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`$order</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`1,1`$terms</span></span>
+<span><span class="co">#&gt;           var coef degree</span></span>
+<span><span class="co">#&gt; 0,0         1    0      0</span></span>
+<span><span class="co">#&gt; 0,1      x2^1    0      1</span></span>
+<span><span class="co">#&gt; 1,0      x1^1    0      1</span></span>
+<span><span class="co">#&gt; 0,2      x2^2   -1      2</span></span>
+<span><span class="co">#&gt; 2,0      x1^2    1      2</span></span>
+<span><span class="co">#&gt; 1,1 x1^1*x2^1    0      2</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
 </h2>
@@ -395,7 +395,7 @@ x_1+x_2,x_1-x_2
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

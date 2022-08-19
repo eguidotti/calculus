@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -116,19 +116,17 @@
 <div class="section level1">
 <div class="page-header"><h1 id="high-dimensional-numerical-and-symbolic-calculus-in-r-">High Dimensional Numerical and Symbolic Calculus in R <img src="reference/figures/logo.png" width="128" align="right" style="background-color:white"><a class="anchor" aria-label="anchor" href="#high-dimensional-numerical-and-symbolic-calculus-in-r-"></a>
 </h1></div>
-<blockquote>
-<p>Efficient C++ optimized functions for numerical and symbolic calculus.</p>
-</blockquote>
+<blockquote><p>Efficient C++ optimized functions for numerical and symbolic calculus.</p></blockquote>
 <p>The R package <strong>calculus</strong> implements C++ optimized functions for numerical and symbolic calculus, such as the <a href="https://calculus.guidotti.dev/articles/einstein.html">Einstein summing convention</a>, fast computation of the <a href="https://calculus.guidotti.dev/reference/epsilon.html">Levi-Civita</a> symbol and generalized <a href="https://calculus.guidotti.dev/reference/delta.html">Kronecker delta</a>, <a href="https://calculus.guidotti.dev/articles/taylor.html">Taylor series expansion</a>, multivariate <a href="https://calculus.guidotti.dev/articles/hermite.html">Hermite polynomials</a>, high-order <a href="https://calculus.guidotti.dev/articles/derivatives.html">derivatives</a>, <a href="https://calculus.guidotti.dev/articles/ode.html">ordinary differential equations</a>, <a href="https://calculus.guidotti.dev/articles/differential-operators.html">differential operators</a> and <a href="https://calculus.guidotti.dev/articles/integrals.html">numerical integration</a> in arbitrary orthogonal coordinate systems. The library applies numerical methods when working with <code>functions</code> or symbolic programming when working with <code>characters</code> or <code>expressions</code>. The package handles multivariate numerical calculus in arbitrary dimensions and coordinates and implements the symbolic counterpart of the numerical methods whenever possible, without depending on external computer algebra systems. Except for <a href="https://cran.r-project.org/package=Rcpp" class="external-link">Rcpp</a>, the package has no strict dependencies in order to provide a stable self-contained toolbox that invites re-use.</p>
 <div class="section level2">
 <h2 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
 </h2>
 <p>Install the package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"calculus"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"calculus"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=calculus/calculus.pdf" class="external-link">Read</a> or <a href="https://calculus.guidotti.dev/reference/index.html">browse</a> the documentation and the <a href="https://calculus.guidotti.dev/articles/index.html">vignettes</a>.</p>
 </div>
 <div class="section level2">
@@ -224,7 +222,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

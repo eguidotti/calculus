@@ -1,3 +1,7 @@
+# calculus 1.0.0
+
+- JSS publication
+
 # calculus 0.3.4
 
 - fix CRAN check

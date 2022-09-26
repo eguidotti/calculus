@@ -22,7 +22,7 @@
 #' @family utilities
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -53,7 +53,7 @@ wrap <- function(x){
 #' @family utilities
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -88,7 +88,7 @@ e2c <- function(x){
 #' @family utilities
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -125,7 +125,7 @@ c2e <- function(x){
 #' @family tensor algebra
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -182,7 +182,7 @@ index <- function(x){
 #' @family tensor algebra
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 

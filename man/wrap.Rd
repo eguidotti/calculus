@@ -31,7 +31,7 @@ wrap(array(letters[1:9], dim = c(3,3)))
 
 }
 \references{
-Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 }
 \seealso{
 Other utilities: 

@@ -55,19 +55,20 @@ einstein(a, b, c)
 
 ## Cite as
 
-*Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". https://arxiv.org/abs/2101.00086*
+Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic Calculus in R.” _Journal of Statistical Software_, *104*(5), 1-37. [doi:10.18637/jss.v104.i05](https://doi.org/10.18637/jss.v104.i05)
 
 A BibTeX entry for LaTeX users is
 
-```latex
-@Misc{,
-    title = {calculus: High Dimensional Numerical and Symbolic Calculus in R},
-    author = {Emanuele Guidotti},
-    year = {2020},
-    eprint = {2101.00086},
-    archiveprefix = {arXiv},
-    primaryclass = {cs.MS},
-    url = {https://arxiv.org/abs/2101.00086}
+```bibtex
+@Article{,
+  title = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},
+  author = {Emanuele Guidotti},
+  journal = {Journal of Statistical Software},
+  year = {2022},
+  volume = {104},
+  number = {5},
+  pages = {1--37},
+  doi = {10.18637/jss.v104.i05},
 }
 ```
 

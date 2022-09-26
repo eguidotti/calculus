@@ -24,7 +24,7 @@
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -74,7 +74,7 @@
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -131,7 +131,7 @@
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -188,7 +188,7 @@
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -250,7 +250,7 @@
 #' @family matrix algebra
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -336,7 +336,7 @@ mx <- function(x, y){
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -382,7 +382,7 @@ mx <- function(x, y){
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -435,7 +435,7 @@ mx <- function(x, y){
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -477,7 +477,7 @@ mx <- function(x, y){
 #' @family basic arithmetic
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -518,7 +518,7 @@ mx <- function(x, y){
 #' @family vector algebra
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -622,7 +622,7 @@ cross <- function(...){
 #' @family differential operators
 #'
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #'      
 #' @export
 #' 
@@ -717,7 +717,7 @@ gradient <- function(f, var, params = list(), coordinates = 'cartesian', accurac
 #' @family differential operators
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -793,7 +793,7 @@ jacobian <- function(f, var, params = list(), coordinates = 'cartesian', accurac
 #' @family differential operators
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -910,7 +910,7 @@ hessian <- function(f, var, params = list(), accuracy = 4, stepsize = NULL, drop
 #' @family differential operators
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 
@@ -1085,7 +1085,7 @@ divergence <- function(f, var, params = list(), coordinates = 'cartesian', accur
 #' @family differential operators
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #'
@@ -1244,7 +1244,7 @@ curl <- function(f, var, params = list(), coordinates = 'cartesian', accuracy = 
 #' @family differential operators
 #' 
 #' @references 
-#' Guidotti, E. (2020). "calculus: High dimensional numerical and symbolic calculus in R". \url{https://arxiv.org/abs/2101.00086}
+#' Guidotti E (2022). "calculus: High-Dimensional Numerical and Symbolic Calculus in R." Journal of Statistical Software, 104(5), 1-37. \doi{10.18637/jss.v104.i05}
 #' 
 #' @export
 #' 

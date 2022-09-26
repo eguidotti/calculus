@@ -64,7 +64,7 @@ Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic Calculus
 A BibTeX entry for LaTeX users is
 
 ```bibtex
-@Article{,
+@Article{calculus,
   title = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},
   author = {Emanuele Guidotti},
   journal = {Journal of Statistical Software},

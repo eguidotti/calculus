@@ -28,7 +28,7 @@ $$
 H_{\nu}(x) = e^{\frac{x^2}{2}}(-1)^\nu \frac{d^\nu}{dx^\nu}e^{-\frac{x^2}{2}}
 $$
 
-The function [`hermite`](https://calculus.guidotti.dev/reference/hermite.html) generates recursively all the Hermite polynomials of degree $\nu'$ where $|\nu'| \leq|\nu|$. The output is a `list` of Hermite polynomials of degree $\nu'$, where each polynomial is described as a `list` containing the `character` representing the polynomial, the order of the polynomial, and a `data.frame` containing the variables, coefficients and degrees of each term in the polynomial.
+The function [`hermite`](https://calculus.eguidotti.com/reference/hermite.html) generates recursively all the Hermite polynomials of degree $\nu'$ where $|\nu'| \leq|\nu|$. The output is a `list` of Hermite polynomials of degree $\nu'$, where each polynomial is described as a `list` containing the `character` representing the polynomial, the order of the polynomial, and a `data.frame` containing the variables, coefficients and degrees of each term in the polynomial.
 
 In the univariate case, for $\nu=2$:
 

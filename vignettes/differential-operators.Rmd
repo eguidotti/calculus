@@ -36,7 +36,7 @@ The gradient of a scalar-valued function $F$ is the vector $(\nabla F)_i$ whose 
 
 $$(\nabla F)_i = \frac{1}{h_i}\partial_iF$$
 
-The function [`gradient`](https://calculus.guidotti.dev/reference/gradient.html) implements the symbolic and numeric gradient of `functions`, `expressions` and `characters`. In Cartesian coordinates:
+The function [`gradient`](https://calculus.eguidotti.com/reference/gradient.html) implements the symbolic and numeric gradient of `functions`, `expressions` and `characters`. In Cartesian coordinates:
 
 ```{r}
 gradient("x*y*z", var = c("x", "y", "z"))
@@ -54,7 +54,7 @@ To support arbitrary orthogonal coordinate systems, it is possible to pass custo
 gradient("x*y*z", var = c("x","y","z"), coordinates = c(1,"x","x*sin(y)"))
 ```
 
-Numerical methods are applied when working with `functions` with the same sintax introduced for [derivatives](https://calculus.guidotti.dev/reference/derivative.html).
+Numerical methods are applied when working with `functions` with the same sintax introduced for [derivatives](https://calculus.eguidotti.com/reference/derivative.html).
 
 ```{r}
 f <- function(x, y, z) x*y*z
@@ -88,7 +88,7 @@ gradient(f, var = c(3, 2, 1), coordinates = "cylindrical")
 
 ### Jacobian
 
-The function [`jacobian`](https://calculus.guidotti.dev/reference/jacobian.html) is a wrapper for [`gradient`](https://calculus.guidotti.dev/reference/gradient.html) that always returns the Jacobian as a matrix, even in the case of unidimensional scalar-valued functions.
+The function [`jacobian`](https://calculus.eguidotti.com/reference/jacobian.html) is a wrapper for [`gradient`](https://calculus.eguidotti.com/reference/gradient.html) that always returns the Jacobian as a matrix, even in the case of unidimensional scalar-valued functions.
 
 ```{r}
 f <- function(x) x^2
@@ -108,7 +108,7 @@ f <- function(x, y, z) x*y*z
 hessian(f, var = c(x = 3, y = 2, z = 1))
 ```
 
-When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`hessian`](https://calculus.guidotti.dev/reference/hessian.html) is computed for each scalar component.
+When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`hessian`](https://calculus.eguidotti.com/reference/hessian.html) is computed for each scalar component.
 
 $$(H(F_{d_1,\dots,d_n}))_{ij} = \partial_{ij}F_{d_1,\dots,d_n}$$
 
@@ -132,7 +132,7 @@ The divergence of a vector-valued function $F_i$ produces a scalar value $\nabla
 
 $$\nabla \cdot F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)$$
 
-where $J=\prod_ih_i$. When $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$, the [`divergence`](https://calculus.guidotti.dev/reference/divergence.html) is computed for each vector:
+where $J=\prod_ih_i$. When $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$, the [`divergence`](https://calculus.eguidotti.com/reference/divergence.html) is computed for each vector:
 
 $$(\nabla \cdot F)_{d_1,\dots,d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\Biggl)=\frac{1}{J}\sum_i\partial_i(Jh_i^{-1})F_{d_1,\dots,d_n,i}+Jh_i^{-1}\partial_i(F_{d_1,\dots,d_n,i})$$
 
@@ -166,7 +166,7 @@ divergence(f, var = c(x = 0, y = 0, z = 0))
 
 ## Curl
 
-The curl of a vector-valued function $F_i$ at a point is represented by a vector whose length and direction denote the magnitude and axis of the maximum circulation.^[https://en.wikipedia.org/wiki/Curl_(mathematics)] In 2 dimensions, the curl is written in terms of the scale factors $h$ and the [Levi-Civita symbol](https://calculus.guidotti.dev/reference/epsilon.html) $\epsilon$ as follows:
+The curl of a vector-valued function $F_i$ at a point is represented by a vector whose length and direction denote the magnitude and axis of the maximum circulation.^[https://en.wikipedia.org/wiki/Curl_(mathematics)] In 2 dimensions, the curl is written in terms of the scale factors $h$ and the [Levi-Civita symbol](https://calculus.eguidotti.com/reference/epsilon.html) $\epsilon$ as follows:
 
 $$\nabla \times F = \frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)= \frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)$$
 
@@ -174,11 +174,11 @@ In 3 dimensions:
 
 $$(\nabla \times F)_k = \frac{h_k}{J}\sum_{ij}\epsilon_{ijk}\partial_i\Bigl(h_jF_j\Bigl)$$
 
-where $J=\prod_i h_i$. This suggests to implement the [`curl`](https://calculus.guidotti.dev/reference/curl.html) in $m+2$ dimensions in such a way that the formula reduces correctly to the previous cases:
+where $J=\prod_i h_i$. This suggests to implement the [`curl`](https://calculus.eguidotti.com/reference/curl.html) in $m+2$ dimensions in such a way that the formula reduces correctly to the previous cases:
 
 $$(\nabla \times F)_{k_1\dots k_m} = \frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_j\Bigl)$$
 
-And in particular, when $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$ the [`curl`](https://calculus.guidotti.dev/reference/curl.html) is computed for each vector:
+And in particular, when $F$ is an `array` of vector-valued functions $F_{d_1,\dots,d_n,i}$ the [`curl`](https://calculus.eguidotti.com/reference/curl.html) is computed for each vector:
 
 $$
 \begin{split}
@@ -218,7 +218,7 @@ The Laplacian is a differential operator given by the divergence of the gradient
 
 $$\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)$$
 
-where $J=\prod_ih_i$. When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`laplacian`](https://calculus.guidotti.dev/reference/laplacian.html) is computed for each scalar component:
+where $J=\prod_ih_i$. When the function $F$ is a tensor-valued function $F_{d_1,\dots,d_n}$, the [`laplacian`](https://calculus.eguidotti.com/reference/laplacian.html) is computed for each scalar component:
 
 $$(\nabla^2F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots d_n}\Biggl)=\frac{1}{J}\sum_i\partial_i\Bigl(Jh_i^{-2}\Bigl)\partial_iF_{d_1\dots d_n}+Jh_i^{-2}\partial^2_iF_{d_1\dots d_n}$$
 

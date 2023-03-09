@@ -21,14 +21,14 @@ knitr::opts_knit$set(
 library(calculus)
 ```
 
-The function [`ode`](https://calculus.guidotti.dev/reference/ode.html) provides solvers for systems of ordinary differential equations of the type:
+The function [`ode`](https://calculus.eguidotti.com/reference/ode.html) provides solvers for systems of ordinary differential equations of the type:
 
 $$
 \frac{dy}{dt} = f(t,y), \quad y(t_0)=y_0
 $$
 
 where $y$ is the vector of state variables. Two solvers are available: the simpler and faster Euler scheme^[https://en.wikipedia.org/wiki/Euler_method] or the more accurate 4-th order Runge-Kutta method^[https://en.wikipedia.org/wiki/Runge-Kutta_methods]. 
-Although many packages already exist to solve ordinary differential equations in R^[https://CRAN.R-project.org/view=DifferentialEquations], they usually represent the function $f$ either with an R `function` or with `characters`. While the representation via R `functions` is usually more efficient, the symbolic representation is easier to adopt for beginners and more flexible for advanced users to handle systems that might have been generated via symbolic programming. The function [`ode`](https://calculus.guidotti.dev/reference/ode.html) supports both the representations and uses hashed `environments` to improve symbolic evaluations. 
+Although many packages already exist to solve ordinary differential equations in R^[https://CRAN.R-project.org/view=DifferentialEquations], they usually represent the function $f$ either with an R `function` or with `characters`. While the representation via R `functions` is usually more efficient, the symbolic representation is easier to adopt for beginners and more flexible for advanced users to handle systems that might have been generated via symbolic programming. The function [`ode`](https://calculus.eguidotti.com/reference/ode.html) supports both the representations and uses hashed `environments` to improve symbolic evaluations. 
 
 ## Examples
 

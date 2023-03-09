@@ -3,6 +3,8 @@
 ^\.github$
 ^docs$
 ^pkgdown$
+^/src/*.o$
+^/src/*.so$
 .travis.yml
 .Rhistory
 .RData

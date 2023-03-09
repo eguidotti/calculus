@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(calculus)
 ```
 
-The function [`derivative`](https://calculus.guidotti.dev/reference/derivative.html) performs high-order symbolic and numerical differentiation for generic tensors with respect to an arbitrary number of variables.
+The function [`derivative`](https://calculus.eguidotti.com/reference/derivative.html) performs high-order symbolic and numerical differentiation for generic tensors with respect to an arbitrary number of variables.
 The function behaves differently depending on the arguments `order`, the order of differentiation, and `var`, the variable names with respect to which the derivatives are computed.
 
 When multiple variables are provided and `order` is a single integer $n$, then the $n$-th order derivative is computed for each element of the tensor with respect to each variable:

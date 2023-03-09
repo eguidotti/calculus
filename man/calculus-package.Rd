@@ -13,7 +13,7 @@ Efficient C++ optimized functions for numerical and symbolic calculus as describ
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://calculus.guidotti.dev}
+  \item \url{https://calculus.eguidotti.com}
   \item Report bugs at \url{https://github.com/eguidotti/calculus/issues}
 }
 

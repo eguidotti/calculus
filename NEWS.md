@@ -1,3 +1,7 @@
+# calculus 1.0.1
+
+- Site moved to https://calculus.eguidotti.com
+
 # calculus 1.0.0
 
 - JSS publication

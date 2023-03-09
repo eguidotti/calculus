@@ -22,7 +22,7 @@ In mathematics, the Einstein notation or Einstein summation convention is a nota
 
 $$C_{ij} = A_{ik}{B_{kj}}\equiv\sum_k A_{ik}{B_{kj}}$$
 
-The function [`einstein`](https://calculus.guidotti.dev/reference/einstein.html) provides a convenient way to compute general Einstein summations among two or more tensors, with or without repeated indices appearing in the same tensor. The function supports both numerical and symbolical calculations implemented via the usage of `C++` templates that operate with generic types and allow the function to work on the different data types without being rewritten for each one. 
+The function [`einstein`](https://calculus.eguidotti.com/reference/einstein.html) provides a convenient way to compute general Einstein summations among two or more tensors, with or without repeated indices appearing in the same tensor. The function supports both numerical and symbolical calculations implemented via the usage of `C++` templates that operate with generic types and allow the function to work on the different data types without being rewritten for each one. 
 
 ## Examples
 
@@ -34,7 +34,7 @@ b <- array(letters[1:3], dim = c(j=3, k=1))
 einstein(a, b)
 ```
 
-The indices can also be set on the fly with the function [`index`](https://calculus.guidotti.dev/reference/index-topic.html)
+The indices can also be set on the fly with the function [`index`](https://calculus.eguidotti.com/reference/index-topic.html)
 
 ```{r}
 a <- array(letters[1:6], dim = c(2, 3))

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(calculus)
 ```
 
-The function [`taylor`](https://calculus.guidotti.dev/reference/taylor.html) provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a `character` string or as a `function`. Symbolic or numerical methods are applied accordingly. For univariate functions, the $n$-th order Taylor approximation centered in $x_0$ is given by:
+The function [`taylor`](https://calculus.eguidotti.com/reference/taylor.html) provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a `character` string or as a `function`. Symbolic or numerical methods are applied accordingly. For univariate functions, the $n$-th order Taylor approximation centered in $x_0$ is given by:
 
 $$
 f(x) \simeq \sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
@@ -38,13 +38,13 @@ The summation runs for $0\leq |k|\leq n$ and identifies the set
 
 $$\{(k_1,\cdots,k_d):k_1+\cdots k_d \leq n\}$$
 
-that corresponds to the partitions of the integer $n$. These partitions can be computed with the function [`partitions`](https://calculus.guidotti.dev/reference/partitions.html) that is included in the package and optimized in `C++` for speed and flexibility. For example, the following call generates the partitions needed for the $2$-nd order Taylor expansion for a function of $3$ variables:
+that corresponds to the partitions of the integer $n$. These partitions can be computed with the function [`partitions`](https://calculus.eguidotti.com/reference/partitions.html) that is included in the package and optimized in `C++` for speed and flexibility. For example, the following call generates the partitions needed for the $2$-nd order Taylor expansion for a function of $3$ variables:
 
 ```{r}
 partitions(n = 2, length = 3, fill = TRUE, perm = TRUE, equal = FALSE)
 ```
 
-Based on these partitions, the function [`taylor`](https://calculus.guidotti.dev/reference/taylor.html) computes the corresponding derivatives and builds the Taylor series. The output is a `list` containing the Taylor series, the order of the expansion, and a `data.frame` containing the variables, coefficients and degrees of each term in the Taylor series.
+Based on these partitions, the function [`taylor`](https://calculus.eguidotti.com/reference/taylor.html) computes the corresponding derivatives and builds the Taylor series. The output is a `list` containing the Taylor series, the order of the expansion, and a `data.frame` containing the variables, coefficients and degrees of each term in the Taylor series.
 
 ```{r}
 taylor("exp(x)", var = "x", order = 2)

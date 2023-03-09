@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="High order derivatives of multivariate functions">
 <meta property="og:description" content="calculus">
-<meta property="og:image" content="https://calculus.guidotti.dev/logo.png">
+<meta property="og:image" content="https://calculus.eguidotti.com/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -109,10 +109,11 @@
 
       
 
-      </header><script src="derivatives_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>High order derivatives of multivariate functions</h1>
+      <h1 data-toc-skip>High order derivatives of multivariate
+functions</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/HEAD/vignettes/derivatives.Rmd" class="external-link"><code>vignettes/derivatives.Rmd</code></a></small>
@@ -123,17 +124,44 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
-<p>The function <a href="https://calculus.guidotti.dev/reference/derivative.html"><code>derivative</code></a> performs high-order symbolic and numerical differentiation for generic tensors with respect to an arbitrary number of variables. The function behaves differently depending on the arguments <code>order</code>, the order of differentiation, and <code>var</code>, the variable names with respect to which the derivatives are computed.</p>
-<p>When multiple variables are provided and <code>order</code> is a single integer <span class="math inline">\(n\)</span>, then the <span class="math inline">\(n\)</span>-th order derivative is computed for each element of the tensor with respect to each variable:</p>
-<p><span class="math display">\[D = \partial^{(n)} \otimes F\]</span></p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.eguidotti.com">calculus</a></span><span class="op">)</span></span></code></pre></div>
+<p>The function <a href="https://calculus.eguidotti.com/reference/derivative.html"><code>derivative</code></a>
+performs high-order symbolic and numerical differentiation for generic
+tensors with respect to an arbitrary number of variables. The function
+behaves differently depending on the arguments <code>order</code>, the
+order of differentiation, and <code>var</code>, the variable names with
+respect to which the derivatives are computed.</p>
+<p>When multiple variables are provided and <code>order</code> is a
+single integer <span class="math inline">\(n\)</span>, then the <span class="math inline">\(n\)</span>-th order derivative is computed for
+each element of the tensor with respect to each variable:</p>
+<p><span class="math display">\[D = \partial^{(n)} \otimes
+F\]</span></p>
 <p>that is:</p>
-<p><span class="math display">\[D_{i,\dots,j,k} = \partial^{(n)}_{k} F_{i,\dots,j}\]</span></p>
-<p>where <span class="math inline">\(F\)</span> is the tensor of functions and <span class="math inline">\(\partial_k^{(n)}\)</span> denotes the <span class="math inline">\(n\)</span>-th order partial derivative with respect to the <span class="math inline">\(k\)</span>-th variable.</p>
-<p>When <code>order</code> matches the length of <code>var</code>, it is assumed that the differentiation order is provided for each variable. In this case, each element is derived <span class="math inline">\(n_k\)</span> times with respect to the <span class="math inline">\(k\)</span>-th variable, for each of the <span class="math inline">\(m\)</span> variables.</p>
-<p><span class="math display">\[D_{i,\dots,j} = \partial^{(n_1)}_1\cdots\partial^{(n_m)}_m F_{i,\dots,j}\]</span></p>
-<p>The same applies when <code>order</code> is a named vector giving the differentiation order for each variable. For example, <code>order = c(x=1, y=2)</code> differentiates once with respect to <span class="math inline">\(x\)</span> and twice with respect to <span class="math inline">\(y\)</span>. A call with <code>order = c(x=1, y=0)</code> is equivalent to <code>order = c(x=1)</code>.</p>
-<p>To compute numerical derivatives or to evaluate symbolic derivatives at a point, the function accepts a named vector for the argument <code>var</code>; e.g. <code>var = c(x=1, y=2)</code> evaluates the derivatives in <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=2\)</span>. For <code>functions</code> where the first argument is used as a parameter vector, <code>var</code> should be a <code>numeric</code> vector indicating the point at which the derivatives are to be calculated.</p>
+<p><span class="math display">\[D_{i,\dots,j,k} = \partial^{(n)}_{k}
+F_{i,\dots,j}\]</span></p>
+<p>where <span class="math inline">\(F\)</span> is the tensor of
+functions and <span class="math inline">\(\partial_k^{(n)}\)</span>
+denotes the <span class="math inline">\(n\)</span>-th order partial
+derivative with respect to the <span class="math inline">\(k\)</span>-th
+variable.</p>
+<p>When <code>order</code> matches the length of <code>var</code>, it is
+assumed that the differentiation order is provided for each variable. In
+this case, each element is derived <span class="math inline">\(n_k\)</span> times with respect to the <span class="math inline">\(k\)</span>-th variable, for each of the <span class="math inline">\(m\)</span> variables.</p>
+<p><span class="math display">\[D_{i,\dots,j} =
+\partial^{(n_1)}_1\cdots\partial^{(n_m)}_m F_{i,\dots,j}\]</span></p>
+<p>The same applies when <code>order</code> is a named vector giving the
+differentiation order for each variable. For example,
+<code>order = c(x=1, y=2)</code> differentiates once with respect to
+<span class="math inline">\(x\)</span> and twice with respect to <span class="math inline">\(y\)</span>. A call with
+<code>order = c(x=1, y=0)</code> is equivalent to
+<code>order = c(x=1)</code>.</p>
+<p>To compute numerical derivatives or to evaluate symbolic derivatives
+at a point, the function accepts a named vector for the argument
+<code>var</code>; e.g. <code>var = c(x=1, y=2)</code> evaluates the
+derivatives in <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=2\)</span>. For <code>functions</code> where the
+first argument is used as a parameter vector, <code>var</code> should be
+a <code>numeric</code> vector indicating the point at which the
+derivatives are to be calculated.</p>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
@@ -153,11 +181,13 @@
 <span><span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span>f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt;      Symbolic       Numeric </span></span>
 <span><span class="co">#&gt;  0.000000e+00 -2.922023e-11</span></span></code></pre>
-<p>Symbolic derivatives of multivariate functions: <span class="math inline">\(\partial_x^{(1)}\partial_y^{(2)} y^2sin(x)\)</span>.</p>
+<p>Symbolic derivatives of multivariate functions: <span class="math inline">\(\partial_x^{(1)}\partial_y^{(2)}
+y^2sin(x)\)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span>f <span class="op">=</span> <span class="st">"y^2*sin(x)"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2 * cos(x)"</span></span></code></pre></div>
-<p>Numerical derivatives of multivariate functions: <span class="math inline">\(\partial_x^{(1)}\partial_y^{(2)} y^2sin(x)|_{x=0,y=0}\)</span> with degree of accuracy <span class="math inline">\(O(h^6)\)</span>.</p>
+<p>Numerical derivatives of multivariate functions: <span class="math inline">\(\partial_x^{(1)}\partial_y^{(2)}
+y^2sin(x)|_{x=0,y=0}\)</span> with degree of accuracy <span class="math inline">\(O(h^6)\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">0</span>, y<span class="op">=</span><span class="fl">0</span><span class="op">)</span>, order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, accuracy <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
@@ -178,14 +208,17 @@
 <span><span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
 <span><span class="co">#&gt; [1,]    8    4</span></span></code></pre></div>
-<p>Numerical Jacobian of vector valued functions: <span class="math inline">\(\partial_{x,y}[xy,x^2y^2]|_{x = 1, y = 2}\)</span>.</p>
+<p>Numerical Jacobian of vector valued functions: <span class="math inline">\(\partial_{x,y}[xy,x^2y^2]|_{x = 1, y =
+2}\)</span>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">y</span>, <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="va">y</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, y<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
 <span><span class="co">#&gt; [1,]    2    1</span></span>
 <span><span class="co">#&gt; [2,]    8    4</span></span></code></pre></div>
-<p>Numerical Jacobian of vector valued  where the first argument is used as a parameter vector: <span class="math inline">\(\partial_{X}[\sum_ix_i, \prod_ix_i]|_{X = 0}\)</span>.</p>
+<p>Numerical Jacobian of vector valued where the first argument is used
+as a parameter vector: <span class="math inline">\(\partial_{X}[\sum_ix_i, \prod_ix_i]|_{X =
+0}\)</span>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/derivative.html">derivative</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -196,18 +229,20 @@
 <div class="section level2">
 <h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
 </h2>
-<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic Calculus in R.” <em>Journal of Statistical Software</em>, <em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
+<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic
+Calculus in R.” <em>Journal of Statistical Software</em>,
+<em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
 <p>A BibTeX entry for LaTeX users is</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb14-1"><a href="#cb14-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="dt">year</span> = {2022},</span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="dt">volume</span> = {104},</span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="dt">number</span> = {5},</span>
-<span id="cb14-8"><a href="#cb14-8"></a>  <span class="dt">pages</span> = {1--37},</span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
-<span id="cb14-10"><a href="#cb14-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {2022},</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {104},</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {1--37},</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
   </div>
 
@@ -223,12 +258,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
+<p>Developed by <a href="https://eguidotti.com" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

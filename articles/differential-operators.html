@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Differential operators in arbitrary orthogonal coordinates systems">
 <meta property="og:description" content="calculus">
-<meta property="og:image" content="https://calculus.guidotti.dev/logo.png">
+<meta property="og:image" content="https://calculus.eguidotti.com/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -109,10 +109,11 @@
 
       
 
-      </header><script src="differential-operators_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Differential operators in arbitrary orthogonal coordinates systems</h1>
+      <h1 data-toc-skip>Differential operators in arbitrary orthogonal
+coordinates systems</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/eguidotti/calculus/blob/HEAD/vignettes/differential-operators.Rmd" class="external-link"><code>vignettes/differential-operators.Rmd</code></a></small>
@@ -123,8 +124,23 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
-<p>Orthogonal coordinates are a special but extremely common case of curvilinear coordinates where the coordinate surfaces all meet at right angles. The chief advantage of non-Cartesian coordinates is that they can be chosen to match the symmetry of the problem. For example, spherical coordinates are the most common curvilinear coordinate systems and are used in Earth sciences, cartography, quantum mechanics, relativity, and engineering.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> These coordinates may be derived from a set of Cartesian coordinates by using a transformation that is locally invertible (a one-to-one map) at each point. This means that one can convert a point given in a Cartesian coordinate system to its curvilinear coordinates and back. Differential operators such as the gradient, divergence, curl, and Laplacian can be transformed from one coordinate system to another via the usage of scale factors.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The package implements these operators in Cartesian, polar, spherical, cylindrical, parabolic coordinates, and supports arbitrary orthogonal coordinates systems defined by custom scale factors.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.eguidotti.com">calculus</a></span><span class="op">)</span></span></code></pre></div>
+<p>Orthogonal coordinates are a special but extremely common case of
+curvilinear coordinates where the coordinate surfaces all meet at right
+angles. The chief advantage of non-Cartesian coordinates is that they
+can be chosen to match the symmetry of the problem. For example,
+spherical coordinates are the most common curvilinear coordinate systems
+and are used in Earth sciences, cartography, quantum mechanics,
+relativity, and engineering.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> These coordinates may be derived from a set
+of Cartesian coordinates by using a transformation that is locally
+invertible (a one-to-one map) at each point. This means that one can
+convert a point given in a Cartesian coordinate system to its
+curvilinear coordinates and back. Differential operators such as the
+gradient, divergence, curl, and Laplacian can be transformed from one
+coordinate system to another via the usage of scale factors.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The
+package implements these operators in Cartesian, polar, spherical,
+cylindrical, parabolic coordinates, and supports arbitrary orthogonal
+coordinates systems defined by custom scale factors.</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -132,45 +148,68 @@
 <col width="33%">
 </colgroup>
 <thead><tr class="header">
-<th>Curvilinear coordinates <span class="math inline">\((q_1, q_2, q_3)\)</span>
+<th>Curvilinear coordinates <span class="math inline">\((q_1, q_2,
+q_3)\)</span>
 </th>
-<th>Transformation from cartesian <span class="math inline">\((x, y, z)\)</span>
+<th>Transformation from cartesian <span class="math inline">\((x, y,
+z)\)</span>
 </th>
 <th>Scale factors</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Spherical polar coordinates <span class="math inline">\((r,\theta ,\phi )\)</span>
+<td>Spherical polar coordinates <span class="math inline">\((r,\theta
+,\phi )\)</span>
 </td>
-<td><span class="math inline">\({\begin{aligned}x&amp;=r\sin \theta \cos \phi \\y&amp;=r\sin \theta \sin \phi \\z&amp;=r\cos \theta \end{aligned}}\)</span></td>
-<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=1\\h_{2}&amp;=r\\h_{3}&amp;=r\sin \theta \end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}x&amp;=r\sin \theta \cos
+\phi \\y&amp;=r\sin \theta \sin \phi \\z&amp;=r\cos \theta
+\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=1\\h_{2}&amp;=r\\h_{3}&amp;=r\sin
+\theta \end{aligned}}\)</span></td>
 </tr>
 <tr class="even">
-<td>Cylindrical polar coordinates <span class="math inline">\((r,\phi ,z)\)</span>
+<td>Cylindrical polar coordinates <span class="math inline">\((r,\phi
+,z)\)</span>
 </td>
-<td><span class="math inline">\({\begin{aligned}x&amp;=r\cos \phi \\y&amp;=r\sin \phi \\z&amp;=z\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}x&amp;=r\cos \phi
+\\y&amp;=r\sin \phi \\z&amp;=z\end{aligned}}\)</span></td>
 <td><span class="math inline">\({\begin{aligned}h_{1}&amp;=h_{3}=1\\h_{2}&amp;=r\end{aligned}}\)</span></td>
 </tr>
 <tr class="odd">
-<td>Parabolic coordinates <span class="math inline">\((u,v,\phi )\)</span>
+<td>Parabolic coordinates <span class="math inline">\((u,v,\phi
+)\)</span>
 </td>
-<td><span class="math inline">\({\begin{aligned}x&amp;=uv\cos \phi \\y&amp;=uv\sin \phi \\z&amp;={\frac {1}{2}}(u^{2}-v^{2})\end{aligned}}\)</span></td>
-<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=h_{2}={\sqrt {u^{2}+v^{2}}}\\h_{3}&amp;=uv\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}x&amp;=uv\cos \phi
+\\y&amp;=uv\sin \phi \\z&amp;={\frac
+{1}{2}}(u^{2}-v^{2})\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=h_{2}={\sqrt
+{u^{2}+v^{2}}}\\h_{3}&amp;=uv\end{aligned}}\)</span></td>
 </tr>
 <tr class="even">
 <td>Parabolic cylindrical coordinates <span class="math inline">\((u,v,z)\)</span>
 </td>
-<td><span class="math inline">\({\begin{aligned}x&amp;={\frac {1}{2}}(u^{2}-v^{2})\\y&amp;=uv\\z&amp;=z\end{aligned}}\)</span></td>
-<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=h_{2}={\sqrt {u^{2}+v^{2}}}\\h_{3}&amp;=1\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}x&amp;={\frac
+{1}{2}}(u^{2}-v^{2})\\y&amp;=uv\\z&amp;=z\end{aligned}}\)</span></td>
+<td><span class="math inline">\({\begin{aligned}h_{1}&amp;=h_{2}={\sqrt
+{u^{2}+v^{2}}}\\h_{3}&amp;=1\end{aligned}}\)</span></td>
 </tr>
 </tbody>
 </table>
 <div class="section level2">
 <h2 id="gradient">Gradient<a class="anchor" aria-label="anchor" href="#gradient"></a>
 </h2>
-<p>The gradient of a scalar-valued function <span class="math inline">\(F\)</span> is the vector <span class="math inline">\((\nabla F)_i\)</span> whose components are the partial derivatives of <span class="math inline">\(F\)</span> with respect to each variable <span class="math inline">\(i\)</span>. In arbitrary orthogonal coordinate systems, the gradient is expressed in terms of the scale factors <span class="math inline">\(h_i\)</span> as follows:</p>
-<p><span class="math display">\[(\nabla F)_i = \frac{1}{h_i}\partial_iF\]</span></p>
-<p>The function <a href="https://calculus.guidotti.dev/reference/gradient.html"><code>gradient</code></a> implements the symbolic and numeric gradient of <code>functions</code>, <code>expressions</code> and <code>characters</code>. In Cartesian coordinates:</p>
+<p>The gradient of a scalar-valued function <span class="math inline">\(F\)</span> is the vector <span class="math inline">\((\nabla F)_i\)</span> whose components are the
+partial derivatives of <span class="math inline">\(F\)</span> with
+respect to each variable <span class="math inline">\(i\)</span>. In
+arbitrary orthogonal coordinate systems, the gradient is expressed in
+terms of the scale factors <span class="math inline">\(h_i\)</span> as
+follows:</p>
+<p><span class="math display">\[(\nabla F)_i =
+\frac{1}{h_i}\partial_iF\]</span></p>
+<p>The function <a href="https://calculus.eguidotti.com/reference/gradient.html"><code>gradient</code></a>
+implements the symbolic and numeric gradient of <code>functions</code>,
+<code>expressions</code> and <code>characters</code>. In Cartesian
+coordinates:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "y * z" "x * z" "x * y"</span></span></code></pre></div>
@@ -178,11 +217,16 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1/1 * (y * z)"          "1/x * (x * z)"          "1/(x*sin(y)) * (x * y)"</span></span></code></pre></div>
-<p>To support arbitrary orthogonal coordinate systems, it is possible to pass custom scale factors to the argument <code>coordinates</code>. For instance, the following call is equivalent to the previous example in spherical coordinates where the scale factors are now explicitly specified:</p>
+<p>To support arbitrary orthogonal coordinate systems, it is possible to
+pass custom scale factors to the argument <code>coordinates</code>. For
+instance, the following call is equivalent to the previous example in
+spherical coordinates where the scale factors are now explicitly
+specified:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="st">"x*y*z"</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="st">"x"</span>,<span class="st">"x*sin(y)"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1/(1) * (y * z)"        "1/(x) * (x * z)"        "1/(x*sin(y)) * (x * y)"</span></span></code></pre></div>
-<p>Numerical methods are applied when working with <code>functions</code> with the same sintax introduced for <a href="https://calculus.guidotti.dev/reference/derivative.html">derivatives</a>.</p>
+<p>Numerical methods are applied when working with
+<code>functions</code> with the same sintax introduced for <a href="https://calculus.eguidotti.com/reference/derivative.html">derivatives</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span></span>
 <span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span></span>
@@ -192,9 +236,13 @@
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, coordinates <span class="op">=</span> <span class="st">"spherical"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.000000 0.000000 1.570796</span></span></code></pre></div>
-<p>When the function <span class="math inline">\(F\)</span> is a tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the gradient is computed for each scalar component.</p>
-<p><span class="math display">\[(\nabla F_{d_1,\dots,d_n})_i = \frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}\]</span></p>
-<p>In particular, this reduces to the Jacobian matrix for vector-valued functions <span class="math inline">\(F_{d_1}\)</span>:</p>
+<p>When the function <span class="math inline">\(F\)</span> is a
+tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the gradient is
+computed for each scalar component.</p>
+<p><span class="math display">\[(\nabla F_{d_1,\dots,d_n})_i =
+\frac{1}{h_i}\partial_iF_{d_1,\dots,d_n}\]</span></p>
+<p>In particular, this reduces to the Jacobian matrix for vector-valued
+functions <span class="math inline">\(F_{d_1}\)</span>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/gradient.html">gradient</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -211,7 +259,10 @@
 <div class="section level3">
 <h3 id="jacobian">Jacobian<a class="anchor" aria-label="anchor" href="#jacobian"></a>
 </h3>
-<p>The function <a href="https://calculus.guidotti.dev/reference/jacobian.html"><code>jacobian</code></a> is a wrapper for <a href="https://calculus.guidotti.dev/reference/gradient.html"><code>gradient</code></a> that always returns the Jacobian as a matrix, even in the case of unidimensional scalar-valued functions.</p>
+<p>The function <a href="https://calculus.eguidotti.com/reference/jacobian.html"><code>jacobian</code></a>
+is a wrapper for <a href="https://calculus.eguidotti.com/reference/gradient.html"><code>gradient</code></a>
+that always returns the Jacobian as a matrix, even in the case of
+unidimensional scalar-valued functions.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/jacobian.html">jacobian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -221,9 +272,17 @@
 <div class="section level3">
 <h3 id="hessian">Hessian<a class="anchor" aria-label="anchor" href="#hessian"></a>
 </h3>
-<p>In Cartesian coordinates, the Hessian of a scalar-valued function <span class="math inline">\(F\)</span> is the square matrix of second-order partial derivatives:</p>
-<p><span class="math display">\[(H(F))_{ij} = \partial_{ij}F\]</span></p>
-<p>It might be tempting to apply the definition of the Hessian as the Jacobian of the gradient to write it in terms of the scale factors. However, this results in a Hessian matrix that is not symmetric and ignores the distinction between vector and covectors in tensor analysis. The generalization to arbitrary coordinate system is not implemented and only Cartesian coordinates are supported:</p>
+<p>In Cartesian coordinates, the Hessian of a scalar-valued function
+<span class="math inline">\(F\)</span> is the square matrix of
+second-order partial derivatives:</p>
+<p><span class="math display">\[(H(F))_{ij} =
+\partial_{ij}F\]</span></p>
+<p>It might be tempting to apply the definition of the Hessian as the
+Jacobian of the gradient to write it in terms of the scale factors.
+However, this results in a Hessian matrix that is not symmetric and
+ignores the distinction between vector and covectors in tensor analysis.
+The generalization to arbitrary coordinate system is not implemented and
+only Cartesian coordinates are supported:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span></span>
 <span><span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -231,9 +290,13 @@
 <span><span class="co">#&gt; [1,] 1.222284e-11 1.00000e+00 2.000000e+00</span></span>
 <span><span class="co">#&gt; [2,] 1.000000e+00 2.75014e-11 3.000000e+00</span></span>
 <span><span class="co">#&gt; [3,] 2.000000e+00 3.00000e+00 1.100056e-10</span></span></code></pre></div>
-<p>When the function <span class="math inline">\(F\)</span> is a tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the <a href="https://calculus.guidotti.dev/reference/hessian.html"><code>hessian</code></a> is computed for each scalar component.</p>
-<p><span class="math display">\[(H(F_{d_1,\dots,d_n}))_{ij} = \partial_{ij}F_{d_1,\dots,d_n}\]</span></p>
-<p>In this case, the function returns an <code>array</code> of Hessian matrices:</p>
+<p>When the function <span class="math inline">\(F\)</span> is a
+tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the <a href="https://calculus.eguidotti.com/reference/hessian.html"><code>hessian</code></a>
+is computed for each scalar component.</p>
+<p><span class="math display">\[(H(F_{d_1,\dots,d_n}))_{ij} =
+\partial_{ij}F_{d_1,\dots,d_n}\]</span></p>
+<p>In this case, the function returns an <code>array</code> of Hessian
+matrices:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">y</span><span class="op">*</span><span class="va">z</span>, <span class="va">x</span><span class="op">+</span><span class="va">y</span><span class="op">+</span><span class="va">z</span><span class="op">)</span></span>
 <span><span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hessian.html">hessian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -254,11 +317,22 @@
 <div class="section level2">
 <h2 id="divergence">Divergence<a class="anchor" aria-label="anchor" href="#divergence"></a>
 </h2>
-<p>The divergence of a vector-valued function <span class="math inline">\(F_i\)</span> produces a scalar value <span class="math inline">\(\nabla \cdot F\)</span> representing the volume density of the outward flux of the vector field from an infinitesimal volume around a given point.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In terms of scale factors, it is expressed as follows:</p>
-<p><span class="math display">\[\nabla \cdot F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)\]</span></p>
-<p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When <span class="math inline">\(F\)</span> is an <code>array</code> of vector-valued functions <span class="math inline">\(F_{d_1,\dots,d_n,i}\)</span>, the <a href="https://calculus.guidotti.dev/reference/divergence.html"><code>divergence</code></a> is computed for each vector:</p>
-<p><span class="math display">\[(\nabla \cdot F)_{d_1,\dots,d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\Biggl)=\frac{1}{J}\sum_i\partial_i(Jh_i^{-1})F_{d_1,\dots,d_n,i}+Jh_i^{-1}\partial_i(F_{d_1,\dots,d_n,i})\]</span></p>
-<p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\bigl)\)</span> via finite differences. In Cartesian coordinates:</p>
+<p>The divergence of a vector-valued function <span class="math inline">\(F_i\)</span> produces a scalar value <span class="math inline">\(\nabla \cdot F\)</span> representing the volume
+density of the outward flux of the vector field from an infinitesimal
+volume around a given point.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In terms of scale factors, it is expressed
+as follows:</p>
+<p><span class="math display">\[\nabla \cdot F =
+\frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_i\Biggl)\]</span></p>
+<p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When <span class="math inline">\(F\)</span> is an <code>array</code> of
+vector-valued functions <span class="math inline">\(F_{d_1,\dots,d_n,i}\)</span>, the <a href="https://calculus.eguidotti.com/reference/divergence.html"><code>divergence</code></a>
+is computed for each vector:</p>
+<p><span class="math display">\[(\nabla \cdot F)_{d_1,\dots,d_n} =
+\frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\Biggl)=\frac{1}{J}\sum_i\partial_i(Jh_i^{-1})F_{d_1,\dots,d_n,i}+Jh_i^{-1}\partial_i(F_{d_1,\dots,d_n,i})\]</span></p>
+<p>where the last equality is preferable in practice as the derivatives
+of the scale factor can be computed symbolically and the computation of
+the derivatives of <span class="math inline">\(F\)</span> is more
+efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i}F_{d_1,\dots,d_n,i}\bigl)\)</span>
+via finite differences. In Cartesian coordinates:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>, <span class="st">"y^2"</span>, <span class="st">"z^2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
@@ -273,7 +347,8 @@
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^2"</span>,<span class="st">"y^2"</span>,<span class="st">"z^2"</span>,<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2 * x + 2 * y + 2 * z" "1 + 1 + 1"</span></span></code></pre></div>
-<p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied:</p>
+<p>The same syntax holds for <code>functions</code> where numerical
+methods are automatically applied:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,<span class="va">y</span><span class="op">^</span><span class="fl">2</span>,<span class="va">z</span><span class="op">^</span><span class="fl">2</span>,<span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/divergence.html">divergence</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -282,22 +357,46 @@
 <div class="section level2">
 <h2 id="curl">Curl<a class="anchor" aria-label="anchor" href="#curl"></a>
 </h2>
-<p>The curl of a vector-valued function <span class="math inline">\(F_i\)</span> at a point is represented by a vector whose length and direction denote the magnitude and axis of the maximum circulation.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> In 2 dimensions, the curl is written in terms of the scale factors <span class="math inline">\(h\)</span> and the <a href="https://calculus.guidotti.dev/reference/epsilon.html">Levi-Civita symbol</a> <span class="math inline">\(\epsilon\)</span> as follows:</p>
-<p><span class="math display">\[\nabla \times F = \frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)= \frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)\]</span></p>
+<p>The curl of a vector-valued function <span class="math inline">\(F_i\)</span> at a point is represented by a vector
+whose length and direction denote the magnitude and axis of the maximum
+circulation.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> In 2 dimensions, the curl is written in
+terms of the scale factors <span class="math inline">\(h\)</span> and
+the <a href="https://calculus.eguidotti.com/reference/epsilon.html">Levi-Civita
+symbol</a> <span class="math inline">\(\epsilon\)</span> as follows:</p>
+<p><span class="math display">\[\nabla \times F =
+\frac{1}{h_1h_2}\sum_{ij}\epsilon_{ij}\partial_i\Bigl(h_jF_j\Bigl)=
+\frac{1}{h_1h_2}\Biggl(\partial_1\Bigl(h_2F_2\Bigl)-\partial_2\Bigl(h_1F_1\Bigl)\Biggl)\]</span></p>
 <p>In 3 dimensions:</p>
-<p><span class="math display">\[(\nabla \times F)_k = \frac{h_k}{J}\sum_{ij}\epsilon_{ijk}\partial_i\Bigl(h_jF_j\Bigl)\]</span></p>
-<p>where <span class="math inline">\(J=\prod_i h_i\)</span>. This suggests to implement the <a href="https://calculus.guidotti.dev/reference/curl.html"><code>curl</code></a> in <span class="math inline">\(m+2\)</span> dimensions in such a way that the formula reduces correctly to the previous cases:</p>
-<p><span class="math display">\[(\nabla \times F)_{k_1\dots k_m} = \frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_j\Bigl)\]</span></p>
-<p>And in particular, when <span class="math inline">\(F\)</span> is an <code>array</code> of vector-valued functions <span class="math inline">\(F_{d_1,\dots,d_n,i}\)</span> the <a href="https://calculus.guidotti.dev/reference/curl.html"><code>curl</code></a> is computed for each vector:</p>
+<p><span class="math display">\[(\nabla \times F)_k =
+\frac{h_k}{J}\sum_{ij}\epsilon_{ijk}\partial_i\Bigl(h_jF_j\Bigl)\]</span></p>
+<p>where <span class="math inline">\(J=\prod_i h_i\)</span>. This
+suggests to implement the <a href="https://calculus.eguidotti.com/reference/curl.html"><code>curl</code></a>
+in <span class="math inline">\(m+2\)</span> dimensions in such a way
+that the formula reduces correctly to the previous cases:</p>
+<p><span class="math display">\[(\nabla \times F)_{k_1\dots k_m} =
+\frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots
+k_m}\partial_i\Bigl(h_jF_j\Bigl)\]</span></p>
+<p>And in particular, when <span class="math inline">\(F\)</span> is an
+<code>array</code> of vector-valued functions <span class="math inline">\(F_{d_1,\dots,d_n,i}\)</span> the <a href="https://calculus.eguidotti.com/reference/curl.html"><code>curl</code></a>
+is computed for each vector:</p>
 <p><span class="math display">\[
 \begin{split}
-(\nabla \times F)_{d_1\dots d_n,k_1\dots k_m} &amp; =\\ 
-&amp;=\frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
-&amp;=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
-&amp;=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots k_m}\Bigl(\partial_i(h_j)F_{d_1\dots d_n,j}+h_j\partial_i(F_{d_1\dots d_n,j})\Bigl)
+(\nabla \times F)_{d_1\dots d_n,k_1\dots k_m} &amp; =\\
+&amp;=\frac{h_{k_1}\cdots h_{k_m}}{J}\sum_{ij}\epsilon_{ijk_1\dots
+k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
+&amp;=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots
+k_m}\partial_i\Bigl(h_jF_{d_1\dots d_n,j}\Bigl) \\
+&amp;=\sum_{ij}\frac{1}{h_ih_j}\epsilon_{ijk_1\dots
+k_m}\Bigl(\partial_i(h_j)F_{d_1\dots d_n,j}+h_j\partial_i(F_{d_1\dots
+d_n,j})\Bigl)
 \end{split}
 \]</span></p>
-<p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(h_jF_{d_1\dots d_n,j}\bigl)\)</span> via finite differences. In 2-dimensional Cartesian coordinates:</p>
+<p>where the last equality is preferable in practice as the derivatives
+of the scale factor can be computed symbolically and the computation of
+the derivatives of <span class="math inline">\(F\)</span> is more
+efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(h_jF_{d_1\dots
+d_n,j}\bigl)\)</span> via finite differences. In 2-dimensional Cartesian
+coordinates:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x^3*y^2"</span>,<span class="st">"x"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/curl.html">curl</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span>
@@ -314,16 +413,35 @@
 <span><span class="co">#&gt;      [,1] [,2] [,3]                            </span></span>
 <span><span class="co">#&gt; [1,] "0"  "0"  "0"                             </span></span>
 <span><span class="co">#&gt; [2,] "0"  "0"  "(1) * 1 + (x^3 * (2 * y)) * -1"</span></span></code></pre></div>
-<p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.</p>
+<p>The same syntax holds for <code>functions</code> where numerical
+methods are automatically applied and for arbitrary orthogonal
+coordinate systems as shown in the previous sections.</p>
 </div>
 <div class="section level2">
 <h2 id="laplacian">Laplacian<a class="anchor" aria-label="anchor" href="#laplacian"></a>
 </h2>
-<p>The Laplacian is a differential operator given by the divergence of the gradient of a scalar-valued function <span class="math inline">\(F\)</span>, resulting in a scalar value giving the flux density of the gradient flow of a function. The Laplacian occurs in differential equations that describe many physical phenomena, such as electric and gravitational potentials, the diffusion equation for heat and fluid flow, wave propagation, and quantum mechanics.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> In terms of the scale factor, the operator is written as:</p>
-<p><span class="math display">\[\nabla^2F = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)\]</span></p>
-<p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When the function <span class="math inline">\(F\)</span> is a tensor-valued function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the <a href="https://calculus.guidotti.dev/reference/laplacian.html"><code>laplacian</code></a> is computed for each scalar component:</p>
-<p><span class="math display">\[(\nabla^2F)_{d_1\dots d_n} = \frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots d_n}\Biggl)=\frac{1}{J}\sum_i\partial_i\Bigl(Jh_i^{-2}\Bigl)\partial_iF_{d_1\dots d_n}+Jh_i^{-2}\partial^2_iF_{d_1\dots d_n}\]</span></p>
-<p>where the last equality is preferable in practice as the derivatives of the scale factor can be computed symbolically and the computation of the derivatives of <span class="math inline">\(F\)</span> is more efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i^2}\partial_iF\bigl)\)</span> via finite differences. In Cartesian coordinates:</p>
+<p>The Laplacian is a differential operator given by the divergence of
+the gradient of a scalar-valued function <span class="math inline">\(F\)</span>, resulting in a scalar value giving the
+flux density of the gradient flow of a function. The Laplacian occurs in
+differential equations that describe many physical phenomena, such as
+electric and gravitational potentials, the diffusion equation for heat
+and fluid flow, wave propagation, and quantum mechanics.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> In terms of the scale
+factor, the operator is written as:</p>
+<p><span class="math display">\[\nabla^2F =
+\frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF\Biggl)\]</span></p>
+<p>where <span class="math inline">\(J=\prod_ih_i\)</span>. When the
+function <span class="math inline">\(F\)</span> is a tensor-valued
+function <span class="math inline">\(F_{d_1,\dots,d_n}\)</span>, the <a href="https://calculus.eguidotti.com/reference/laplacian.html"><code>laplacian</code></a>
+is computed for each scalar component:</p>
+<p><span class="math display">\[(\nabla^2F)_{d_1\dots d_n} =
+\frac{1}{J}\sum_i\partial_i\Biggl(\frac{J}{h_i^2}\partial_iF_{d_1\dots
+d_n}\Biggl)=\frac{1}{J}\sum_i\partial_i\Bigl(Jh_i^{-2}\Bigl)\partial_iF_{d_1\dots
+d_n}+Jh_i^{-2}\partial^2_iF_{d_1\dots d_n}\]</span></p>
+<p>where the last equality is preferable in practice as the derivatives
+of the scale factor can be computed symbolically and the computation of
+the derivatives of <span class="math inline">\(F\)</span> is more
+efficient than the direct computation of <span class="math inline">\(\partial_i\bigl(\frac{J}{h_i^2}\partial_iF\bigl)\)</span>
+via finite differences. In Cartesian coordinates:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"x^3+y^3+z^3"</span></span>
 <span><span class="fu"><a href="../reference/laplacian.html">laplacian</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
@@ -335,25 +453,29 @@
 <span><span class="co">#&gt;      [,1]                                      [,2]   </span></span>
 <span><span class="co">#&gt; [1,] "3 * (2 * x) + 3 * (2 * y) + 3 * (2 * z)" "2"    </span></span>
 <span><span class="co">#&gt; [2,] "2 + 2 + 2"                               "z * 2"</span></span></code></pre></div>
-<p>The same syntax holds for <code>functions</code> where numerical methods are automatically applied and for arbitrary orthogonal coordinate systems as shown in the previous sections.</p>
+<p>The same syntax holds for <code>functions</code> where numerical
+methods are automatically applied and for arbitrary orthogonal
+coordinate systems as shown in the previous sections.</p>
 </div>
 <div class="section level2">
 <h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
 </h2>
-<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic Calculus in R.” <em>Journal of Statistical Software</em>, <em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
+<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic
+Calculus in R.” <em>Journal of Statistical Software</em>,
+<em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
 <p>A BibTeX entry for LaTeX users is</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb22-1"><a href="#cb22-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="dt">year</span> = {2022},</span>
-<span id="cb22-6"><a href="#cb22-6"></a>  <span class="dt">volume</span> = {104},</span>
-<span id="cb22-7"><a href="#cb22-7"></a>  <span class="dt">number</span> = {5},</span>
-<span id="cb22-8"><a href="#cb22-8"></a>  <span class="dt">pages</span> = {1--37},</span>
-<span id="cb22-9"><a href="#cb22-9"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
-<span id="cb22-10"><a href="#cb22-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {2022},</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {104},</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {1--37},</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
 <li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Curvilinear_coordinates" class="external-link uri">https://en.wikipedia.org/wiki/Curvilinear_coordinates</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
@@ -377,12 +499,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
+<p>Developed by <a href="https://eguidotti.com" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

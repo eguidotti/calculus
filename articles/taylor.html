@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Taylor series of multivariate functions">
 <meta property="og:description" content="calculus">
-<meta property="og:image" content="https://calculus.guidotti.dev/logo.png">
+<meta property="og:image" content="https://calculus.eguidotti.com/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">calculus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
 
       
 
-      </header><script src="taylor_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Taylor series of multivariate functions</h1>
@@ -123,27 +123,52 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.guidotti.dev">calculus</a></span><span class="op">)</span></span></code></pre></div>
-<p>The function <a href="https://calculus.guidotti.dev/reference/taylor.html"><code>taylor</code></a> provides a convenient way to compute the Taylor series of arbitrary unidimensional or multidimensional functions. The mathematical function can be specified both as a <code>character</code> string or as a <code>function</code>. Symbolic or numerical methods are applied accordingly. For univariate functions, the <span class="math inline">\(n\)</span>-th order Taylor approximation centered in <span class="math inline">\(x_0\)</span> is given by:</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://calculus.eguidotti.com">calculus</a></span><span class="op">)</span></span></code></pre></div>
+<p>The function <a href="https://calculus.eguidotti.com/reference/taylor.html"><code>taylor</code></a>
+provides a convenient way to compute the Taylor series of arbitrary
+unidimensional or multidimensional functions. The mathematical function
+can be specified both as a <code>character</code> string or as a
+<code>function</code>. Symbolic or numerical methods are applied
+accordingly. For univariate functions, the <span class="math inline">\(n\)</span>-th order Taylor approximation centered
+in <span class="math inline">\(x_0\)</span> is given by:</p>
 <p><span class="math display">\[
 f(x) \simeq \sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 \]</span></p>
-<p>where <span class="math inline">\(f^{(k)}(x_0)\)</span> denotes the <span class="math inline">\(k\)</span>-th order derivative evaluated in <span class="math inline">\(x_0\)</span>. By using multi-index notation, the Taylor series is generalized to multidimensional functions with an arbitrary number of variables:</p>
+<p>where <span class="math inline">\(f^{(k)}(x_0)\)</span> denotes the
+<span class="math inline">\(k\)</span>-th order derivative evaluated in
+<span class="math inline">\(x_0\)</span>. By using multi-index notation,
+the Taylor series is generalized to multidimensional functions with an
+arbitrary number of variables:</p>
 <p><span class="math display">\[
 f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 \]</span></p>
-<p>where now <span class="math inline">\(x=(x_1,\dots,x_d)\)</span> is the vector of variables, <span class="math inline">\(k=(k_1,\dots,k_d)\)</span> gives the order of differentiation with respect to each variable <span class="math inline">\(f^{(k)}=\frac{\partial^{(|k|)}f}{\partial^{(k_1)}_{x_1}\cdots \partial^{(k_d)}_{x_d}}\)</span>, and:</p>
-<p><span class="math display">\[|k| = k_1+\cdots+k_d \quad\quad k!=k_1!\cdots k_d! \quad\quad x^k=x_1^{k_1}\cdots x_d^{k_d}\]</span></p>
-<p>The summation runs for <span class="math inline">\(0\leq |k|\leq n\)</span> and identifies the set</p>
-<p><span class="math display">\[\{(k_1,\cdots,k_d):k_1+\cdots k_d \leq n\}\]</span></p>
-<p>that corresponds to the partitions of the integer <span class="math inline">\(n\)</span>. These partitions can be computed with the function <a href="https://calculus.guidotti.dev/reference/partitions.html"><code>partitions</code></a> that is included in the package and optimized in <code>C++</code> for speed and flexibility. For example, the following call generates the partitions needed for the <span class="math inline">\(2\)</span>-nd order Taylor expansion for a function of <span class="math inline">\(3\)</span> variables:</p>
+<p>where now <span class="math inline">\(x=(x_1,\dots,x_d)\)</span> is
+the vector of variables, <span class="math inline">\(k=(k_1,\dots,k_d)\)</span> gives the order of
+differentiation with respect to each variable <span class="math inline">\(f^{(k)}=\frac{\partial^{(|k|)}f}{\partial^{(k_1)}_{x_1}\cdots
+\partial^{(k_d)}_{x_d}}\)</span>, and:</p>
+<p><span class="math display">\[|k| = k_1+\cdots+k_d \quad\quad
+k!=k_1!\cdots k_d! \quad\quad x^k=x_1^{k_1}\cdots x_d^{k_d}\]</span></p>
+<p>The summation runs for <span class="math inline">\(0\leq |k|\leq
+n\)</span> and identifies the set</p>
+<p><span class="math display">\[\{(k_1,\cdots,k_d):k_1+\cdots k_d \leq
+n\}\]</span></p>
+<p>that corresponds to the partitions of the integer <span class="math inline">\(n\)</span>. These partitions can be computed with
+the function <a href="https://calculus.eguidotti.com/reference/partitions.html"><code>partitions</code></a>
+that is included in the package and optimized in <code>C++</code> for
+speed and flexibility. For example, the following call generates the
+partitions needed for the <span class="math inline">\(2\)</span>-nd
+order Taylor expansion for a function of <span class="math inline">\(3\)</span> variables:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/partitions.html">partitions</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, length <span class="op">=</span> <span class="fl">3</span>, fill <span class="op">=</span> <span class="cn">TRUE</span>, perm <span class="op">=</span> <span class="cn">TRUE</span>, equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span></span>
 <span><span class="co">#&gt; [1,]    0    0    0    1    0    0    2    0    1     1</span></span>
 <span><span class="co">#&gt; [2,]    0    0    1    0    0    2    0    1    0     1</span></span>
 <span><span class="co">#&gt; [3,]    0    1    0    0    2    0    0    1    1     0</span></span></code></pre></div>
-<p>Based on these partitions, the function <a href="https://calculus.guidotti.dev/reference/taylor.html"><code>taylor</code></a> computes the corresponding derivatives and builds the Taylor series. The output is a <code>list</code> containing the Taylor series, the order of the expansion, and a <code>data.frame</code> containing the variables, coefficients and degrees of each term in the Taylor series.</p>
+<p>Based on these partitions, the function <a href="https://calculus.eguidotti.com/reference/taylor.html"><code>taylor</code></a>
+computes the corresponding derivatives and builds the Taylor series. The
+output is a <code>list</code> containing the Taylor series, the order of
+the expansion, and a <code>data.frame</code> containing the variables,
+coefficients and degrees of each term in the Taylor series.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="st">"exp(x)"</span>, var <span class="op">=</span> <span class="st">"x"</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $f</span></span>
@@ -157,7 +182,9 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 <span><span class="co">#&gt; 0   1  1.0      0</span></span>
 <span><span class="co">#&gt; 1 x^1  1.0      1</span></span>
 <span><span class="co">#&gt; 2 x^2  0.5      2</span></span></code></pre></div>
-<p>By default, the series is centered in <span class="math inline">\(x_0=0\)</span> but the function also supports <span class="math inline">\(x_0\neq 0\)</span>, the multivariable case, and the approximation of user defined R <code>functions</code>.</p>
+<p>By default, the series is centered in <span class="math inline">\(x_0=0\)</span> but the function also supports
+<span class="math inline">\(x_0\neq 0\)</span>, the multivariable case,
+and the approximation of user defined R <code>functions</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/taylor.html">taylor</a></span><span class="op">(</span><span class="va">f</span>, var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -178,18 +205,20 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 <div class="section level2">
 <h2 id="cite-as">Cite as<a class="anchor" aria-label="anchor" href="#cite-as"></a>
 </h2>
-<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic Calculus in R.” <em>Journal of Statistical Software</em>, <em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
+<p>Guidotti E (2022). “calculus: High-Dimensional Numerical and Symbolic
+Calculus in R.” <em>Journal of Statistical Software</em>,
+<em>104</em>(5), 1-37. <a href="https://doi.org/10.18637/jss.v104.i05" class="external-link">doi:10.18637/jss.v104.i05</a></p>
 <p>A BibTeX entry for LaTeX users is</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb5-1"><a href="#cb5-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="dt">year</span> = {2022},</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="dt">volume</span> = {104},</span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="dt">number</span> = {5},</span>
-<span id="cb5-8"><a href="#cb5-8"></a>  <span class="dt">pages</span> = {1--37},</span>
-<span id="cb5-9"><a href="#cb5-9"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
-<span id="cb5-10"><a href="#cb5-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Article</span>{<span class="ot">calculus</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {{calculus}: High-Dimensional Numerical and Symbolic Calculus in {R}},</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Emanuele Guidotti},</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Journal of Statistical Software},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {2022},</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {104},</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {1--37},</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.18637/jss.v104.i05},</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
   </div>
 
@@ -205,12 +234,12 @@ f(x) \simeq \sum_{|k|=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://guidotti.dev" class="external-link">Emanuele Guidotti</a>.</p>
+<p>Developed by <a href="https://eguidotti.com" class="external-link">Emanuele Guidotti</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

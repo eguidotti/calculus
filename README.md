@@ -3,7 +3,7 @@
 [![](https://cranlogs.r-pkg.org/badges/grand-total/calculus)](https://cran.r-project.org/package=calculus)
 [![build](https://github.com/eguidotti/calculus/actions/workflows/build.yaml/badge.svg)](https://github.com/eguidotti/calculus/actions/workflows/build.yaml)
 
-# High Dimensional Numerical and Symbolic Calculus in R <img src="man/figures/logo.png" width="128" align="right" style="background-color:white" />
+# High Dimensional Numerical and Symbolic Calculus in R <img src="man/figures/logo.png" width="128" align="right" />
 
 > Efficient C++ optimized functions for numerical and symbolic calculus. 
 

@@ -9,7 +9,6 @@ authors:
 
 template: 
   params: 
-    ganalytics: UA-112916657-3
     bootswatch: cosmo
 
 home: 

@@ -311,3 +311,10 @@ f.eval <- function(f, var, params, array = TRUE, dim = FALSE){
   return(x)
   
 }
+
+# overload is.numeric to include complex numbers
+is.numeric <- function(x) {
+  
+  return(base::is.numeric(x) || base::is.complex(x))
+
+}

@@ -1,6 +1,10 @@
+# calculus 1.1.0
+
+- overload `is.numeric` to include complex numbers
+
 # calculus 1.0.1
 
-- Site moved to https://calculus.eguidotti.com
+- website moved to https://calculus.eguidotti.com
 
 # calculus 1.0.0
 

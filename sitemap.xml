@@ -1,153 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://calculus.eguidotti.com/404.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/derivatives.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/differential-operators.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/einstein.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/hermite.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/integrals.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/ode.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/articles/taylor.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/index.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/c2e.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/calculus-package.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/contraction.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/cross.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/curl.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/delta.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/derivative.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/diagonal.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/divergence.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/e2c.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/einstein.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/epsilon.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/evaluate.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/gradient.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-diff-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-div-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-dot-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-inner-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-kronecker-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-outer-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-prod-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/grapes-sum-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/hermite.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/hessian.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/index-topic.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/integral.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/jacobian.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/laplacian.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/mx.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/mxdet.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/mxinv.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/mxtr.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/ode.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/partitions.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/taylor.html</loc>
-  </url>
-  <url>
-    <loc>https://calculus.eguidotti.com/reference/wrap.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://calculus.eguidotti.com/404.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/LICENSE-text.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/derivatives.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/differential-operators.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/einstein.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/hermite.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/index.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/integrals.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/ode.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/articles/taylor.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/authors.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/index.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/news/index.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/c2e.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/calculus-package.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/contraction.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/cross.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/curl.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/delta.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/derivative.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/diagonal.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/divergence.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/e2c.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/einstein.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/epsilon.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/evaluate.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/gradient.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-diff-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-div-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-dot-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-inner-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-kronecker-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-outer-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-prod-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/grapes-sum-grapes.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/hermite.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/hessian.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/index-topic.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/index.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/integral.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/jacobian.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/laplacian.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/mx.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/mxdet.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/mxinv.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/mxtr.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/ode.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/partitions.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/taylor.html</loc></url>
+<url><loc>https://calculus.eguidotti.com/reference/wrap.html</loc></url>
 </urlset>
+

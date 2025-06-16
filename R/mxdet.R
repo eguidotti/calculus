@@ -24,7 +24,7 @@
 #' 
 mxdet <- function(x) {
 
-  if(is.numeric(x))
+  if(is.numeric(x) && !is.complex(x))
     return(base::det(x))
   
   x.dim   <- dim(x)
@@ -37,7 +37,7 @@ mxdet <- function(x) {
   if(length(n)!=1)
     stop("not a square matrix")
   
-  if(getOption('calculus.auto.wrap', default = TRUE))
+  if(getOption('calculus.auto.wrap', default = TRUE) && !is.complex(x))
     x <- wrap(x)
   
   det <- cpp_det(x, n)

@@ -11,6 +11,11 @@ bool is_zero (double const &x){
   return(x==0);
 }
 
+// Check if complex is zero
+bool is_zero (std::complex<double> const &x){
+  return(x.real() == 0 && x.imag() == 0.0);
+}
+
 // Returns the size of a component cycle 
 int dfs(int i, std::vector<int>& visited, std::vector<int>& goesTo) { 
   
@@ -531,11 +536,32 @@ std::string cpp_collapse(std::vector<std::string> const &x, std::string const se
   return(s);
 }
 
-// collapse
+// double collapse
 double cpp_collapse(std::vector<double> const &x, std::string const sep) {
   
   int n = x.size();
   double s = x[0];
+  
+  if(n>1){
+    
+    if(sep==" * ") 
+      for(int i=1; i<n; i++)
+        s = s * x[i];
+    
+    if(sep==" + ")
+      for(int i=1; i<n; i++)
+        s = s + x[i];
+    
+  }
+  
+  return(s);
+}
+
+// complex collapse
+std::complex<double> cpp_collapse(std::vector<std::complex<double>> const &x, std::string const sep) {
+  
+  int n = x.size();
+  std::complex<double> s = x[0];
   
   if(n>1){
     
@@ -725,6 +751,13 @@ double cpp_det_term(int i, double x, double det){
   
 }
 
+// complex det
+std::complex<double> cpp_det_term(int i, std::complex<double> x, std::complex<double> det){
+  
+  return(std::pow(static_cast<double>(-1), i) * x * det);
+  
+}
+
 // det Template
 template <typename T>
 T cpp_det(std::vector<T> const &x, int n) { 
@@ -759,6 +792,9 @@ T cpp_det(std::vector<T> const &x, int n) {
 // [[Rcpp::export]]
 SEXP cpp_det(SEXP const &x, int n){
   
+  if(Rf_isComplex(x)){
+    return(wrap(cpp_det<std::complex<double> >(as< std::vector<std::complex<double> > >(x), n)));    
+  }
   if(Rf_isNumber(x)){
     return(wrap(cpp_det<double>(as< std::vector<double> >(x), n)));    
   }
